@@ -17,4 +17,6 @@ async def test(device_id: str, request: Request):
     print(f"[{device_id}]Received data: {data}")  # 记录收到的数据
     if data == "test_pass":
         return PlainTextResponse("code=0000")
-    return
+
+
+    raise Exception("data error")
