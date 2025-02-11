@@ -5,7 +5,7 @@ FROM python:alpine AS base
 LABEL org.opencontainers.image.authors="Stayforge Team <support@stayforge.io>"
 
 # Set environment variables
-ENV PORT=80
+ENV APP_PORT=$PORT
 ENV PYTHONUSERBASE=/usr/local
 
 WORKDIR /app
@@ -25,7 +25,7 @@ COPY --from=base /usr/local /usr/local
 COPY . .
 
 # Expose the application port
-EXPOSE ${PORT}
+EXPOSE ${APP_PORT}
 
-CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0"]
+CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port $APP_PORT"]
 
