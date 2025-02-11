@@ -3,9 +3,9 @@
 POST http://10.0.102.209:8000
 Accept: application/json
 
-###
+###http:///
 
-GET http://127.0.0.1:8000/hello/User
-Accept: application/json
+POST http://vguang.etoehotel.com/etoe-sino-401/test
+Accept: text/plain
 
 ###
