@@ -1,14 +1,21 @@
 # Test your FastAPI endpoints
 
-POST http://10.0.102.209:8000
+GET https://identify.access.networks.stayforge.io/
 Accept: application/json
 
-###http:///
+###
 
-POST http://vguang.etoehotel.com/etoe-sino-401/test
-Accept: text/plain
+POST https://identify.access.networks.stayforge.io/add
+Content-Type: application/json
 
-test_pass
+
+{
+  "card_number": "testcard",
+  "card_name": "test",
+  "devices": "test",
+  "ttl": 3600,
+  "persist": false
+}
 ###
 
 POST http://vguang.etoehotel.com/etoe-sino-401/test

@@ -99,3 +99,7 @@ def identify_by_sn_card(device_sn, card_number):
     data = json.loads(r.get(card_number))
 
     return device_sn in data['devices']
+
+
+r = _connect_to_redis()
+logger(r.ping())
