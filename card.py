@@ -17,6 +17,9 @@ def _connect_to_redis(host=os.getenv('REDIS_HOST', "localhost"), port=os.getenv(
         logger("Successfully connected to Redis!")
         return connection
     except redis.ConnectionError as e:
+        test_connection = redis.StrictRedis(host=host, port=port, db=db)
+        if test_connection.ping():
+            logger("Redis connection test succeeded, but error occurred in primary connection.")
         print(f"Redis connection failed: {e}")
         raise
 
@@ -99,7 +102,3 @@ def identify_by_sn_card(device_sn, card_number):
     data = json.loads(r.get(card_number))
 
     return device_sn in data['devices']
-
-
-r = _connect_to_redis()
-logger(r.ping())
