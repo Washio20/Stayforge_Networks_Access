@@ -1,22 +1,38 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import PlainTextResponse
 
+from card import identify_by_sn_card
+
 app = FastAPI()
 
 
-@app.post("/")
-async def receive_data(request: Request):
-    body = await request.body()
-    print(f"Received data: {body.decode('utf-8')}")
-    return PlainTextResponse("code=0000")
+@app.post("/identify/json/{device_sn}")
+async def identify_json(device_sn: str, request: Request):
+    body = await request.json()
+    card_number = body.get("card_number")
 
-@app.post("/{device_id}/test")
-async def test(device_id: str, request: Request):
-    body = await request.body()
-    data = body.decode('utf-8')
-    print(f"[{device_id}]Received data: {data}")  # 记录收到的数据
-    if data == "test_pass":
-        return PlainTextResponse("code=0000")
+    if identify_by_sn_card(device_sn, card_number):
+        return True
+
+    raise False
 
 
-    raise Exception("data error")
+@app.post("/identify/card_number_text/{device_sn}")
+async def identify_json(device_sn: str, request: Request):
+    body = await request.json()
+    card_number = body.get("card_number")
+
+    return identify_by_sn_card(device_sn, card_number)
+
+
+@app.post("/identify/vguang/{device_sn}")
+async def vguang_identify(device_sn: str, request: Request):
+    body = await request.json()
+    card_number = body.get("card_number")
+
+    if identify_by_sn_card(device_sn, card_number):
+        return PlainTextResponse(
+            "code=0000"
+        )
+
+    raise False

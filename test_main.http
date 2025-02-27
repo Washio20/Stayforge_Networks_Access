@@ -8,4 +8,11 @@ Accept: application/json
 POST http://vguang.etoehotel.com/etoe-sino-401/test
 Accept: text/plain
 
+test_pass
+###
+
+POST http://vguang.etoehotel.com/etoe-sino-401/test
+Accept: text/plain
+
+wrong_pass
 ###
