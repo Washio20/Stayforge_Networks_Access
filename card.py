@@ -10,7 +10,7 @@ import redis
 from fastapi.logger import logger
 
 
-def _connect_to_redis(host=os.getenv('REDIS_HOST', "localhost"), port=os.getenv("REDIS_PORT", 6379), db=0):
+def _connect_to_redis(host=os.getenv('REDIS_HOST'), port=os.getenv("REDIS_PORT", 6379), db=0):
     try:
         connection = redis.StrictRedis(host=host, port=port, db=db)
         connection.ping()  # Test the connection
