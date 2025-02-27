@@ -3,13 +3,14 @@ Redis Connector
 """
 import hashlib
 import json
+import os
 import uuid
 
 import redis
 from fastapi.logger import logger
 
 
-def _connect_to_redis(host='localhost', port=6379, db=0):
+def _connect_to_redis(host=os.getenv('REDIS_HOST'), port=os.getenv("REDIS_PORT"), db=0):
     """
     Connects to a Redis database instance.
     
