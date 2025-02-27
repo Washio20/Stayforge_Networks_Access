@@ -23,3 +23,16 @@ Accept: text/plain
 
 wrong_pass
 ###
+
+POST http://0.0.0.0:8000/add
+Content-Type: application/json
+
+
+{
+  "card_number": "testcard",
+  "card_name": "test",
+  "devices": "test",
+  "ttl": 3600,
+  "persist": false
+}
+###

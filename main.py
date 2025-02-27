@@ -42,7 +42,7 @@ async def vguang_identify(device_sn: str, request: Request):
 async def identify_json(request: Request):
     body = await request.json()
     return {
-        add_card(
+        'result': add_card(
             card_number=body.get("card_number"),
             card_name=body.get("card_name"),
             devices=body.get("devices"),

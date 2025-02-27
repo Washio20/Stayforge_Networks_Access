@@ -14,12 +14,12 @@ def _connect_to_redis(host=os.getenv('REDIS_HOST', "localhost"), port=os.getenv(
     try:
         connection = redis.StrictRedis(host=host, port=port, db=db)
         connection.ping()  # Test the connection
-        logger("Successfully connected to Redis!")
+        logger.info("Successfully connected to Redis!")
         return connection
     except redis.ConnectionError as e:
         test_connection = redis.StrictRedis(host=host, port=port, db=db)
         if test_connection.ping():
-            logger("Redis connection test succeeded, but error occurred in primary connection.")
+            logger.error("Redis connection test succeeded, but error occurred in primary connection.")
         print(f"Redis connection failed: {e}")
         raise
 
