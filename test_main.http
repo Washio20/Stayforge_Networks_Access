@@ -1,4 +1,4 @@
-###
+### Healthcheck
 GET {{ endpoint }}
 Content-Type: application/json
 
@@ -42,6 +42,3 @@ POST {{ endpoint }}/identify/vguang-m350/test_card_reader
 Content-Type: text/plain
 
 TEST1234567890
-
-###
-
