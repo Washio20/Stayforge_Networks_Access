@@ -1,26 +1,47 @@
-# Test your FastAPI endpoints
-
-GET https://identify.access.networks.stayforge.io/
-Accept: application/json
-
 ###
-
-POST https://identify.access.networks.stayforge.io/add
+GET {{ endpoint }}
 Content-Type: application/json
 
+### Add a card for access
+POST {{ endpoint }}/card/add
+Content-Type: application/json
+X-Environment: {{ environment }}
 
 {
-  "card_number": "testcard",
-  "card_name": "test",
-  "devices": "test",
-  "ttl": 3600,
+  "number": "TEST1234567890",
+  "name": "test_card",
+  "devices": [
+    "test_card_reader"
+  ],
+  "ttl": 36000,
   "persist": false
 }
-###
 
-POST http://vguang.etoehotel.com/etoe-sino-401/test
-Accept: text/plain
+### Identify successfully used JSON
+POST {{ endpoint }}/identify/json
+Content-Type: application/json
+X-Environment: {{ environment }}
+X-Device-SN: test_card_reader
 
-wrong_pass
+{
+  "card_number": "TEST1234567890"
+}
+
+### Identify failure used JSON
+POST {{ endpoint }}/identify/json
+Content-Type: application/json
+X-Environment: {{ environment }}
+X-Device-SN: test_card_reader
+
+{
+  "card_number": "WRONG_CARD1234567890"
+}
+
+### API for Vguang M350
+POST {{ endpoint }}/identify/vguang-m350/test_card_reader
+Content-Type: text/plain
+
+TEST1234567890
+
 ###
 
