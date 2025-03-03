@@ -24,7 +24,7 @@ class CardModel(BaseModel):
 
 
 class Card:
-    def __init__(self, environment='standard'):
+    def __init__(self, environment='STANDARD'):
         def _connect_to_redis(host=os.getenv('REDIS_HOST'), port=os.getenv("REDIS_PORT", 6379), db=0):
             try:
                 connection = redis.StrictRedis(host=host, port=port, db=db)
@@ -38,7 +38,7 @@ class Card:
                 print(f"Redis connection failed: {e}")
                 raise
 
-        self.environment = environment
+        self.environment = environment.upper()
         self.environment_config = {
             'STANDARD': 0,
             'SANDBOX': 1

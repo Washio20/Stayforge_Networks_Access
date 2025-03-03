@@ -15,7 +15,7 @@ async def healthcheck():
         Card()
     except Exception as e:
         tracer_code = str(uuid.uuid4()).replace("-", "")
-        logger.error(f"ERROR TRACER CODE '{tracer_code}': {e}")
+        logger.error(f"ERROR TRACER CODE '{tracer_code}': {e}", exc_info=True)
         return PlainTextResponse(f"HTTP 500 ERROR ({tracer_code})", status_code=500)
 
     return PlainTextResponse("ok")
