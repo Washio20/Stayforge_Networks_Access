@@ -24,7 +24,14 @@ async def healthcheck():
 @app.post("/card")
 async def get_a_card_information(request: Request):
     json = await request.json()
-    return Card().get_a_card(json.get("card_number"))
+    card_number = json.get("card_number")
+    try:
+        return Card().get_a_card(card_number)
+    except ValueError as e:
+        raise HTTPException(
+            status_code=404,
+            detail={"message": str(e)}
+        )
 
 
 @app.post("/card/add", response_model=CardModel, tags=["card", "add"])
@@ -61,19 +68,26 @@ async def identify_json(request: Request, device_sn: str = None):
 
     print(device_sn, card_number)
 
-    # Verify that the card owner or client_id is empty
-    if client_id is not None and card_obj.get_a_card(card_number).owner_client_id != client_id:
+    try:
+        # Verify that the card owner or client_id is empty
+        card = card_obj.get_a_card(card_number)
+        if client_id is not None and card.owner_client_id != client_id:
+            raise HTTPException(status_code=400, detail={
+                "message": "Unable to be identify because owner is not true. Please check your token."
+            })
+
+        # Verify the card number paired the device SN
+        if card_obj.identify_by_sn_card(device_sn, card_number):
+            return CardIdentifyResponse(message="Successfully", **card.model_dump())
+
         raise HTTPException(status_code=400, detail={
-            "message": "Unable to be identify because owner is not true. Please check your token."
+            "message": "Unable to be identify successfully."
         })
-
-    # Verify the card number paired the device SN
-    if card_obj.identify_by_sn_card(device_sn, card_number):
-        return CardIdentifyResponse(message="Successfully", **card_obj.get_a_card(card_number).model_dump())
-
-    raise HTTPException(status_code=400, detail={
-        "message": "Unable to be identify successfully."
-    })
+    except ValueError as e:
+        raise HTTPException(
+            status_code=404,
+            detail={"message": str(e)}
+        )
 
 
 @app.post("/identify/vguang-m350/{device_sn}")
@@ -86,10 +100,16 @@ async def vguang_identify(device_sn: str, request: Request):
 
     card_obj = Card(environment="standard".upper())
 
-    # Verify the card number paired the device SN
-    if card_obj.identify_by_sn_card(device_sn, card_number):
-        return PlainTextResponse("code=0000")
+    try:
+        # Verify the card number paired the device SN
+        if card_obj.identify_by_sn_card(device_sn, card_number):
+            return PlainTextResponse("code=0000")
 
-    raise HTTPException(status_code=400, detail={
-        "message": "Unable to be identify successfully."
-    })
+        raise HTTPException(status_code=400, detail={
+            "message": "Unable to be identify successfully."
+        })
+    except ValueError as e:
+        raise HTTPException(
+            status_code=404,
+            detail={"message": str(e)}
+        )
