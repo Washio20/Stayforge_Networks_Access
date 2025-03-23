@@ -18,6 +18,11 @@ X-Environment: {{ environment }}
   "owner_client_id": "anonymous"
 }
 
+### Get Cards by owner_client_id
+GET {{ endpoint }}/owner/anonymous
+Content-Type: text/plain
+
+
 ### Identify successfully used JSON
 POST {{ endpoint }}/identify/json
 Content-Type: application/json

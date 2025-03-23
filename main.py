@@ -56,6 +56,21 @@ async def create_a_card(request: Request):
         )
 
 
+@app.get("/owner/{owner_client_id}", response_model=list[CardModel], tags=["card", "add"])
+async def get_cards_by_owner(
+        request: Request,
+        owner_client_id:str
+):
+    card_obj = Card()
+    try:
+        return card_obj.get_cards_by_owner(owner_client_id)
+    except ValueError as e:
+        raise HTTPException(
+            status_code=400,
+            detail={"message": str(e)}
+        )
+
+
 @app.post("/identify/json", response_model=CardIdentifyResponse)
 @app.post("/identify/json/{device_sn}", response_model=CardIdentifyResponse)
 async def identify_json(request: Request, device_sn: str = None):

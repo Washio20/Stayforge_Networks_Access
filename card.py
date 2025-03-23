@@ -175,7 +175,7 @@ class Card:
         for num in card_numbers:
             num = num.decode()
             try:
-                cards.append(self.get_a_card(num, owner_client_id))
+                cards.append(self.get_a_card(num))
             except Exception as e:
                 logger.warning(f"Failed to load card {num}: {e}")
         return cards
