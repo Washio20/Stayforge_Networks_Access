@@ -59,8 +59,11 @@ class Card:
                 name=None,
                 devices=[],
                 ttl=60 * 60 * 24,
-                persist=False
-            )
+                persist=False,
+                created_at=datetime.now(tz=timezone.utc),
+                owner_client_id=None,
+            ),
+            owner_client_id=None,
     ) -> CardModel:
         """
         Adds a new card to the system or updates an existing one based on the update_mode value.
@@ -92,7 +95,8 @@ class Card:
         r.set(
             card.number.upper(), card.model_dump_json()
         )
-
+        if card.owner_client_id:
+            r.sadd(f"card_owner_cards:{card.owner_client_id.lower()}", card.number.upper())
         if card.ttl:
             r.pexpire(card.number, card.ttl * 1000)
 
@@ -101,7 +105,7 @@ class Card:
 
         return self.get_a_card(card.number)
 
-    def get_a_card(self, card_number):
+    def get_a_card(self, card_number) -> CardModel:
         """
         Retrieves and constructs a card object using the card number by fetching details
         from a Redis datastore. This function retrieves the data corresponding to the
@@ -160,6 +164,21 @@ class Card:
 
         data = json.loads(r.get(card_number))
         return device_sn in data['devices']
+
+    def get_cards_by_owner(self, owner_client_id: str) -> List[CardModel]:
+        key = f"card_owner_cards:{owner_client_id.lower()}"
+        if not self.redis.exists(key):
+            return []
+
+        card_numbers = self.redis.smembers(key)
+        cards = []
+        for num in card_numbers:
+            num = num.decode()
+            try:
+                cards.append(self.get_a_card(num, owner_client_id))
+            except Exception as e:
+                logger.warning(f"Failed to load card {num}: {e}")
+        return cards
 
 
 class CardIdentifyResponse(CardModel):

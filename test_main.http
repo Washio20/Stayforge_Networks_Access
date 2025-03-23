@@ -8,13 +8,14 @@ Content-Type: application/json
 X-Environment: {{ environment }}
 
 {
-  "number": "TEST1234567890",
+  "number": "4156145615610",
   "name": "test_card",
   "devices": [
     "test_card_reader"
   ],
   "ttl": 36000,
-  "persist": false
+  "persist": false,
+  "owner_client_id": "anonymous"
 }
 
 ### Identify successfully used JSON
@@ -24,7 +25,7 @@ X-Environment: {{ environment }}
 X-Device-SN: test_card_reader
 
 {
-  "card_number": "TEST1234567890"
+  "card_number": "TEST1234567890kkk"
 }
 
 ### Identify failure used JSON
@@ -41,4 +42,3 @@ X-Device-SN: test_card_reader
 POST {{ endpoint }}/identify/vguang-m350/test_card_reader
 Content-Type: text/plain
 
-TEST1234567890
