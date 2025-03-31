@@ -105,25 +105,26 @@ async def identify_json(request: Request, device_sn: str = None):
         )
 
 
-@app.post("/identify/vguang-m350/{device_sn}")
-async def vguang_identify(device_sn: str, request: Request):
+@app.post("/identify/vguang-m350/{device_name}")
+async def vguang_identify(device_name: str, request: Request):
     raw_body = await request.body()
     text_content = raw_body.decode("utf-8")
     card_number = text_content.upper()
 
-    print(device_sn, card_number)
+    print(device_name, card_number)
 
     card_obj = Card(environment="standard".upper())
 
     try:
         # Verify the card number paired the device SN
-        if card_obj.identify_by_sn_card(device_sn, card_number):
+        if card_obj.identify_by_sn_card(device_name, card_number):
             return PlainTextResponse("code=0000")
 
         raise HTTPException(status_code=400, detail={
             "message": "Unable to be identify successfully."
         })
     except ValueError as e:
+        logger.info(f"{e}")
         raise HTTPException(
             status_code=404,
             detail={"message": str(e)}
