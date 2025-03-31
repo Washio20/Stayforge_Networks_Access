@@ -8,13 +8,28 @@ Content-Type: application/json
 X-Environment: {{ environment }}
 
 {
-  "number": "4156145615610",
+  "number": "6B06C2A25E99C68EDCBE",
   "name": "test_card",
   "devices": [
-    "test_card_reader"
+    "etoehotel-101",
+    "etoehotel-102",
+    "etoehotel-103",
+    "etoehotel-104",
+    "etoehotel-201",
+    "etoehotel-202",
+    "etoehotel-203",
+    "etoehotel-204",
+    "etoehotel-205",
+    "etoehotel-206",
+    "etoehotel-301",
+    "etoehotel-302",
+    "etoehotel-303",
+    "etoehotel-304",
+    "etoehotel-305",
+    "test-555"
   ],
-  "ttl": 36000,
-  "persist": false,
+  "ttl": 600000000,
+  "persist": true,
   "owner_client_id": "anonymous"
 }
 
@@ -44,6 +59,7 @@ X-Device-SN: test_card_reader
 }
 
 ### API for Vguang M350
-POST {{ endpoint }}/identify/vguang-m350/test_card_reader
+POST {{ endpoint }}/identify/vguang-m350/test-555
 Content-Type: text/plain
 
+74165B29

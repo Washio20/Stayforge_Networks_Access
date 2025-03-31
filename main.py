@@ -59,7 +59,7 @@ async def create_a_card(request: Request):
 @app.get("/owner/{owner_client_id}", response_model=list[CardModel], tags=["card", "add"])
 async def get_cards_by_owner(
         request: Request,
-        owner_client_id:str
+        owner_client_id: str
 ):
     card_obj = Card()
     try:
@@ -108,8 +108,19 @@ async def identify_json(request: Request, device_sn: str = None):
 @app.post("/identify/vguang-m350/{device_name}")
 async def vguang_identify(device_name: str, request: Request):
     raw_body = await request.body()
-    text_content = raw_body.decode("utf-8")
-    card_number = text_content.upper()
+    # Try decoding with encoding (probably normal string)
+    try:
+        text_content = raw_body.decode(request.headers.get('Content-Encoding', 'utf-8')).strip()
+    except (LookupError, UnicodeDecodeError):
+      # If decoding fails, use bytes directly
+        text_content = None
+
+    # Try to parse the card number
+    if text_content and all(
+            c in "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" for c in text_content):
+        card_number = text_content.upper()
+    else:
+        card_number = raw_body[::-1].hex().upper()  # Little → Big endian
 
     print(device_name, card_number)
 
