@@ -2,10 +2,37 @@
 GET {{ endpoint }}
 Content-Type: application/json
 
-### Add a card for access
+### ** Add a card for access **
 POST {{ endpoint }}/card/add
 Content-Type: application/json
 X-Environment: {{ environment }}
+
+# [Remarks on valid time of card access]
+
+# 1. TTL Priority Principle:
+# If `ttl` is set, Redis expiration control is performed using `ttl` as the only basis.
+# - `start_at` will automatically set as the current time (that is, the start time) when the server receives the API request.
+# - `end_at` will be automatically derived based on `start_at + ttl` (if not specified explicitly).
+
+# 2. When `ttl` is null (or not provided):
+# The `start_at` and `end_at` will be used to control the valid time on the card logic (application layer control enablement and query).
+# - Redis will not set the expiration time, the card data will continue to exist, and the validity needs to be managed by the application logic.
+# - The application needs to confirm `now >= start_at` and `now <= end_at` to use the card.
+
+# 3. Special circumstances:
+# If `end_at` is provided but `ttl` is not provided, the system will automatically calculate `ttl = end_at - now`,
+# and use it for Redis's TTL control (if the result is > 0, set the expiration time).
+
+# 4. When `persist = true`:
+# It means that the card is a permanent valid card. The system will not set TTL, and the data in Redis will not expire automatically.
+# The administrator needs to manually remove or rely on the application layer logic to determine whether it is available.
+
+# Note:
+# - All expiration controls are controlled by Redis TTL and do not depend on `end_at`.
+# - The application layer only needs to determine whether the card is enabled (i.e. `now >= start_at`).
+
+# 關於owner_client_id字段，這個是用來標識卡片是由誰發布的。
+# 不影響開鎖的驗證流程。但在查詢已註冊卡號的時候有用。
 
 {
   "number": "6B06C2A25E99C68EDCBE",
@@ -28,6 +55,8 @@ X-Environment: {{ environment }}
     "etoehotel-305",
     "test-555"
   ],
+  "start_at": "",
+  "end_at": "",
   "ttl": 600000000,
   "persist": true,
   "owner_client_id": "anonymous"
@@ -38,7 +67,16 @@ GET {{ endpoint }}/owner/anonymous
 Content-Type: text/plain
 
 
-### Identify successfully used JSON
+### ** Identify: API for Vguang M350 **
+### etoehotel的掃碼器實際上用的是這個端點
+### 卡號作為平文本傳給服務器，返回code=0000則會通知繼電器把門鎖打開。
+POST {{ endpoint }}/identify/vguang-m350/test-555
+Content-Type: text/plain
+
+74165B29
+
+
+### Identify: successfully used JSON
 POST {{ endpoint }}/identify/json
 Content-Type: application/json
 X-Environment: {{ environment }}
@@ -48,7 +86,7 @@ X-Device-SN: test_card_reader
   "card_number": "TEST1234567890kkk"
 }
 
-### Identify failure used JSON
+### Identify: failure used JSON
 POST {{ endpoint }}/identify/json
 Content-Type: application/json
 X-Environment: {{ environment }}
@@ -57,9 +95,3 @@ X-Device-SN: test_card_reader
 {
   "card_number": "WRONG_CARD1234567890"
 }
-
-### API for Vguang M350
-POST {{ endpoint }}/identify/vguang-m350/test-555
-Content-Type: text/plain
-
-74165B29

@@ -71,6 +71,31 @@ async def get_cards_by_owner(
         )
 
 
+def verify_card(device_sn: str, card_number: str, environment: str = "STANDARD",
+                client_id: Optional[str] = None) -> CardModel:
+    card_obj = Card(environment=environment.upper())
+    card_number = card_number.upper()
+
+    card = card_obj.get_a_card(card_number)
+
+    if not card_obj.is_card_active(card):
+        raise HTTPException(status_code=400, detail={
+            "message": "Card is not active yet (before start time)."
+        })
+
+    if client_id is not None and card.owner_client_id != client_id:
+        raise HTTPException(status_code=400, detail={
+            "message": "Unable to be identify because owner is not true. Please check your token."
+        })
+
+    if not card_obj.identify_by_sn_card(device_sn, card_number):
+        raise HTTPException(status_code=400, detail={
+            "message": "Unable to be identify successfully."
+        })
+
+    return card
+
+
 @app.post("/identify/json", response_model=CardIdentifyResponse)
 @app.post("/identify/json/{device_sn}", response_model=CardIdentifyResponse)
 async def identify_json(request: Request, device_sn: str = None):
@@ -78,65 +103,37 @@ async def identify_json(request: Request, device_sn: str = None):
     json_data = await request.json()
     card_number = json_data.get("card_number").upper()
 
-    card_obj = Card(environment=request.headers.get("X-Environment", "standard").upper())
-    client_id = None
-
-    print(device_sn, card_number)
-
     try:
-        # Verify that the card owner or client_id is empty
-        card = card_obj.get_a_card(card_number)
-        if client_id is not None and card.owner_client_id != client_id:
-            raise HTTPException(status_code=400, detail={
-                "message": "Unable to be identify because owner is not true. Please check your token."
-            })
-
-        # Verify the card number paired the device SN
-        if card_obj.identify_by_sn_card(device_sn, card_number):
-            return CardIdentifyResponse(message="Successfully", **card.model_dump())
-
-        raise HTTPException(status_code=400, detail={
-            "message": "Unable to be identify successfully."
-        })
-    except ValueError as e:
-        raise HTTPException(
-            status_code=404,
-            detail={"message": str(e)}
+        card = verify_card(
+            device_sn=device_sn,
+            card_number=card_number,
+            environment=request.headers.get("X-Environment", "standard"),
+            client_id=None
         )
+        return CardIdentifyResponse(message="Successfully", **card.model_dump())
 
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail={"message": str(e)})
 
 @app.post("/identify/vguang-m350/{device_name}")
 async def vguang_identify(device_name: str, request: Request):
     raw_body = await request.body()
-    # Try decoding with encoding (probably normal string)
     try:
         text_content = raw_body.decode(request.headers.get('Content-Encoding', 'utf-8')).strip()
     except (LookupError, UnicodeDecodeError):
-      # If decoding fails, use bytes directly
         text_content = None
 
-    # Try to parse the card number
     if text_content and all(
-            c in "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" for c in text_content):
+        c in "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+        for c in text_content):
         card_number = text_content.upper()
     else:
-        card_number = raw_body[::-1].hex().upper()  # Little → Big endian
-
-    print(device_name, card_number)
-
-    card_obj = Card(environment="standard".upper())
+        card_number = raw_body[::-1].hex().upper()
 
     try:
-        # Verify the card number paired the device SN
-        if card_obj.identify_by_sn_card(device_name, card_number):
-            return PlainTextResponse("code=0000")
+        verify_card(device_sn=device_name, card_number=card_number)
+        return PlainTextResponse("code=0000")
 
-        raise HTTPException(status_code=400, detail={
-            "message": "Unable to be identify successfully."
-        })
     except ValueError as e:
         logger.info(f"{e}")
-        raise HTTPException(
-            status_code=404,
-            detail={"message": str(e)}
-        )
+        raise HTTPException(status_code=404, detail={"message": str(e)})

@@ -5,22 +5,58 @@ import hashlib
 import json
 import os
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from typing import *
 
 import redis
 from fastapi.logger import logger
-from pydantic import BaseModel, constr
+from pydantic import BaseModel, constr, model_validator
 
 
 class CardModel(BaseModel):
-    number: constr(min_length=8, max_length=128)  # Key
-    name: Optional[str]
-    devices: List[str]
-    ttl: int = 60 * 60 * 24
-    persist: bool = False
-    created_at: Optional[datetime] = datetime.now(tz=timezone.utc)
-    owner_client_id: Optional[str] = None
+    number: constr(min_length=8, max_length=128)  # Card unique identification code
+    name: Optional[str]  # Display name
+    devices: List[str]  # Bind the device list
+    ttl: Optional[int] = None  # TTL (seconds) in Redis. If there is a setting, it is the priority basis
+    start_at: Optional[
+        datetime] = None  # The time when the card starts to take effect (judged by the application now >= start_at)
+    end_at: Optional[datetime] = None  # End time (if there is no TTL, it is used to calculate TTL)
+    persist: bool = False  # Whether to persist the card (if True, TTL is not set)
+    created_at: Optional[datetime] = None  # Create time
+    owner_client_id: Optional[str] = None  # Client Identification
+
+    @model_validator(mode="before")
+    def fill_times(cls, values: dict) -> dict:
+        now = datetime.now(tz=timezone.utc)
+
+        if values.get("created_at") is None:
+            values["created_at"] = now
+
+        if values.get("start_at") is None:
+            values["start_at"] = now
+
+        start_at = values["start_at"]
+        end_at = values.get("end_at")
+        ttl = values.get("ttl")
+        persist = values.get("persist", False)
+
+        if persist:
+            values["ttl"] = None
+            return values
+
+        if ttl is not None:
+            values["end_at"] = start_at + timedelta(seconds=ttl)
+            return values
+
+        if end_at is not None:
+            if end_at <= now:
+                raise ValueError("end_at must be in the future when ttl is not provided")
+            delta = (end_at - now).total_seconds()
+            values["ttl"] = int(delta)
+            return values
+
+        values["ttl"] = None
+        return values
 
 
 class Card:
@@ -136,6 +172,14 @@ class Card:
         r = self.redis
         card_number = card_number.upper()
         return r.delete(card_number)
+
+    @staticmethod
+    def is_card_active(card: CardModel) -> bool:
+        """
+        The cards used by the application layer enable judgment logic.
+        Determines whether now has reached start_at.
+        """
+        return datetime.now(tz=timezone.utc) >= card.start_at
 
     def identify_by_sn_card(
             self,
