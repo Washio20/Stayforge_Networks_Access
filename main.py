@@ -1,12 +1,17 @@
 import uuid
+from typing import Optional
 
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import PlainTextResponse
+from pydantic import ValidationError
 from uvicorn.config import logger
 
 from card import Card, CardIdentifyResponse, CardModel
 
-app = FastAPI()
+app = FastAPI(
+    title="Stayforge Networks Access API",
+    docs_url="/docs",
+)
 
 
 @app.get("/")
@@ -54,6 +59,28 @@ async def create_a_card(request: Request):
             status_code=400,
             detail={"message": str(e)}
         )
+
+
+@app.post("/card/add_many", tags=["card", "add"])
+async def create_many_cards(request: Request):
+    body = await request.json()
+    results = []
+    environment = request.headers.get("X-Environment", "standard").upper()
+
+    if not isinstance(body, list):
+        raise HTTPException(status_code=400, detail={"message": "Payload must be a list of cards."})
+
+    for item in body:
+        try:
+            item["number"] = item["number"].upper()
+            card_obj = Card(environment=environment)
+            card = CardModel(**item)
+            result = card_obj.add_card(card)
+            results.append({"number": card.number, "status": "success", "result": result})
+        except (ValidationError, ValueError) as e:
+            results.append({"number": item.get("number", "UNKNOWN"), "status": "error", "message": str(e)})
+
+    return {"results": results}
 
 
 @app.get("/owner/{owner_client_id}", response_model=list[CardModel], tags=["card", "add"])
@@ -115,6 +142,7 @@ async def identify_json(request: Request, device_sn: str = None):
     except ValueError as e:
         raise HTTPException(status_code=404, detail={"message": str(e)})
 
+
 @app.post("/identify/vguang-m350/{device_name}")
 async def vguang_identify(device_name: str, request: Request):
     raw_body = await request.body()
@@ -124,8 +152,8 @@ async def vguang_identify(device_name: str, request: Request):
         text_content = None
 
     if text_content and all(
-        c in "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-        for c in text_content):
+            c in "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+            for c in text_content):
         card_number = text_content.upper()
     else:
         card_number = raw_body[::-1].hex().upper()
