@@ -12,6 +12,7 @@ app = FastAPI(
     title="Stayforge Networks Access API",
     redoc_url="/docs",
     docs_url="/docs/swagger",
+    version="1.0.0",
 )
 
 
