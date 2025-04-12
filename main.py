@@ -10,7 +10,8 @@ from card import Card, CardIdentifyResponse, CardModel
 
 app = FastAPI(
     title="Stayforge Networks Access API",
-    docs_url="/docs",
+    redoc_url="/docs",
+    docs_url="/docs/swagger",
 )
 
 
