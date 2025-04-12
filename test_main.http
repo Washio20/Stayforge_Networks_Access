@@ -31,8 +31,8 @@ X-Environment: {{ environment }}
 # - All expiration controls are controlled by Redis TTL and do not depend on `end_at`.
 # - The application layer only needs to determine whether the card is enabled (i.e. `now >= start_at`).
 
-# 關於owner_client_id字段，這個是用來標識卡片是由誰發布的。
-# 不影響開鎖的驗證流程。但在查詢已註冊卡號的時候有用。
+# About the owner_client_id field, this is used to identify who posted the card.
+# Does not affect the verification process of unlocking. But it is useful when querying the registered card number.
 
 {
   "number": "6B06C2A25E99C68EDCBE",
@@ -68,8 +68,8 @@ Content-Type: text/plain
 
 
 ### ** Identify: API for Vguang M350 **
-### etoehotel的掃碼器實際上用的是這個端點
-### 卡號作為平文本傳給服務器，返回code=0000則會通知繼電器把門鎖打開。
+### etoehotel's code scanner actually uses this endpoint
+### The card number is transmitted to the server as a flat text. If the code=0000 is returned, the relay will be notified to open the door lock.
 POST {{ endpoint }}/identify/vguang-m350/test-555
 Content-Type: text/plain
 

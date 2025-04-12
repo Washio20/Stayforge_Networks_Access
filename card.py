@@ -10,20 +10,39 @@ from typing import *
 
 import redis
 from fastapi.logger import logger
-from pydantic import BaseModel, constr, model_validator
+from pydantic import BaseModel, constr, model_validator, Field
 
 
 class CardModel(BaseModel):
-    number: constr(min_length=8, max_length=128)  # Card unique identification code
-    name: Optional[str]  # Display name
-    devices: List[str]  # Bind the device list
-    ttl: Optional[int] = None  # TTL (seconds) in Redis. If there is a setting, it is the priority basis
-    start_at: Optional[
-        datetime] = None  # The time when the card starts to take effect (judged by the application now >= start_at)
-    end_at: Optional[datetime] = None  # End time (if there is no TTL, it is used to calculate TTL)
-    persist: bool = False  # Whether to persist the card (if True, TTL is not set)
-    created_at: Optional[datetime] = None  # Create time
-    owner_client_id: Optional[str] = None  # Client Identification
+    number: constr(min_length=8, max_length=128) = Field(
+        ..., description="Card unique identification code"
+    )
+    name: Optional[str] = Field(
+        None, description="Display name"
+    )
+    devices: List[str] = Field(
+        ..., description="Bind the device list"
+    )
+    ttl: Optional[int] = Field(
+        None, description="TTL (seconds) in Redis. If there is a setting, it is the priority basis."
+    )
+    start_at: Optional[datetime] = Field(
+        None, description="The time when the card starts to take effect (judged by the application now >= start_at)"
+    )
+    end_at: Optional[datetime] = Field(
+        None,
+        description="End time (if there is no TTL, it is used to calculate TTL). If TTL is set, then the value of TTL will be preferred."
+    )
+    persist: bool = Field(
+        False, description="Whether to persist the card (if True, TTL is not set)"
+    )
+    created_at: Optional[datetime] = Field(
+        None, description="Create time"
+    )
+    owner_client_id: Optional[str] = Field(
+        None,
+        description="Client who owns the card. This is just a sign that is easy to manage and will not affect authentication."
+    )
 
     @model_validator(mode="before")
     def fill_times(cls, values: dict) -> dict:

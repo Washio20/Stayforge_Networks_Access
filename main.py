@@ -14,7 +14,7 @@ app = FastAPI(
 )
 
 
-@app.get("/")
+@app.get("/", tags=["system"])
 async def healthcheck():
     try:
         Card()
@@ -26,7 +26,7 @@ async def healthcheck():
     return PlainTextResponse("ok")
 
 
-@app.post("/card")
+@app.post("/card", tags=["card", "information"])
 async def get_a_card_information(request: Request):
     json = await request.json()
     card_number = json.get("card_number")
@@ -61,7 +61,7 @@ async def create_a_card(request: Request):
         )
 
 
-@app.post("/card/add_many", tags=["card", "add"])
+@app.post("/card/add_many", tags=["card", "add", "many"])
 async def create_many_cards(request: Request):
     body = await request.json()
     results = []
@@ -83,9 +83,11 @@ async def create_many_cards(request: Request):
     return {"results": results}
 
 
-@app.get("/owner/{owner_client_id}", response_model=list[CardModel], tags=["card", "add"])
+@app.get(
+    "/owner/{owner_client_id}", response_model=list[CardModel], tags=["card", "get"],
+    description="Get all cards owned by a specific owner (mark by `owner_client_id`). The owner ID is provided in the URL."
+)
 async def get_cards_by_owner(
-        request: Request,
         owner_client_id: str
 ):
     card_obj = Card()
@@ -123,8 +125,13 @@ def verify_card(device_sn: str, card_number: str, environment: str = "STANDARD",
     return card
 
 
-@app.post("/identify/json", response_model=CardIdentifyResponse)
-@app.post("/identify/json/{device_sn}", response_model=CardIdentifyResponse)
+@app.post(
+    "/identify/json", response_model=CardIdentifyResponse, tags=["identify"],
+    description="Identify a device by its serial number and card number. The serial number is provided in the X-Device-SN header."
+)
+@app.post(
+    "/identify/json/{device_sn}", response_model=CardIdentifyResponse, tags=["identify"],
+    description="Identify a device by its serial number and card number. The serial number is provided in the URL.")
 async def identify_json(request: Request, device_sn: str = None):
     device_sn = device_sn or request.headers.get("X-Device-SN")
     json_data = await request.json()
@@ -143,7 +150,10 @@ async def identify_json(request: Request, device_sn: str = None):
         raise HTTPException(status_code=404, detail={"message": str(e)})
 
 
-@app.post("/identify/vguang-m350/{device_name}")
+@app.post(
+    "/identify/vguang-m350/{device_name}", tags=["identify", "vguang"],
+    description="API specifically open for vguang-m350. Only run in STANDARD environment."
+)
 async def vguang_identify(device_name: str, request: Request):
     raw_body = await request.body()
     try:
