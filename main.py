@@ -6,7 +6,7 @@ from fastapi.responses import PlainTextResponse
 from pydantic import ValidationError
 from uvicorn.config import logger
 
-from card import Card, CardIdentifyResponse, CardModel
+from card import Card, CardIdentifyResponse, CardModel, CardQuery
 
 app = FastAPI(
     title="Stayforge Networks Access API",
@@ -27,7 +27,7 @@ async def healthcheck():
 
 
 @app.post("/card", tags=["card"])
-async def get_a_card_information(card_info: dict):
+async def get_a_card_information(card_info: CardQuery):
     card_number = card_info.get("card_number")
     try:
         return Card().get_a_card(card_number)
@@ -128,9 +128,8 @@ def verify_card(device_sn: str, card_number: str, environment: str = "STANDARD",
     description="Identify a device by its serial number and card number. The serial number is provided in the URL."
 )
 async def identify_json(
-        json_data: dict,
+        json_data: CardQuery,
         device_sn: Optional[str] = None,
-        request: Request = None,
         x_device_sn: Optional[str] = Header(None, alias="X-Device-SN"),
         x_environment: str = Header("standard", alias="X-Environment")
 ):

@@ -244,5 +244,9 @@ class Card:
         return cards
 
 
+class CardQuery(BaseModel):
+    card_number: str = Field(..., description="Card number to be queried")
+
+
 class CardIdentifyResponse(CardModel):
-    message: str
+    message: str = Field(..., description="Response message")
