@@ -205,6 +205,54 @@
         "documentation": {}
     },
     {
+        "label": "ValidationError",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "constr",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "model_validator",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "Field",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "ValidationError",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
         "label": "Card",
         "importPath": "card",
         "description": "card",
@@ -341,46 +389,6 @@
         "description": "fastapi.logger",
         "isExtraImport": true,
         "detail": "fastapi.logger",
-        "documentation": {}
-    },
-    {
-        "label": "BaseModel",
-        "importPath": "pydantic",
-        "description": "pydantic",
-        "isExtraImport": true,
-        "detail": "pydantic",
-        "documentation": {}
-    },
-    {
-        "label": "constr",
-        "importPath": "pydantic",
-        "description": "pydantic",
-        "isExtraImport": true,
-        "detail": "pydantic",
-        "documentation": {}
-    },
-    {
-        "label": "model_validator",
-        "importPath": "pydantic",
-        "description": "pydantic",
-        "isExtraImport": true,
-        "detail": "pydantic",
-        "documentation": {}
-    },
-    {
-        "label": "Field",
-        "importPath": "pydantic",
-        "description": "pydantic",
-        "isExtraImport": true,
-        "detail": "pydantic",
-        "documentation": {}
-    },
-    {
-        "label": "ValidationError",
-        "importPath": "pydantic",
-        "description": "pydantic",
-        "isExtraImport": true,
-        "detail": "pydantic",
         "documentation": {}
     },
     {
@@ -578,7 +586,7 @@
         "kind": 2,
         "importPath": "tests.test_add_card_time_units",
         "description": "tests.test_add_card_time_units",
-        "peekOfCode": "def mock_redis():\n    \"\"\"\n    Fixture to create a fake Redis instance\n    \"\"\"\n    return FakeStrictRedis()\n@pytest.fixture\ndef card(mock_redis):\n    \"\"\"\n    Fixture to create a Card instance with mocked Redis\n    \"\"\"",
+        "peekOfCode": "def mock_redis():\n    \"\"\"\n    A pytest fixture that creates and returns a mock instance of a\n    FakeStrictRedis. This can be used to simulate Redis operations\n    in tests without requiring a real Redis server.\n    :return: An instance of FakeStrictRedis\n    :rtype: FakeStrictRedis\n    \"\"\"\n    return FakeStrictRedis()\n@pytest.fixture",
         "detail": "tests.test_add_card_time_units",
         "documentation": {}
     },
@@ -587,7 +595,7 @@
         "kind": 2,
         "importPath": "tests.test_add_card_time_units",
         "description": "tests.test_add_card_time_units",
-        "peekOfCode": "def card(mock_redis):\n    \"\"\"\n    Fixture to create a Card instance with mocked Redis\n    \"\"\"\n    card_instance = Card()\n    card_instance.redis = mock_redis\n    return card_instance\ndef truncate_to_minute(dt):\n    return dt.replace(second=0, microsecond=0)\nfrom datetime import datetime, timedelta, timezone",
+        "peekOfCode": "def card(mock_redis):\n    \"\"\"\n    This pytest fixture provides a pre-configured instance of the `Card` class for testing purposes.\n    It sets up the `Card` instance with a mocked Redis backend to facilitate isolated and controlled\n    testing of the functionality associated with Redis interactions in the `Card` class.\n    :param mock_redis: A mocked Redis instance used to emulate Redis backend operations.\n    :return: A `Card` instance configured with a mocked Redis backend.\n    \"\"\"\n    card_instance = Card()\n    card_instance.redis = mock_redis",
         "detail": "tests.test_add_card_time_units",
         "documentation": {}
     },
@@ -596,7 +604,7 @@
         "kind": 2,
         "importPath": "tests.test_add_card_time_units",
         "description": "tests.test_add_card_time_units",
-        "peekOfCode": "def truncate_to_minute(dt):\n    return dt.replace(second=0, microsecond=0)\nfrom datetime import datetime, timedelta, timezone\nexpect_ttl = 3600\nexpect_start_at = datetime.now(timezone.utc)\nexpect_end_at = expect_start_at + timedelta(seconds=expect_ttl)\nttl_tolerance = 10\ndef output_comparison_data(\n        result,\n        expect_start_at: Optional[datetime] = None,",
+        "peekOfCode": "def truncate_to_minute(dt):\n    \"\"\"\n    Truncate a given datetime object to the nearest minute, discarding\n    seconds and microseconds.\n    :param dt: A datetime object to be truncated\n    :type dt: datetime.datetime\n    :return: A datetime object with seconds and microseconds truncated\n    :rtype: datetime.datetime\n    \"\"\"\n    return dt.replace(second=0, microsecond=0)",
         "detail": "tests.test_add_card_time_units",
         "documentation": {}
     },
@@ -605,7 +613,7 @@
         "kind": 2,
         "importPath": "tests.test_add_card_time_units",
         "description": "tests.test_add_card_time_units",
-        "peekOfCode": "def output_comparison_data(\n        result,\n        expect_start_at: Optional[datetime] = None,\n        expect_end_at: Optional[datetime] = None,\n        expect_ttl: Optional[int] = None,\n):\n    print(\"\\r\\n\")\n    print(f\"ttl_tolerance = {ttl_tolerance}\\r\\n\")\n    print(\n        \"[start_at] \\n\"",
+        "peekOfCode": "def output_comparison_data(\n        result,\n        expect_start_at: Optional[datetime] = None,\n        expect_end_at: Optional[datetime] = None,\n        expect_ttl: Optional[int] = None,\n):\n    \"\"\"\n    Compares and outputs differences between the provided result data and the expected\n    values for a specified start time, end time, and time-to-live (TTL). This function\n    prints the comparison details for each parameter to the standard output.",
         "detail": "tests.test_add_card_time_units",
         "documentation": {}
     },
@@ -614,7 +622,7 @@
         "kind": 2,
         "importPath": "tests.test_add_card_time_units",
         "description": "tests.test_add_card_time_units",
-        "peekOfCode": "def test_case_1_ttl_only(card):\n    \"\"\"\n    Case ①: ttl provided, no start_at, no end_at\n    Expected: start_at = now, end_at = start_at + ttl, Redis TTL is set\n    \"\"\"\n    card_data = CardAdd(\n        number=\"TEST123456\",\n        devices=[\"device1\"],\n        ttl=expect_ttl\n    )",
+        "peekOfCode": "def test_case_1_ttl_only(card):\n    \"\"\"\n    Tests the addition of a card with only Time-to-Live (TTL) specified.\n    This function validates that the card is added correctly with the given TTL\n    and ensures that the output time parameters (`start_at`, `end_at`, and `ttl`)\n    match the expected values provided in the test case. It allows verifying\n    the card's lifecycle management logic in scenarios where only a TTL is defined.\n    :param card: The card object or service to which a card will be added.\n    :type card: CardService or similar\n    :return: None",
         "detail": "tests.test_add_card_time_units",
         "documentation": {}
     },
@@ -623,7 +631,7 @@
         "kind": 2,
         "importPath": "tests.test_add_card_time_units",
         "description": "tests.test_add_card_time_units",
-        "peekOfCode": "def test_case_2_ttl_and_start_at(card):\n    \"\"\"\n    Case ②: ttl and start_at provided, no end_at\n    Expected: using provided start_at; end_at = start_at + ttl, Redis TTL is set\n    \"\"\"\n    card_data = CardAdd(\n        number=\"TEST123457\",\n        devices=[\"device1\"],\n        ttl=expect_ttl,\n        start_at=expect_start_at",
+        "peekOfCode": "def test_case_2_ttl_and_start_at(card):\n    \"\"\"\n    Tests the functionality of adding a card with specified properties such as TTL\n    (Time-To-Live) and start time, comparing the result to expected values for\n    validation.\n    :param card: The card object or system where the card is being added\n    :type card: Card or similar system object\n    :return: None, as this is a test function without return.\n    :raises AssertionError: If the result does not match the expected TTL,\n        start_at, or end_at values within the tolerances.",
         "detail": "tests.test_add_card_time_units",
         "documentation": {}
     },
@@ -632,7 +640,7 @@
         "kind": 2,
         "importPath": "tests.test_add_card_time_units",
         "description": "tests.test_add_card_time_units",
-        "peekOfCode": "def test_case_3_ttl_and_end_at(card):\n    \"\"\"\n    Case ③: ttl and end_at provided, no start_at\n    Expected: using provided end_at; start_at = end_at - ttl, Redis TTL is set\n    \"\"\"\n    card_data = CardAdd(\n        number=\"TEST123458\",\n        devices=[\"device1\"],\n        ttl=expect_ttl,\n        end_at=expect_end_at",
+        "peekOfCode": "def test_case_3_ttl_and_end_at(card):\n    \"\"\"\n    Tests the functionality of adding a card with a specific time-to-live (TTL) and end time, and\n    validates the resulting data against expected values. This function ensures the card's lifespan\n    matches the expected parameters and tolerances.\n    :param card: The card management object used to perform the add card operation.\n    :type card: Card\n    :return: None\n    \"\"\"\n    card_data = CardAdd(",
         "detail": "tests.test_add_card_time_units",
         "documentation": {}
     },
@@ -641,7 +649,7 @@
         "kind": 2,
         "importPath": "tests.test_add_card_time_units",
         "description": "tests.test_add_card_time_units",
-        "peekOfCode": "def test_case_4_all_fields_provided(card):\n    \"\"\"\n    Case ④: ttl, start_at, and end_at provided\n    Expected: using provided start_at and end_at; Redis TTL is set as provided\n    \"\"\"\n    card_data = CardAdd(\n        number=\"TEST123459\",\n        devices=[\"device1\"],\n        ttl=expect_ttl,\n        start_at=expect_start_at,",
+        "peekOfCode": "def test_case_4_all_fields_provided(card):\n    \"\"\"\n    Tests the scenario where all fields required for a card are provided and\n    valid. This function verifies the correctness of the card creation and\n    ensures all computed values match the expected outcomes. The results\n    are compared with the expected values, including `start_at`, `end_at`,\n    and `ttl`.\n    :param card: Instance of the Card-related class responsible for adding\n        and managing cards.\n    :return: None",
         "detail": "tests.test_add_card_time_units",
         "documentation": {}
     },
@@ -650,7 +658,7 @@
         "kind": 2,
         "importPath": "tests.test_add_card_time_units",
         "description": "tests.test_add_card_time_units",
-        "peekOfCode": "def test_case_5_start_at_and_end_at(card):\n    \"\"\"\n    Case ⑤: start_at and end_at provided, no ttl\n    Expected: ttl is computed as (end_at - start_at)\n    \"\"\"\n    card_data = CardAdd(\n        number=\"TEST123460\",\n        devices=[\"device1\"],\n        start_at=expect_start_at,\n        end_at=expect_end_at",
+        "peekOfCode": "def test_case_5_start_at_and_end_at(card):\n    \"\"\"\n    Tests the `add_card` function by providing a card with specific start and end times,\n    then verifying if the returned card data matches the expected values. This includes\n    checking the start time, end time, and time-to-live (ttl) against expected parameters.\n    :param card: Instance of the class where the `add_card` method is being tested.\n    :type card: Card\n    :return: None\n    \"\"\"\n    card_data = CardAdd(",
         "detail": "tests.test_add_card_time_units",
         "documentation": {}
     },
@@ -659,7 +667,7 @@
         "kind": 2,
         "importPath": "tests.test_add_card_time_units",
         "description": "tests.test_add_card_time_units",
-        "peekOfCode": "def test_case_6_start_at_only(card):\n    \"\"\"\n    Case ⑥: start_at provided only, no ttl, no end_at\n    Expected: start_at is used; ttl and end_at remain None\n    \"\"\"\n    card_data = CardAdd(\n        number=\"TEST123461\",\n        devices=[\"device1\"],\n        start_at=expect_start_at\n    )",
+        "peekOfCode": "def test_case_6_start_at_only(card):\n    \"\"\"\n    This function tests the behavior of adding a card with specified `start_at`\n    but without additional required attributes, ensuring proper exception\n    handling for unsupported operations. The test ensures the system raises\n    a ValueError when the card data provided does not meet the expected\n    requirements.\n    :param card: The card object used to perform the add operation.\n    :type card: Any\n    :return: None",
         "detail": "tests.test_add_card_time_units",
         "documentation": {}
     },
@@ -668,7 +676,7 @@
         "kind": 2,
         "importPath": "tests.test_add_card_time_units",
         "description": "tests.test_add_card_time_units",
-        "peekOfCode": "def test_case_7_end_at_only(card):\n    \"\"\"\n    Case ⑦: end_at provided only, no ttl, no start_at\n    Expected: end_at is used; ttl and start_at remain None\n    \"\"\"\n    card_data = CardAdd(\n        number=\"TEST123462\",\n        devices=[\"device1\"],\n        end_at=expect_end_at\n    )",
+        "peekOfCode": "def test_case_7_end_at_only(card):\n    \"\"\"\n    Tests the creation of a card with specific `end_at` parameter using the provided\n    card service. This function validates if the resulting card data meets the expected\n    values for `start_at`, `end_at`, and `ttl`. Additionally, it ensures that the `ttl`\n    is within a defined tolerance range, verifying proper behavior of the system.\n    :param card: Instance of card service used to add and manage cards.\n                 Must support `add_card` method that accepts card data.\n    :type card: Object\n    :return: None",
         "detail": "tests.test_add_card_time_units",
         "documentation": {}
     },
@@ -677,7 +685,7 @@
         "kind": 2,
         "importPath": "tests.test_add_card_time_units",
         "description": "tests.test_add_card_time_units",
-        "peekOfCode": "def test_case_8_no_time_fields(card):\n    \"\"\"\n    Case ⑧: no time fields provided\n    Expected: start_at = now; ttl and end_at remain None\n    \"\"\"\n    try:\n        card_data = CardAdd(\n            number=\"TEST123463\",\n            devices=[\"device1\"]\n        )",
+        "peekOfCode": "def test_case_8_no_time_fields(card):\n    \"\"\"\n    Test case to verify behavior when no time fields are provided during card addition.\n    This function checks the scenario when a card is attempted to be added without\n    time-related fields. It ensures that the appropriate exception is raised, and the\n    expected message is printed to confirm that the system behaves as intended in this case.\n    :param card: Instance of the card class used to manage card operations.\n    :type card: Card\n    :return: None\n    \"\"\"",
         "detail": "tests.test_add_card_time_units",
         "documentation": {}
     },
@@ -686,7 +694,7 @@
         "kind": 2,
         "importPath": "tests.test_add_card_time_units",
         "description": "tests.test_add_card_time_units",
-        "peekOfCode": "def test_persist_true(card):\n    \"\"\"\n    Case: persist flag provided True\n    Expected: persist is True and ttl is not set\n    \"\"\"\n    card_data = CardAdd(\n        number=\"TEST123464\",\n        devices=[\"device1\"],\n        persist=True\n    )",
+        "peekOfCode": "def test_persist_true(card):\n    \"\"\"\n    Tests the functionality of adding a card with the `persist` flag set to True.\n    This function verifies that when a card is added with the `persist` property set\n    to True, it adheres to the expected behavior, such as ensuring that the `persist`\n    attribute of the result is True and the `ttl` attribute is None. Additionally, it\n    compares the output data with the expected start, end, and TTL values to ensure\n    behavioral correctness. Assertions are used to validate the conditions.\n    :param card: The card object to perform the addition operation on.\n    :type card: Card",
         "detail": "tests.test_add_card_time_units",
         "documentation": {}
     },
@@ -695,7 +703,61 @@
         "kind": 2,
         "importPath": "tests.test_add_card_time_units",
         "description": "tests.test_add_card_time_units",
-        "peekOfCode": "def test_duplicate_card_number(card):\n    \"\"\"\n    Case: duplicate card number\n    Expected: adding a card with an existing number should raise an Exception\n    \"\"\"\n    card_data = CardAdd(\n        number=\"TEST123465\",\n        devices=[\"device1\"],\n        ttl=3600\n    )",
+        "peekOfCode": "def test_duplicate_card_number(card):\n    \"\"\"\n    Tests the functionality to ensure that adding a card with a duplicate card number\n    raises an exception. This validates that the system properly handles cases where\n    there is an attempt to add a card that already exists.\n    :param card: The card management system instance being tested\n    :type card: object\n    :return: None\n    \"\"\"\n    card_data = CardAdd(",
+        "detail": "tests.test_add_card_time_units",
+        "documentation": {}
+    },
+    {
+        "label": "test_boundary_ttl_zero",
+        "kind": 2,
+        "importPath": "tests.test_add_card_time_units",
+        "description": "tests.test_add_card_time_units",
+        "peekOfCode": "def test_boundary_ttl_zero(card):\n    \"\"\"\n    Verifies that the card addition functionality does not allow a `ttl` value of zero. The function\n    attempts to add a card with a time-to-live (TTL) of zero and ensures the appropriate exception\n    is raised, confirming the boundary condition is handled as expected.\n    :param card: The object that implements the interface to add a card to the system.\n    :type card: CardAdd\n    :return: None\n    :rtype: NoneType\n    \"\"\"",
+        "detail": "tests.test_add_card_time_units",
+        "documentation": {}
+    },
+    {
+        "label": "test_boundary_ttl_negative",
+        "kind": 2,
+        "importPath": "tests.test_add_card_time_units",
+        "description": "tests.test_add_card_time_units",
+        "peekOfCode": "def test_boundary_ttl_negative(card):\n    \"\"\"\n    Tests the behavior of the `add_card` method when a card with a negative TTL is\n    provided. Ensures that the method raises a ValueError, validating the\n    appropriate handling of invalid TTL values.\n    :param card: The `card` object under test which provides the `add_card`\n        method to test card addition functionality with TTL constraints.\n    :return: None\n    \"\"\"\n    card_data = CardAdd(",
+        "detail": "tests.test_add_card_time_units",
+        "documentation": {}
+    },
+    {
+        "label": "test_boundary_ttl_large_value",
+        "kind": 2,
+        "importPath": "tests.test_add_card_time_units",
+        "description": "tests.test_add_card_time_units",
+        "peekOfCode": "def test_boundary_ttl_large_value(card):\n    \"\"\"\n    Tests the functionality of adding a card with a large TTL value to ensure the system handles\n    large integer values for time-to-live (TTL) correctly. A 10-year TTL value is used in the\n    test to verify boundary conditions.\n    :param card: The card object on which the add_card method is being tested.\n    :type card: Card\n    :return: None\n    \"\"\"\n    large_ttl = 10 * 365 * 24 * 3600  # 10 years in seconds",
+        "detail": "tests.test_add_card_time_units",
+        "documentation": {}
+    },
+    {
+        "label": "test_invalid_time_combination_end_before_start",
+        "kind": 2,
+        "importPath": "tests.test_add_card_time_units",
+        "description": "tests.test_add_card_time_units",
+        "peekOfCode": "def test_invalid_time_combination_end_before_start(card):\n    \"\"\"\n    Test the scenario where the end time is set before the start time in the card\n    data. This function attempts to add a card with an invalid time combination\n    and expects a `ValidationError` to be raised.\n    :param card: Card manager object responsible for handling card operations\n                 and card data validation.\n    :type card: Any\n    :return: None\n    \"\"\"",
+        "detail": "tests.test_add_card_time_units",
+        "documentation": {}
+    },
+    {
+        "label": "test_timezone_handling_utc",
+        "kind": 2,
+        "importPath": "tests.test_add_card_time_units",
+        "description": "tests.test_add_card_time_units",
+        "peekOfCode": "def test_timezone_handling_utc(card):\n    \"\"\"\n    Tests if the card addition process correctly handles `datetime` objects with\n    UTC timezone information. This ensures that both the `start_at` and `end_at`\n    fields in the card data retain the `timezone.utc` timezone information.\n    :param card: The card object to which the card data is being added. This is\n        expected to have a method `add_card` that processes a `CardAdd` object and\n        returns an object containing `start_at` and `end_at` fields.\n    :return: None. The function asserts that the timezone information for `start_at`\n        and `end_at` in the card data are `timezone.utc`.",
+        "detail": "tests.test_add_card_time_units",
+        "documentation": {}
+    },
+    {
+        "label": "test_timezone_handling_different_timezones",
+        "kind": 2,
+        "importPath": "tests.test_add_card_time_units",
+        "description": "tests.test_add_card_time_units",
+        "peekOfCode": "def test_timezone_handling_different_timezones(card):\n    \"\"\"\n    Tests the timezone handling for adding a card with a start time specified\n    in a different timezone. Ensures the start and end times are correctly\n    converted to UTC during the operation and verifies the correctness of\n    the hour offset after conversion.\n    :param card: The card service or object to be used for performing the\n        card addition and retrieval operations. This should be an object\n        that supports adding a card and provides the resulting card data.\n    :return: None",
         "detail": "tests.test_add_card_time_units",
         "documentation": {}
     },
@@ -713,7 +775,7 @@
         "kind": 5,
         "importPath": "tests.test_add_card_time_units",
         "description": "tests.test_add_card_time_units",
-        "peekOfCode": "expect_start_at = datetime.now(timezone.utc)\nexpect_end_at = expect_start_at + timedelta(seconds=expect_ttl)\nttl_tolerance = 10\ndef output_comparison_data(\n        result,\n        expect_start_at: Optional[datetime] = None,\n        expect_end_at: Optional[datetime] = None,\n        expect_ttl: Optional[int] = None,\n):\n    print(\"\\r\\n\")",
+        "peekOfCode": "expect_start_at = datetime.now(timezone.utc)\nexpect_end_at = expect_start_at + timedelta(seconds=expect_ttl)\nttl_tolerance = 10\ndef output_comparison_data(\n        result,\n        expect_start_at: Optional[datetime] = None,\n        expect_end_at: Optional[datetime] = None,\n        expect_ttl: Optional[int] = None,\n):\n    \"\"\"",
         "detail": "tests.test_add_card_time_units",
         "documentation": {}
     },
@@ -722,7 +784,7 @@
         "kind": 5,
         "importPath": "tests.test_add_card_time_units",
         "description": "tests.test_add_card_time_units",
-        "peekOfCode": "expect_end_at = expect_start_at + timedelta(seconds=expect_ttl)\nttl_tolerance = 10\ndef output_comparison_data(\n        result,\n        expect_start_at: Optional[datetime] = None,\n        expect_end_at: Optional[datetime] = None,\n        expect_ttl: Optional[int] = None,\n):\n    print(\"\\r\\n\")\n    print(f\"ttl_tolerance = {ttl_tolerance}\\r\\n\")",
+        "peekOfCode": "expect_end_at = expect_start_at + timedelta(seconds=expect_ttl)\nttl_tolerance = 10\ndef output_comparison_data(\n        result,\n        expect_start_at: Optional[datetime] = None,\n        expect_end_at: Optional[datetime] = None,\n        expect_ttl: Optional[int] = None,\n):\n    \"\"\"\n    Compares and outputs differences between the provided result data and the expected",
         "detail": "tests.test_add_card_time_units",
         "documentation": {}
     },
@@ -731,7 +793,7 @@
         "kind": 5,
         "importPath": "tests.test_add_card_time_units",
         "description": "tests.test_add_card_time_units",
-        "peekOfCode": "ttl_tolerance = 10\ndef output_comparison_data(\n        result,\n        expect_start_at: Optional[datetime] = None,\n        expect_end_at: Optional[datetime] = None,\n        expect_ttl: Optional[int] = None,\n):\n    print(\"\\r\\n\")\n    print(f\"ttl_tolerance = {ttl_tolerance}\\r\\n\")\n    print(",
+        "peekOfCode": "ttl_tolerance = 10\ndef output_comparison_data(\n        result,\n        expect_start_at: Optional[datetime] = None,\n        expect_end_at: Optional[datetime] = None,\n        expect_ttl: Optional[int] = None,\n):\n    \"\"\"\n    Compares and outputs differences between the provided result data and the expected\n    values for a specified start time, end time, and time-to-live (TTL). This function",
         "detail": "tests.test_add_card_time_units",
         "documentation": {}
     },
