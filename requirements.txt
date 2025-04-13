@@ -2,3 +2,7 @@ fastapi~=0.115.8
 redis~=5.2.1
 pydantic~=2.10.6
 uvicorn~=0.34.0
+requests~=2.32.3
+dotenv~=0.9.9
+python-dotenv~=1.1.0
+python-jose~=3.4.0

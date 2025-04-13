@@ -1,13 +1,23 @@
+import os
 import uuid
 from typing import Optional
+from urllib.parse import urlencode
 
-from fastapi import FastAPI, Request, HTTPException, Header
-from fastapi.responses import PlainTextResponse
+import requests
+from fastapi import FastAPI, Request, HTTPException, Header, Depends
+from fastapi.responses import PlainTextResponse, RedirectResponse
 from pydantic import ValidationError
+from starlette.responses import JSONResponse
 from uvicorn.config import logger
 
 from card import Card, CardIdentifyResponse, CardModel, CardQuery
 from documents import load_master_doc
+from env import (
+    FOUNDRY_AUTH0_CLIENT_ID,
+    AUTH0_API_IDENTIFIER, AUTH0_DOMAIN, FOUNDRY_AUTH0_CLIENT_SECRET
+
+)
+from src.auth.auth import require_permission
 
 app = FastAPI(
     title="Stayforge Networks Access API",
@@ -16,6 +26,85 @@ app = FastAPI(
     version="1.0.0",
     description=load_master_doc(),
 )
+
+
+@app.get("/login", tags=['auth'])
+async def login(request: Request, org: Optional[str] = None):
+    base_url = str(request.base_url)
+    redirect_target = base_url + "callback"
+
+    params = {
+        "response_type": "code",
+        "client_id": FOUNDRY_AUTH0_CLIENT_ID,
+        "redirect_uri": redirect_target,
+        "audience": AUTH0_API_IDENTIFIER,
+        "scope": "openid profile email offline_access",
+        "prompt": "consent"
+    }
+
+    if org:
+        params["organization"] = org
+
+    url = f"https://{AUTH0_DOMAIN}/authorize?{urlencode(params)}"
+
+    return RedirectResponse(url=url, status_code=302)
+
+
+@app.get("/logout", tags=['auth'])
+async def logout(request: Request):
+    base_url = str(request.base_url)
+
+    params = {
+        "client_id": FOUNDRY_AUTH0_CLIENT_ID,
+        "returnTo": 'https://www.stayforge.io'
+    }
+
+    url = f"https://{AUTH0_DOMAIN}/v2/logout?{urlencode(params)}"
+
+    return RedirectResponse(url=url, status_code=302)
+
+
+@app.get("/callback")
+async def callback(request: Request, code: str = None):
+    base_url = str(request.base_url)
+    redirect_target = base_url + "callback"
+
+    token_url = f"https://{AUTH0_DOMAIN}/oauth/token"
+    payload = {
+        "grant_type": "authorization_code",
+        "client_id": FOUNDRY_AUTH0_CLIENT_ID,
+        "client_secret": FOUNDRY_AUTH0_CLIENT_SECRET,
+        "code": code,
+        "redirect_uri": redirect_target
+    }
+
+    token_data: dict = requests.post(token_url, json=payload).json()
+
+    response = JSONResponse(token_data)
+    access_token = token_data.get("access_token")
+    access_token_expires_in = token_data.get("expires_in")
+    refresh_token = token_data.get("refresh_token")
+    if refresh_token:
+        response.set_cookie(
+            key="refresh_token",
+            value=refresh_token,
+            httponly=True,
+            secure=not os.getenv("DEBUG", False),
+            path="/",
+            max_age=30 * 24 * 60 * 60
+        )
+
+    if access_token:
+        response.set_cookie(
+            key="access_token",
+            value=access_token,
+            httponly=True,
+            secure=not os.getenv("DEBUG", False),
+            path="/",
+            max_age=access_token_expires_in
+        )
+
+    return response
 
 
 @app.get("/", tags=["system"])
@@ -41,7 +130,10 @@ async def get_a_card_information(card_info: CardQuery):
         )
 
 
-@app.post("/card/add", response_model=CardModel, tags=["card"], description="Add a new card to the system.")
+@app.post(
+    "/card/add", response_model=CardModel, tags=["card"], description="Add a new card to the system.",
+    dependencies=[Depends(require_permission("read:access"))]
+)
 async def create_a_card(
         card: CardModel,
         x_environment: str = Header("standard", alias="X-Environment")
