@@ -10,12 +10,11 @@ from pydantic import ValidationError
 from starlette.responses import JSONResponse
 from uvicorn.config import logger
 
-from card import Card, CardIdentifyResponse, CardModel, CardQuery
+from card import Card, CardIdentifyResponse, CardModel, CardQuery, CardAdd
 from documents import load_master_doc
 from env import (
     FOUNDRY_AUTH0_CLIENT_ID,
     AUTH0_API_IDENTIFIER, AUTH0_DOMAIN, FOUNDRY_AUTH0_CLIENT_SECRET
-
 )
 from src.auth.auth import require_permission
 
@@ -135,7 +134,7 @@ async def get_a_card_information(card_info: CardQuery):
     dependencies=[Depends(require_permission("read:access"))]
 )
 async def create_a_card(
-        card: CardModel,
+        card: CardAdd,
         x_environment: str = Header("standard", alias="X-Environment")
 ):
     card.number = card.number.upper()

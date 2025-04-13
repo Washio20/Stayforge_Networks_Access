@@ -8,30 +8,14 @@ Content-Type: application/json
 X-Environment: {{ environment }}
 
 {
-  "number": "6B06C2A25E99C68EDCBE",
+  "number": "test00000101180610",
   "name": "test_card",
   "devices": [
-    "etoehotel-101",
-    "etoehotel-102",
-    "etoehotel-103",
-    "etoehotel-104",
-    "etoehotel-201",
-    "etoehotel-202",
-    "etoehotel-203",
-    "etoehotel-204",
-    "etoehotel-205",
-    "etoehotel-206",
-    "etoehotel-301",
-    "etoehotel-302",
-    "etoehotel-303",
-    "etoehotel-304",
-    "etoehotel-305",
-    "test-555"
+    "etoehotel-101"
   ],
-  "start_at": "",
-  "end_at": "",
-  "ttl": 600000000,
-  "persist": true,
+  "start_at": "2025-04-13T18:07:00+09:00",
+  "ttl": 60,
+  "persist": false,
   "owner_client_id": "anonymous"
 }
 
@@ -43,10 +27,10 @@ Content-Type: text/plain
 ### ** Identify: API for Vguang M350 **
 ### etoehotel's code scanner actually uses this endpoint
 ### The card number is transmitted to the server as a flat text. If the code=0000 is returned, the relay will be notified to open the door lock.
-POST {{ endpoint }}/identify/vguang-m350/test-555
+POST {{ endpoint }}/identify/vguang-m350/etoehotel-101
 Content-Type: text/plain
 
-74165B29
+test-----101-18-00-05
 
 
 ### Identify: successfully used JSON

@@ -1,7 +1,6 @@
 """
 Redis Connector
 """
-import hashlib
 import json
 import os
 import uuid
@@ -78,6 +77,18 @@ class CardModel(BaseModel):
         return values
 
 
+class CardAdd(CardModel):
+    number: Optional[constr(min_length=8, max_length=128)]
+
+
+class CardQuery(BaseModel):
+    number: str = Field(..., description="Card number to be queried")
+
+
+class CardIdentifyResponse(CardModel):
+    message: str = Field(..., description="Response message")
+
+
 class Card:
     def __init__(self, environment='STANDARD'):
         def _connect_to_redis(host=os.getenv('REDIS_HOST'), port=os.getenv("REDIS_PORT", 6379), db=0):
@@ -109,36 +120,56 @@ class Card:
 
     def add_card(
             self,
-            card: CardModel = CardModel(
-                number=hashlib.sha256(str(uuid.uuid4()).encode()).hexdigest(),
+            card: CardAdd = CardAdd(
+                number=None,
                 name=None,
                 devices=[],
                 ttl=60 * 60 * 24,
                 persist=False,
                 created_at=datetime.now(tz=timezone.utc),
-                owner_client_id=None,
+                owner_client_id=None
             ),
-            owner_client_id=None,
     ) -> CardModel:
         """
-        Adds a new card to the system or updates an existing one based on the update_mode value.
+        Adds a new card to the storage system, updating or validating its details as necessary.
 
-        If the update_mode is set to False and a card with the same number already exists,
-        a ValueError will be raised. Otherwise, the function stores the card in the Redis
-        database. Optionally, the TTL (time-to-live) and persistence of the card can be
-        configured.
+        The function ensures the card has a unique number, validates required fields, and stores
+        the card data into the Redis database. Additionally, it associates the card with an owner
+        if provided, manages the card's expiration or persistence based on the configuration, and
+        guarantees adherence to the constraints defined.
 
-        :param card: The card details to be added or updated. Defaults to a new dynamically
-            created CardModel with a unique number, no name, empty devices list,
-            24-hour TTL, and no persistence.
-        :type card: CardModel
+        :param card: The card object containing the properties such as number, name, associated devices,
+            time-to-live duration, persistence flag, creation time, and owner client ID.
+        :type card: CardAdd
 
-        :return: The CardModel object representing the added or updated card.
+        :return: The card object as created and stored in the system.
         :rtype: CardModel
-        :raises ValueError: If `update_mode` is False and a card with the same
-            number already exists in the database.
         """
         card.number = card.number.upper()
+
+        # Check whether the time unit has been transmitted
+        if card.ttl in [None, 0, -1] \
+                and card.persist == False \
+                and card.end_at is None:
+            raise ValueError(
+                "TTL, Persist and End_at cannot all be None. "
+                "You must provide a time unit for the card to expire. Or set persist = true."
+            )
+
+        # If ttl does not exist and persist is not true, ensure end_at is provided
+        if card.ttl is None and not card.persist and card.end_at is None:
+            raise ValueError("When ttl is not set and persist is False, end_at must be provided.")
+
+        # Generate a card when there is no card number
+        if not card.number:
+            for i in range(10):
+                card.number = f"{int(datetime.now().timestamp())}{uuid.uuid4().int % 10000:04}"
+                if not self.redis.exists(card.number):
+                    break
+                else:
+                    continue
+            else:
+                raise ValueError("Failed to generate a unique card number.")
 
         # If card exists
         if self.redis.exists(card.number):
@@ -242,11 +273,3 @@ class Card:
             except Exception as e:
                 logger.warning(f"Failed to load card {num}: {e}")
         return cards
-
-
-class CardQuery(BaseModel):
-    card_number: str = Field(..., description="Card number to be queried")
-
-
-class CardIdentifyResponse(CardModel):
-    message: str = Field(..., description="Response message")

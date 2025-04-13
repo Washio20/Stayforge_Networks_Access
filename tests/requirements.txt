@@ -1,0 +1,11 @@
+pytest
+fakeredis
+requests
+fastapi
+python-jose
+dotenv
+python-dotenv
+redis
+pydantic
+starlette
+uvicorn

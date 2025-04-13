@@ -35,30 +35,253 @@
         "documentation": {}
     },
     {
-        "label": "hashlib",
+        "label": "requests",
         "kind": 6,
         "isExtraImport": true,
-        "importPath": "hashlib",
-        "description": "hashlib",
-        "detail": "hashlib",
+        "importPath": "requests",
+        "description": "requests",
+        "detail": "requests",
         "documentation": {}
     },
     {
-        "label": "json",
-        "kind": 6,
+        "label": "Request",
+        "importPath": "fastapi",
+        "description": "fastapi",
         "isExtraImport": true,
-        "importPath": "json",
-        "description": "json",
-        "detail": "json",
+        "detail": "fastapi",
         "documentation": {}
     },
     {
-        "label": "uuid",
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Request",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Header",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Depends",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "jwt",
+        "importPath": "jose",
+        "description": "jose",
+        "isExtraImport": true,
+        "detail": "jose",
+        "documentation": {}
+    },
+    {
+        "label": "AUTH0_DOMAIN",
+        "importPath": "env",
+        "description": "env",
+        "isExtraImport": true,
+        "detail": "env",
+        "documentation": {}
+    },
+    {
+        "label": "AUTH0_ALGORITHMS",
+        "importPath": "env",
+        "description": "env",
+        "isExtraImport": true,
+        "detail": "env",
+        "documentation": {}
+    },
+    {
+        "label": "AUTH0_API_IDENTIFIER",
+        "importPath": "env",
+        "description": "env",
+        "isExtraImport": true,
+        "detail": "env",
+        "documentation": {}
+    },
+    {
+        "label": "FOUNDRY_AUTH0_CLIENT_ID",
+        "importPath": "env",
+        "description": "env",
+        "isExtraImport": true,
+        "detail": "env",
+        "documentation": {}
+    },
+    {
+        "label": "AUTH0_API_IDENTIFIER",
+        "importPath": "env",
+        "description": "env",
+        "isExtraImport": true,
+        "detail": "env",
+        "documentation": {}
+    },
+    {
+        "label": "AUTH0_DOMAIN",
+        "importPath": "env",
+        "description": "env",
+        "isExtraImport": true,
+        "detail": "env",
+        "documentation": {}
+    },
+    {
+        "label": "FOUNDRY_AUTH0_CLIENT_SECRET",
+        "importPath": "env",
+        "description": "env",
+        "isExtraImport": true,
+        "detail": "env",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "pytest",
         "kind": 6,
         "isExtraImport": true,
-        "importPath": "uuid",
-        "description": "uuid",
-        "detail": "uuid",
+        "importPath": "pytest",
+        "description": "pytest",
+        "detail": "pytest",
+        "documentation": {}
+    },
+    {
+        "label": "FakeStrictRedis",
+        "importPath": "fakeredis",
+        "description": "fakeredis",
+        "isExtraImport": true,
+        "detail": "fakeredis",
+        "documentation": {}
+    },
+    {
+        "label": "Card",
+        "importPath": "card",
+        "description": "card",
+        "isExtraImport": true,
+        "detail": "card",
+        "documentation": {}
+    },
+    {
+        "label": "CardAdd",
+        "importPath": "card",
+        "description": "card",
+        "isExtraImport": true,
+        "detail": "card",
+        "documentation": {}
+    },
+    {
+        "label": "Card",
+        "importPath": "card",
+        "description": "card",
+        "isExtraImport": true,
+        "detail": "card",
+        "documentation": {}
+    },
+    {
+        "label": "CardIdentifyResponse",
+        "importPath": "card",
+        "description": "card",
+        "isExtraImport": true,
+        "detail": "card",
+        "documentation": {}
+    },
+    {
+        "label": "CardModel",
+        "importPath": "card",
+        "description": "card",
+        "isExtraImport": true,
+        "detail": "card",
+        "documentation": {}
+    },
+    {
+        "label": "CardQuery",
+        "importPath": "card",
+        "description": "card",
+        "isExtraImport": true,
+        "detail": "card",
+        "documentation": {}
+    },
+    {
+        "label": "CardAdd",
+        "importPath": "card",
+        "description": "card",
+        "isExtraImport": true,
+        "detail": "card",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timezone",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
         "documentation": {}
     },
     {
@@ -78,11 +301,29 @@
         "documentation": {}
     },
     {
-        "label": "*",
-        "importPath": "typing",
-        "description": "typing",
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
         "isExtraImport": true,
-        "detail": "typing",
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "uuid",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "uuid",
+        "description": "uuid",
+        "detail": "uuid",
         "documentation": {}
     },
     {
@@ -119,27 +360,43 @@
         "documentation": {}
     },
     {
-        "label": "FastAPI",
-        "importPath": "fastapi",
-        "description": "fastapi",
+        "label": "model_validator",
+        "importPath": "pydantic",
+        "description": "pydantic",
         "isExtraImport": true,
-        "detail": "fastapi",
+        "detail": "pydantic",
         "documentation": {}
     },
     {
-        "label": "Request",
-        "importPath": "fastapi",
-        "description": "fastapi",
+        "label": "Field",
+        "importPath": "pydantic",
+        "description": "pydantic",
         "isExtraImport": true,
-        "detail": "fastapi",
+        "detail": "pydantic",
         "documentation": {}
     },
     {
-        "label": "HTTPException",
-        "importPath": "fastapi",
-        "description": "fastapi",
+        "label": "ValidationError",
+        "importPath": "pydantic",
+        "description": "pydantic",
         "isExtraImport": true,
-        "detail": "fastapi",
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "urlencode",
+        "importPath": "urllib.parse",
+        "description": "urllib.parse",
+        "isExtraImport": true,
+        "detail": "urllib.parse",
         "documentation": {}
     },
     {
@@ -151,6 +408,22 @@
         "documentation": {}
     },
     {
+        "label": "RedirectResponse",
+        "importPath": "fastapi.responses",
+        "description": "fastapi.responses",
+        "isExtraImport": true,
+        "detail": "fastapi.responses",
+        "documentation": {}
+    },
+    {
+        "label": "JSONResponse",
+        "importPath": "starlette.responses",
+        "description": "starlette.responses",
+        "isExtraImport": true,
+        "detail": "starlette.responses",
+        "documentation": {}
+    },
+    {
         "label": "logger",
         "importPath": "uvicorn.config",
         "description": "uvicorn.config",
@@ -159,27 +432,19 @@
         "documentation": {}
     },
     {
-        "label": "Card",
-        "importPath": "card",
-        "description": "card",
+        "label": "load_master_doc",
+        "importPath": "documents",
+        "description": "documents",
         "isExtraImport": true,
-        "detail": "card",
+        "detail": "documents",
         "documentation": {}
     },
     {
-        "label": "CardIdentifyResponse",
-        "importPath": "card",
-        "description": "card",
+        "label": "require_permission",
+        "importPath": "src.auth.auth",
+        "description": "src.auth.auth",
         "isExtraImport": true,
-        "detail": "card",
-        "documentation": {}
-    },
-    {
-        "label": "CardModel",
-        "importPath": "card",
-        "description": "card",
-        "isExtraImport": true,
-        "detail": "card",
+        "detail": "src.auth.auth",
         "documentation": {}
     },
     {
@@ -264,11 +529,245 @@
         "documentation": {}
     },
     {
+        "label": "get_token_auth_header",
+        "kind": 2,
+        "importPath": "src.auth.auth",
+        "description": "src.auth.auth",
+        "peekOfCode": "def get_token_auth_header(request: Request):\n    auth = request.headers.get(\"Authorization\", None)\n    if not auth:\n        raise HTTPException(status_code=401, detail=\"Authorization header is expected.\")\n    parts = auth.split()\n    if parts[0].lower() != \"bearer\":\n        raise HTTPException(status_code=401, detail=\"Authorization header must start with Bearer.\")\n    elif len(parts) == 1:\n        raise HTTPException(status_code=401, detail=\"Token not found.\")\n    elif len(parts) > 2:",
+        "detail": "src.auth.auth",
+        "documentation": {}
+    },
+    {
+        "label": "verify_jwt",
+        "kind": 2,
+        "importPath": "src.auth.auth",
+        "description": "src.auth.auth",
+        "peekOfCode": "def verify_jwt(token: str):\n    unverified_header = jwt.get_unverified_header(token)\n    rsa_key = {}\n    for key in jwks[\"keys\"]:\n        if key[\"kid\"] == unverified_header[\"kid\"]:\n            rsa_key = jwt.construct_rsa_public_key(key)\n            break\n    if not rsa_key:\n        raise HTTPException(status_code=401, detail=\"Unable to find appropriate key.\")\n    return jwt.decode(token, rsa_key, algorithms=AUTH0_ALGORITHMS, audience=AUTH0_API_IDENTIFIER,",
+        "detail": "src.auth.auth",
+        "documentation": {}
+    },
+    {
+        "label": "require_permission",
+        "kind": 2,
+        "importPath": "src.auth.auth",
+        "description": "src.auth.auth",
+        "peekOfCode": "def require_permission(permission: str):\n    async def wrapper(request: Request):\n        token = get_token_auth_header(request)\n        payload = verify_jwt(token)\n        permissions = payload.get(\"permissions\", [])\n        if permission not in permissions:\n            raise HTTPException(status_code=403, detail=\"Permission not found.\")\n    return wrapper",
+        "detail": "src.auth.auth",
+        "documentation": {}
+    },
+    {
+        "label": "jwks_url",
+        "kind": 5,
+        "importPath": "src.auth.auth",
+        "description": "src.auth.auth",
+        "peekOfCode": "jwks_url = f'https://{AUTH0_DOMAIN}/.well-known/jwks.json'\njwks = requests.get(jwks_url).json()\ndef get_token_auth_header(request: Request):\n    auth = request.headers.get(\"Authorization\", None)\n    if not auth:\n        raise HTTPException(status_code=401, detail=\"Authorization header is expected.\")\n    parts = auth.split()\n    if parts[0].lower() != \"bearer\":\n        raise HTTPException(status_code=401, detail=\"Authorization header must start with Bearer.\")\n    elif len(parts) == 1:",
+        "detail": "src.auth.auth",
+        "documentation": {}
+    },
+    {
+        "label": "jwks",
+        "kind": 5,
+        "importPath": "src.auth.auth",
+        "description": "src.auth.auth",
+        "peekOfCode": "jwks = requests.get(jwks_url).json()\ndef get_token_auth_header(request: Request):\n    auth = request.headers.get(\"Authorization\", None)\n    if not auth:\n        raise HTTPException(status_code=401, detail=\"Authorization header is expected.\")\n    parts = auth.split()\n    if parts[0].lower() != \"bearer\":\n        raise HTTPException(status_code=401, detail=\"Authorization header must start with Bearer.\")\n    elif len(parts) == 1:\n        raise HTTPException(status_code=401, detail=\"Token not found.\")",
+        "detail": "src.auth.auth",
+        "documentation": {}
+    },
+    {
+        "label": "mock_redis",
+        "kind": 2,
+        "importPath": "tests.test_add_card_time_units",
+        "description": "tests.test_add_card_time_units",
+        "peekOfCode": "def mock_redis():\n    \"\"\"\n    Fixture to create a fake Redis instance\n    \"\"\"\n    return FakeStrictRedis()\n@pytest.fixture\ndef card(mock_redis):\n    \"\"\"\n    Fixture to create a Card instance with mocked Redis\n    \"\"\"",
+        "detail": "tests.test_add_card_time_units",
+        "documentation": {}
+    },
+    {
+        "label": "card",
+        "kind": 2,
+        "importPath": "tests.test_add_card_time_units",
+        "description": "tests.test_add_card_time_units",
+        "peekOfCode": "def card(mock_redis):\n    \"\"\"\n    Fixture to create a Card instance with mocked Redis\n    \"\"\"\n    card_instance = Card()\n    card_instance.redis = mock_redis\n    return card_instance\ndef truncate_to_minute(dt):\n    return dt.replace(second=0, microsecond=0)\nfrom datetime import datetime, timedelta, timezone",
+        "detail": "tests.test_add_card_time_units",
+        "documentation": {}
+    },
+    {
+        "label": "truncate_to_minute",
+        "kind": 2,
+        "importPath": "tests.test_add_card_time_units",
+        "description": "tests.test_add_card_time_units",
+        "peekOfCode": "def truncate_to_minute(dt):\n    return dt.replace(second=0, microsecond=0)\nfrom datetime import datetime, timedelta, timezone\nexpect_ttl = 3600\nexpect_start_at = datetime.now(timezone.utc)\nexpect_end_at = expect_start_at + timedelta(seconds=expect_ttl)\nttl_tolerance = 10\ndef output_comparison_data(\n        result,\n        expect_start_at: Optional[datetime] = None,",
+        "detail": "tests.test_add_card_time_units",
+        "documentation": {}
+    },
+    {
+        "label": "output_comparison_data",
+        "kind": 2,
+        "importPath": "tests.test_add_card_time_units",
+        "description": "tests.test_add_card_time_units",
+        "peekOfCode": "def output_comparison_data(\n        result,\n        expect_start_at: Optional[datetime] = None,\n        expect_end_at: Optional[datetime] = None,\n        expect_ttl: Optional[int] = None,\n):\n    print(\"\\r\\n\")\n    print(f\"ttl_tolerance = {ttl_tolerance}\\r\\n\")\n    print(\n        \"[start_at] \\n\"",
+        "detail": "tests.test_add_card_time_units",
+        "documentation": {}
+    },
+    {
+        "label": "test_case_1_ttl_only",
+        "kind": 2,
+        "importPath": "tests.test_add_card_time_units",
+        "description": "tests.test_add_card_time_units",
+        "peekOfCode": "def test_case_1_ttl_only(card):\n    \"\"\"\n    Case ①: ttl provided, no start_at, no end_at\n    Expected: start_at = now, end_at = start_at + ttl, Redis TTL is set\n    \"\"\"\n    card_data = CardAdd(\n        number=\"TEST123456\",\n        devices=[\"device1\"],\n        ttl=expect_ttl\n    )",
+        "detail": "tests.test_add_card_time_units",
+        "documentation": {}
+    },
+    {
+        "label": "test_case_2_ttl_and_start_at",
+        "kind": 2,
+        "importPath": "tests.test_add_card_time_units",
+        "description": "tests.test_add_card_time_units",
+        "peekOfCode": "def test_case_2_ttl_and_start_at(card):\n    \"\"\"\n    Case ②: ttl and start_at provided, no end_at\n    Expected: using provided start_at; end_at = start_at + ttl, Redis TTL is set\n    \"\"\"\n    card_data = CardAdd(\n        number=\"TEST123457\",\n        devices=[\"device1\"],\n        ttl=expect_ttl,\n        start_at=expect_start_at",
+        "detail": "tests.test_add_card_time_units",
+        "documentation": {}
+    },
+    {
+        "label": "test_case_3_ttl_and_end_at",
+        "kind": 2,
+        "importPath": "tests.test_add_card_time_units",
+        "description": "tests.test_add_card_time_units",
+        "peekOfCode": "def test_case_3_ttl_and_end_at(card):\n    \"\"\"\n    Case ③: ttl and end_at provided, no start_at\n    Expected: using provided end_at; start_at = end_at - ttl, Redis TTL is set\n    \"\"\"\n    card_data = CardAdd(\n        number=\"TEST123458\",\n        devices=[\"device1\"],\n        ttl=expect_ttl,\n        end_at=expect_end_at",
+        "detail": "tests.test_add_card_time_units",
+        "documentation": {}
+    },
+    {
+        "label": "test_case_4_all_fields_provided",
+        "kind": 2,
+        "importPath": "tests.test_add_card_time_units",
+        "description": "tests.test_add_card_time_units",
+        "peekOfCode": "def test_case_4_all_fields_provided(card):\n    \"\"\"\n    Case ④: ttl, start_at, and end_at provided\n    Expected: using provided start_at and end_at; Redis TTL is set as provided\n    \"\"\"\n    card_data = CardAdd(\n        number=\"TEST123459\",\n        devices=[\"device1\"],\n        ttl=expect_ttl,\n        start_at=expect_start_at,",
+        "detail": "tests.test_add_card_time_units",
+        "documentation": {}
+    },
+    {
+        "label": "test_case_5_start_at_and_end_at",
+        "kind": 2,
+        "importPath": "tests.test_add_card_time_units",
+        "description": "tests.test_add_card_time_units",
+        "peekOfCode": "def test_case_5_start_at_and_end_at(card):\n    \"\"\"\n    Case ⑤: start_at and end_at provided, no ttl\n    Expected: ttl is computed as (end_at - start_at)\n    \"\"\"\n    card_data = CardAdd(\n        number=\"TEST123460\",\n        devices=[\"device1\"],\n        start_at=expect_start_at,\n        end_at=expect_end_at",
+        "detail": "tests.test_add_card_time_units",
+        "documentation": {}
+    },
+    {
+        "label": "test_case_6_start_at_only",
+        "kind": 2,
+        "importPath": "tests.test_add_card_time_units",
+        "description": "tests.test_add_card_time_units",
+        "peekOfCode": "def test_case_6_start_at_only(card):\n    \"\"\"\n    Case ⑥: start_at provided only, no ttl, no end_at\n    Expected: start_at is used; ttl and end_at remain None\n    \"\"\"\n    card_data = CardAdd(\n        number=\"TEST123461\",\n        devices=[\"device1\"],\n        start_at=expect_start_at\n    )",
+        "detail": "tests.test_add_card_time_units",
+        "documentation": {}
+    },
+    {
+        "label": "test_case_7_end_at_only",
+        "kind": 2,
+        "importPath": "tests.test_add_card_time_units",
+        "description": "tests.test_add_card_time_units",
+        "peekOfCode": "def test_case_7_end_at_only(card):\n    \"\"\"\n    Case ⑦: end_at provided only, no ttl, no start_at\n    Expected: end_at is used; ttl and start_at remain None\n    \"\"\"\n    card_data = CardAdd(\n        number=\"TEST123462\",\n        devices=[\"device1\"],\n        end_at=expect_end_at\n    )",
+        "detail": "tests.test_add_card_time_units",
+        "documentation": {}
+    },
+    {
+        "label": "test_case_8_no_time_fields",
+        "kind": 2,
+        "importPath": "tests.test_add_card_time_units",
+        "description": "tests.test_add_card_time_units",
+        "peekOfCode": "def test_case_8_no_time_fields(card):\n    \"\"\"\n    Case ⑧: no time fields provided\n    Expected: start_at = now; ttl and end_at remain None\n    \"\"\"\n    try:\n        card_data = CardAdd(\n            number=\"TEST123463\",\n            devices=[\"device1\"]\n        )",
+        "detail": "tests.test_add_card_time_units",
+        "documentation": {}
+    },
+    {
+        "label": "test_persist_true",
+        "kind": 2,
+        "importPath": "tests.test_add_card_time_units",
+        "description": "tests.test_add_card_time_units",
+        "peekOfCode": "def test_persist_true(card):\n    \"\"\"\n    Case: persist flag provided True\n    Expected: persist is True and ttl is not set\n    \"\"\"\n    card_data = CardAdd(\n        number=\"TEST123464\",\n        devices=[\"device1\"],\n        persist=True\n    )",
+        "detail": "tests.test_add_card_time_units",
+        "documentation": {}
+    },
+    {
+        "label": "test_duplicate_card_number",
+        "kind": 2,
+        "importPath": "tests.test_add_card_time_units",
+        "description": "tests.test_add_card_time_units",
+        "peekOfCode": "def test_duplicate_card_number(card):\n    \"\"\"\n    Case: duplicate card number\n    Expected: adding a card with an existing number should raise an Exception\n    \"\"\"\n    card_data = CardAdd(\n        number=\"TEST123465\",\n        devices=[\"device1\"],\n        ttl=3600\n    )",
+        "detail": "tests.test_add_card_time_units",
+        "documentation": {}
+    },
+    {
+        "label": "expect_ttl",
+        "kind": 5,
+        "importPath": "tests.test_add_card_time_units",
+        "description": "tests.test_add_card_time_units",
+        "peekOfCode": "expect_ttl = 3600\nexpect_start_at = datetime.now(timezone.utc)\nexpect_end_at = expect_start_at + timedelta(seconds=expect_ttl)\nttl_tolerance = 10\ndef output_comparison_data(\n        result,\n        expect_start_at: Optional[datetime] = None,\n        expect_end_at: Optional[datetime] = None,\n        expect_ttl: Optional[int] = None,\n):",
+        "detail": "tests.test_add_card_time_units",
+        "documentation": {}
+    },
+    {
+        "label": "expect_start_at",
+        "kind": 5,
+        "importPath": "tests.test_add_card_time_units",
+        "description": "tests.test_add_card_time_units",
+        "peekOfCode": "expect_start_at = datetime.now(timezone.utc)\nexpect_end_at = expect_start_at + timedelta(seconds=expect_ttl)\nttl_tolerance = 10\ndef output_comparison_data(\n        result,\n        expect_start_at: Optional[datetime] = None,\n        expect_end_at: Optional[datetime] = None,\n        expect_ttl: Optional[int] = None,\n):\n    print(\"\\r\\n\")",
+        "detail": "tests.test_add_card_time_units",
+        "documentation": {}
+    },
+    {
+        "label": "expect_end_at",
+        "kind": 5,
+        "importPath": "tests.test_add_card_time_units",
+        "description": "tests.test_add_card_time_units",
+        "peekOfCode": "expect_end_at = expect_start_at + timedelta(seconds=expect_ttl)\nttl_tolerance = 10\ndef output_comparison_data(\n        result,\n        expect_start_at: Optional[datetime] = None,\n        expect_end_at: Optional[datetime] = None,\n        expect_ttl: Optional[int] = None,\n):\n    print(\"\\r\\n\")\n    print(f\"ttl_tolerance = {ttl_tolerance}\\r\\n\")",
+        "detail": "tests.test_add_card_time_units",
+        "documentation": {}
+    },
+    {
+        "label": "ttl_tolerance",
+        "kind": 5,
+        "importPath": "tests.test_add_card_time_units",
+        "description": "tests.test_add_card_time_units",
+        "peekOfCode": "ttl_tolerance = 10\ndef output_comparison_data(\n        result,\n        expect_start_at: Optional[datetime] = None,\n        expect_end_at: Optional[datetime] = None,\n        expect_ttl: Optional[int] = None,\n):\n    print(\"\\r\\n\")\n    print(f\"ttl_tolerance = {ttl_tolerance}\\r\\n\")\n    print(",
+        "detail": "tests.test_add_card_time_units",
+        "documentation": {}
+    },
+    {
         "label": "CardModel",
         "kind": 6,
         "importPath": "card",
         "description": "card",
-        "peekOfCode": "class CardModel(BaseModel):\n    number: constr(min_length=8, max_length=128)  # Key\n    name: Optional[str]\n    devices: List[str]\n    ttl: int = 60 * 60 * 24\n    persist: bool = False\n    created_at: Optional[datetime] = datetime.now(tz=timezone.utc)\n    owner_client_id: Optional[str] = None\nclass Card:\n    def __init__(self, environment='STANDARD'):",
+        "peekOfCode": "class CardModel(BaseModel):\n    number: constr(min_length=8, max_length=128) = Field(\n        ..., description=\"Card unique identification code\"\n    )\n    name: Optional[str] = Field(\n        None, description=\"Display name\"\n    )\n    devices: List[str] = Field(\n        ..., description=\"Bind the device list\"\n    )",
+        "detail": "card",
+        "documentation": {}
+    },
+    {
+        "label": "CardAdd",
+        "kind": 6,
+        "importPath": "card",
+        "description": "card",
+        "peekOfCode": "class CardAdd(CardModel):\n    number: Optional[constr(min_length=8, max_length=128)]\nclass CardQuery(BaseModel):\n    number: str = Field(..., description=\"Card number to be queried\")\nclass CardIdentifyResponse(CardModel):\n    message: str = Field(..., description=\"Response message\")\nclass Card:\n    def __init__(self, environment='STANDARD'):\n        def _connect_to_redis(host=os.getenv('REDIS_HOST'), port=os.getenv(\"REDIS_PORT\", 6379), db=0):\n            try:",
+        "detail": "card",
+        "documentation": {}
+    },
+    {
+        "label": "CardQuery",
+        "kind": 6,
+        "importPath": "card",
+        "description": "card",
+        "peekOfCode": "class CardQuery(BaseModel):\n    number: str = Field(..., description=\"Card number to be queried\")\nclass CardIdentifyResponse(CardModel):\n    message: str = Field(..., description=\"Response message\")\nclass Card:\n    def __init__(self, environment='STANDARD'):\n        def _connect_to_redis(host=os.getenv('REDIS_HOST'), port=os.getenv(\"REDIS_PORT\", 6379), db=0):\n            try:\n                connection = redis.StrictRedis(host=host, port=port, db=db)\n                connection.ping()  # Test the connection",
+        "detail": "card",
+        "documentation": {}
+    },
+    {
+        "label": "CardIdentifyResponse",
+        "kind": 6,
+        "importPath": "card",
+        "description": "card",
+        "peekOfCode": "class CardIdentifyResponse(CardModel):\n    message: str = Field(..., description=\"Response message\")\nclass Card:\n    def __init__(self, environment='STANDARD'):\n        def _connect_to_redis(host=os.getenv('REDIS_HOST'), port=os.getenv(\"REDIS_PORT\", 6379), db=0):\n            try:\n                connection = redis.StrictRedis(host=host, port=port, db=db)\n                connection.ping()  # Test the connection\n                logger.info(\"Successfully connected to Redis!\")\n                return connection",
         "detail": "card",
         "documentation": {}
     },
@@ -282,12 +781,75 @@
         "documentation": {}
     },
     {
-        "label": "CardIdentifyResponse",
-        "kind": 6,
-        "importPath": "card",
-        "description": "card",
-        "peekOfCode": "class CardIdentifyResponse(CardModel):\n    message: str",
-        "detail": "card",
+        "label": "AUTH0_DOMAIN",
+        "kind": 5,
+        "importPath": "env",
+        "description": "env",
+        "peekOfCode": "AUTH0_DOMAIN = os.getenv('AUTH0_DOMAIN', 'auth.stayforge.io')\nAUTH0_API_IDENTIFIER = os.getenv('AUTH0_API_IDENTIFIER', 'https://api.networks.stayforge.io')\nAUTH0_ALGORITHMS = ['RS256']\nAUTH0_NAMESPACE = os.getenv('AUTH0_NAMESPACE', 'https://identify.access.networks.stayforge.io')\nFOUNDRY_AUTH0_CLIENT_ID = os.getenv('FOUNDRY_AUTH0_CLIENT_ID')\nFOUNDRY_AUTH0_CLIENT_SECRET = os.getenv('FOUNDRY_AUTH0_CLIENT_SECRET')\nAUTH0_AUDIENCE = os.getenv('AUTH0_AUDIENCE', 'https://api.networks.stayforge.io')",
+        "detail": "env",
+        "documentation": {}
+    },
+    {
+        "label": "AUTH0_API_IDENTIFIER",
+        "kind": 5,
+        "importPath": "env",
+        "description": "env",
+        "peekOfCode": "AUTH0_API_IDENTIFIER = os.getenv('AUTH0_API_IDENTIFIER', 'https://api.networks.stayforge.io')\nAUTH0_ALGORITHMS = ['RS256']\nAUTH0_NAMESPACE = os.getenv('AUTH0_NAMESPACE', 'https://identify.access.networks.stayforge.io')\nFOUNDRY_AUTH0_CLIENT_ID = os.getenv('FOUNDRY_AUTH0_CLIENT_ID')\nFOUNDRY_AUTH0_CLIENT_SECRET = os.getenv('FOUNDRY_AUTH0_CLIENT_SECRET')\nAUTH0_AUDIENCE = os.getenv('AUTH0_AUDIENCE', 'https://api.networks.stayforge.io')",
+        "detail": "env",
+        "documentation": {}
+    },
+    {
+        "label": "AUTH0_ALGORITHMS",
+        "kind": 5,
+        "importPath": "env",
+        "description": "env",
+        "peekOfCode": "AUTH0_ALGORITHMS = ['RS256']\nAUTH0_NAMESPACE = os.getenv('AUTH0_NAMESPACE', 'https://identify.access.networks.stayforge.io')\nFOUNDRY_AUTH0_CLIENT_ID = os.getenv('FOUNDRY_AUTH0_CLIENT_ID')\nFOUNDRY_AUTH0_CLIENT_SECRET = os.getenv('FOUNDRY_AUTH0_CLIENT_SECRET')\nAUTH0_AUDIENCE = os.getenv('AUTH0_AUDIENCE', 'https://api.networks.stayforge.io')",
+        "detail": "env",
+        "documentation": {}
+    },
+    {
+        "label": "AUTH0_NAMESPACE",
+        "kind": 5,
+        "importPath": "env",
+        "description": "env",
+        "peekOfCode": "AUTH0_NAMESPACE = os.getenv('AUTH0_NAMESPACE', 'https://identify.access.networks.stayforge.io')\nFOUNDRY_AUTH0_CLIENT_ID = os.getenv('FOUNDRY_AUTH0_CLIENT_ID')\nFOUNDRY_AUTH0_CLIENT_SECRET = os.getenv('FOUNDRY_AUTH0_CLIENT_SECRET')\nAUTH0_AUDIENCE = os.getenv('AUTH0_AUDIENCE', 'https://api.networks.stayforge.io')",
+        "detail": "env",
+        "documentation": {}
+    },
+    {
+        "label": "FOUNDRY_AUTH0_CLIENT_ID",
+        "kind": 5,
+        "importPath": "env",
+        "description": "env",
+        "peekOfCode": "FOUNDRY_AUTH0_CLIENT_ID = os.getenv('FOUNDRY_AUTH0_CLIENT_ID')\nFOUNDRY_AUTH0_CLIENT_SECRET = os.getenv('FOUNDRY_AUTH0_CLIENT_SECRET')\nAUTH0_AUDIENCE = os.getenv('AUTH0_AUDIENCE', 'https://api.networks.stayforge.io')",
+        "detail": "env",
+        "documentation": {}
+    },
+    {
+        "label": "FOUNDRY_AUTH0_CLIENT_SECRET",
+        "kind": 5,
+        "importPath": "env",
+        "description": "env",
+        "peekOfCode": "FOUNDRY_AUTH0_CLIENT_SECRET = os.getenv('FOUNDRY_AUTH0_CLIENT_SECRET')\nAUTH0_AUDIENCE = os.getenv('AUTH0_AUDIENCE', 'https://api.networks.stayforge.io')",
+        "detail": "env",
+        "documentation": {}
+    },
+    {
+        "label": "AUTH0_AUDIENCE",
+        "kind": 5,
+        "importPath": "env",
+        "description": "env",
+        "peekOfCode": "AUTH0_AUDIENCE = os.getenv('AUTH0_AUDIENCE', 'https://api.networks.stayforge.io')",
+        "detail": "env",
+        "documentation": {}
+    },
+    {
+        "label": "verify_card",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def verify_card(device_sn: str, card_number: str, environment: str = \"STANDARD\",\n                client_id: Optional[str] = None) -> CardModel:\n    card_obj = Card(environment=environment.upper())\n    card_number = card_number.upper()\n    card = card_obj.get_a_card(card_number)\n    if not card_obj.is_card_active(card):\n        raise HTTPException(status_code=400, detail={\n            \"message\": \"Card is not active yet (before start time).\"\n        })\n    if client_id is not None and card.owner_client_id != client_id:",
+        "detail": "main",
         "documentation": {}
     },
     {
@@ -295,7 +857,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app = FastAPI()\n@app.get(\"/\")\nasync def healthcheck():\n    try:\n        Card()\n    except Exception as e:\n        tracer_code = str(uuid.uuid4()).replace(\"-\", \"\")\n        logger.error(f\"ERROR TRACER CODE '{tracer_code}': {e}\", exc_info=True)\n        return PlainTextResponse(f\"HTTP 500 ERROR ({tracer_code})\", status_code=500)\n    return PlainTextResponse(\"ok\")",
+        "peekOfCode": "app = FastAPI(\n    title=\"Stayforge Networks Access API\",\n    redoc_url=\"/docs\",\n    docs_url=\"/docs/swagger\",\n    version=\"1.0.0\",\n    description=load_master_doc(),\n)\n@app.get(\"/login\", tags=['auth'])\nasync def login(request: Request, org: Optional[str] = None):\n    base_url = str(request.base_url)",
         "detail": "main",
         "documentation": {}
     }
