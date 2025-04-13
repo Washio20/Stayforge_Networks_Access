@@ -7,12 +7,14 @@ from pydantic import ValidationError
 from uvicorn.config import logger
 
 from card import Card, CardIdentifyResponse, CardModel, CardQuery
+from documents import load_master_doc
 
 app = FastAPI(
     title="Stayforge Networks Access API",
     redoc_url="/docs",
     docs_url="/docs/swagger",
     version="1.0.0",
+    description=load_master_doc(),
 )
 
 
@@ -39,7 +41,7 @@ async def get_a_card_information(card_info: CardQuery):
         )
 
 
-@app.post("/card/add", response_model=CardModel, tags=["card"])
+@app.post("/card/add", response_model=CardModel, tags=["card"], description="Add a new card to the system.")
 async def create_a_card(
         card: CardModel,
         x_environment: str = Header("standard", alias="X-Environment")
