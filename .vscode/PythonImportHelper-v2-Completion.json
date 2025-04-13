@@ -164,30 +164,6 @@
         "documentation": {}
     },
     {
-        "label": "Optional",
-        "importPath": "typing",
-        "description": "typing",
-        "isExtraImport": true,
-        "detail": "typing",
-        "documentation": {}
-    },
-    {
-        "label": "*",
-        "importPath": "typing",
-        "description": "typing",
-        "isExtraImport": true,
-        "detail": "typing",
-        "documentation": {}
-    },
-    {
-        "label": "Optional",
-        "importPath": "typing",
-        "description": "typing",
-        "isExtraImport": true,
-        "detail": "typing",
-        "documentation": {}
-    },
-    {
         "label": "pytest",
         "kind": 6,
         "isExtraImport": true,
@@ -202,6 +178,22 @@
         "description": "fakeredis",
         "isExtraImport": true,
         "detail": "fakeredis",
+        "documentation": {}
+    },
+    {
+        "label": "FakeStrictRedis",
+        "importPath": "fakeredis",
+        "description": "fakeredis",
+        "isExtraImport": true,
+        "detail": "fakeredis",
+        "documentation": {}
+    },
+    {
+        "label": "ValidationError",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
         "documentation": {}
     },
     {
@@ -277,6 +269,22 @@
         "documentation": {}
     },
     {
+        "label": "CardAdd",
+        "importPath": "card",
+        "description": "card",
+        "isExtraImport": true,
+        "detail": "card",
+        "documentation": {}
+    },
+    {
+        "label": "Card",
+        "importPath": "card",
+        "description": "card",
+        "isExtraImport": true,
+        "detail": "card",
+        "documentation": {}
+    },
+    {
         "label": "CardIdentifyResponse",
         "importPath": "card",
         "description": "card",
@@ -306,6 +314,30 @@
         "description": "card",
         "isExtraImport": true,
         "detail": "card",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
         "documentation": {}
     },
     {
@@ -584,6 +616,60 @@
     {
         "label": "mock_redis",
         "kind": 2,
+        "importPath": "tests.test_add_card",
+        "description": "tests.test_add_card",
+        "peekOfCode": "def mock_redis():\n    # Setup fake redis instance for testing without a real Redis server\n    return FakeStrictRedis()\n@pytest.fixture\ndef card(mock_redis):\n    # Create and configure a Card instance with mocked redis backend\n    card_instance = Card()\n    card_instance.redis = mock_redis\n    return card_instance\n# Case: card number too short (invalid case)",
+        "detail": "tests.test_add_card",
+        "documentation": {}
+    },
+    {
+        "label": "card",
+        "kind": 2,
+        "importPath": "tests.test_add_card",
+        "description": "tests.test_add_card",
+        "peekOfCode": "def card(mock_redis):\n    # Create and configure a Card instance with mocked redis backend\n    card_instance = Card()\n    card_instance.redis = mock_redis\n    return card_instance\n# Case: card number too short (invalid case)\ndef test_card_number_too_short(card):\n    with pytest.raises(ValidationError):\n        card_data = CardAdd(\n            number=\"1234\",  # Less than 8 characters, should be invalid",
+        "detail": "tests.test_add_card",
+        "documentation": {}
+    },
+    {
+        "label": "test_card_number_too_short",
+        "kind": 2,
+        "importPath": "tests.test_add_card",
+        "description": "tests.test_add_card",
+        "peekOfCode": "def test_card_number_too_short(card):\n    with pytest.raises(ValidationError):\n        card_data = CardAdd(\n            number=\"1234\",  # Less than 8 characters, should be invalid\n            devices=[\"device1\"],\n            ttl=60\n        )\n        card.add_card(card_data)\n# Case: card number too long (invalid case)\ndef test_card_number_too_long(card):",
+        "detail": "tests.test_add_card",
+        "documentation": {}
+    },
+    {
+        "label": "test_card_number_too_long",
+        "kind": 2,
+        "importPath": "tests.test_add_card",
+        "description": "tests.test_add_card",
+        "peekOfCode": "def test_card_number_too_long(card):\n    with pytest.raises(ValidationError):\n        card_data = CardAdd(\n            number=\"A\" * 129,\n            devices=[\"device1\"],\n            ttl=60\n        )\n        # Assume that ValueError will be thrown out when the card number does not meet the requirements\n        card.add_card(card_data)\n# Case: card number contains illegal characters (invalid case)",
+        "detail": "tests.test_add_card",
+        "documentation": {}
+    },
+    {
+        "label": "test_card_number_illegal_characters",
+        "kind": 2,
+        "importPath": "tests.test_add_card",
+        "description": "tests.test_add_card",
+        "peekOfCode": "def test_card_number_illegal_characters(card):\n    with pytest.raises(ValidationError):\n        card_data = CardAdd(\n            number=\"TEST#123\",  # Contains illegal characters '#'\n            devices=[\"device1\"],\n            ttl=60\n        )\n        # Assuming that illegal characters cause an error, throw out ValueError\n        card.add_card(card_data)\n# Case: valid card number using boundary of allowed characters count (8 and 128 characters)",
+        "detail": "tests.test_add_card",
+        "documentation": {}
+    },
+    {
+        "label": "test_card_number_valid_boundaries",
+        "kind": 2,
+        "importPath": "tests.test_add_card",
+        "description": "tests.test_add_card",
+        "peekOfCode": "def test_card_number_valid_boundaries(card):\n    # Test 8 characters\n    card_data_min = CardAdd(\n        number=\"A1B2C3D4\",  # Exactly 8 characters\n        devices=[\"device1\"],\n        ttl=60\n    )\n    result_min = card.add_card(card_data_min)\n    assert result_min.number == \"A1B2C3D4\"\n    # Test 128 characters",
+        "detail": "tests.test_add_card",
+        "documentation": {}
+    },
+    {
+        "label": "mock_redis",
+        "kind": 2,
         "importPath": "tests.test_add_card_time_units",
         "description": "tests.test_add_card_time_units",
         "peekOfCode": "def mock_redis():\n    \"\"\"\n    A pytest fixture that creates and returns a mock instance of a\n    FakeStrictRedis. This can be used to simulate Redis operations\n    in tests without requiring a real Redis server.\n    :return: An instance of FakeStrictRedis\n    :rtype: FakeStrictRedis\n    \"\"\"\n    return FakeStrictRedis()\n@pytest.fixture",
@@ -802,7 +888,7 @@
         "kind": 6,
         "importPath": "card",
         "description": "card",
-        "peekOfCode": "class CardModel(BaseModel):\n    number: constr(min_length=8, max_length=128) = Field(\n        ..., description=\"Card unique identification code\"\n    )\n    name: Optional[str] = Field(\n        None, description=\"Display name\"\n    )\n    devices: List[str] = Field(\n        ..., description=\"Bind the device list\"\n    )",
+        "peekOfCode": "class CardModel(BaseModel):\n    number: constr(pattern=\"^[a-zA-Z0-9]{8,128}$\") = Field(\n        ..., description=\"Card unique identification code\"\n    )\n    name: Optional[constr(pattern=\"^[a-zA-Z0-9_-]{8,128}$\")] = Field(\n        None, description=\"Display name\"\n    )\n    devices: List[str] = Field(\n        ..., description=\"Bind the device list\"\n    )",
         "detail": "card",
         "documentation": {}
     },

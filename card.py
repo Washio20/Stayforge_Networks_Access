@@ -13,10 +13,10 @@ from pydantic import BaseModel, constr, model_validator, Field
 
 
 class CardModel(BaseModel):
-    number: constr(min_length=8, max_length=128) = Field(
+    number: constr(pattern="^[a-zA-Z0-9]{8,128}$") = Field(
         ..., description="Card unique identification code"
     )
-    name: Optional[str] = Field(
+    name: Optional[constr(pattern="^[a-zA-Z0-9_-]{8,128}$")] = Field(
         None, description="Display name"
     )
     devices: List[str] = Field(
@@ -74,6 +74,21 @@ class CardModel(BaseModel):
             return values
 
         values["ttl"] = None
+        return values
+
+    @model_validator(mode="before")
+    def uppercase_card_number(cls, values: dict) -> dict:
+        if "number" in values and values["number"]:
+            values["number"] = values["number"].upper()
+        return values
+
+    @model_validator(mode="before")
+    def validate_start_and_end(cls, values: dict) -> dict:
+        start_at = values.get("start_at")
+        end_at = values.get("end_at")
+
+        if start_at and end_at and start_at > end_at:
+            raise ValueError("start_at cannot be later than end_at")
         return values
 
 

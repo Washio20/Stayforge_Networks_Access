@@ -515,7 +515,7 @@ def test_invalid_time_combination_end_before_start(card):
 
         card.add_card(card_data)
         assert False, "End time before start time should raise an Exception"
-    except ValidationError as e:
+    except ValueError as e:
         print(f"Expected exception caught: {e}")
         assert True
 
