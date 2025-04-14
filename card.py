@@ -47,9 +47,11 @@ class CardModel(BaseModel):
     def fill_times(cls, values: dict) -> dict:
         now = datetime.now(tz=timezone.utc)
 
+        # If created_at is None, set it to now
         if values.get("created_at") is None:
             values["created_at"] = now
 
+        # If start_at is None, set it to now
         if values.get("start_at") is None:
             values["start_at"] = now
 
@@ -57,6 +59,14 @@ class CardModel(BaseModel):
         end_at = values.get("end_at")
         ttl = values.get("ttl")
         persist = values.get("persist", False)
+
+        # Convert end_at from string to datetime if necessary
+        if isinstance(end_at, str):
+            try:
+                end_at = datetime.fromisoformat(end_at)
+                values["end_at"] = end_at
+            except ValueError:
+                raise ValueError("Invalid datetime format for end_at")
 
         if persist:
             values["ttl"] = None

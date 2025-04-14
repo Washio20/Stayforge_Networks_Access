@@ -277,6 +277,14 @@
         "documentation": {}
     },
     {
+        "label": "CardModel",
+        "importPath": "card",
+        "description": "card",
+        "isExtraImport": true,
+        "detail": "card",
+        "documentation": {}
+    },
+    {
         "label": "Card",
         "importPath": "card",
         "description": "card",
@@ -354,6 +362,30 @@
         "description": "typing",
         "isExtraImport": true,
         "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timezone",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
         "documentation": {}
     },
     {
@@ -939,6 +971,69 @@
         "description": "tests.test_add_card_time_units",
         "peekOfCode": "ttl_tolerance = 10\ndef output_comparison_data(\n        result,\n        expect_start_at: Optional[datetime] = None,\n        expect_end_at: Optional[datetime] = None,\n        expect_ttl: Optional[int] = None,\n):\n    \"\"\"\n    Compares and outputs differences between the provided result data and the expected\n    values for a specified start time, end time, and time-to-live (TTL). This function",
         "detail": "tests.test_add_card_time_units",
+        "documentation": {}
+    },
+    {
+        "label": "default_card_data",
+        "kind": 2,
+        "importPath": "tests.test_card",
+        "description": "tests.test_card",
+        "peekOfCode": "def default_card_data():\n    return {\n        \"number\": \"CARD123456\",\n        \"devices\": [\"device1\", \"device2\"],\n    }\ndef test_fill_times_set_start_and_created_at(default_card_data):\n    card_data = CardModel(**default_card_data)\n    now = datetime.now(tz=timezone.utc)\n    assert card_data.created_at is not None\n    assert card_data.start_at is not None",
+        "detail": "tests.test_card",
+        "documentation": {}
+    },
+    {
+        "label": "test_fill_times_set_start_and_created_at",
+        "kind": 2,
+        "importPath": "tests.test_card",
+        "description": "tests.test_card",
+        "peekOfCode": "def test_fill_times_set_start_and_created_at(default_card_data):\n    card_data = CardModel(**default_card_data)\n    now = datetime.now(tz=timezone.utc)\n    assert card_data.created_at is not None\n    assert card_data.start_at is not None\n    assert abs((card_data.created_at - now).total_seconds()) < 1\n    assert abs((card_data.start_at - now).total_seconds()) < 1\ndef test_fill_times_end_at_based_on_ttl(default_card_data):\n    ttl = 3600\n    card_data = CardModel(**default_card_data, ttl=ttl)",
+        "detail": "tests.test_card",
+        "documentation": {}
+    },
+    {
+        "label": "test_fill_times_end_at_based_on_ttl",
+        "kind": 2,
+        "importPath": "tests.test_card",
+        "description": "tests.test_card",
+        "peekOfCode": "def test_fill_times_end_at_based_on_ttl(default_card_data):\n    ttl = 3600\n    card_data = CardModel(**default_card_data, ttl=ttl)\n    now = card_data.start_at\n    expected_end_at = now + timedelta(seconds=ttl)\n    assert card_data.ttl == ttl\n    assert card_data.end_at == expected_end_at\ndef test_fill_times_ttl_calculated_from_end_at(default_card_data):\n    end_at = datetime.now(tz=timezone.utc) + timedelta(hours=2)\n    card_data = CardModel(**default_card_data, end_at=end_at)",
+        "detail": "tests.test_card",
+        "documentation": {}
+    },
+    {
+        "label": "test_fill_times_ttl_calculated_from_end_at",
+        "kind": 2,
+        "importPath": "tests.test_card",
+        "description": "tests.test_card",
+        "peekOfCode": "def test_fill_times_ttl_calculated_from_end_at(default_card_data):\n    end_at = datetime.now(tz=timezone.utc) + timedelta(hours=2)\n    card_data = CardModel(**default_card_data, end_at=end_at)\n    now = datetime.now(tz=timezone.utc)\n    expected_ttl = int((end_at - now).total_seconds())\n    assert card_data.ttl == pytest.approx(expected_ttl, abs=1)\n    assert card_data.end_at == end_at\ndef test_fill_times_persistent_card(default_card_data):\n    card_data = CardModel(**default_card_data, persist=True)\n    assert card_data.ttl is None",
+        "detail": "tests.test_card",
+        "documentation": {}
+    },
+    {
+        "label": "test_fill_times_persistent_card",
+        "kind": 2,
+        "importPath": "tests.test_card",
+        "description": "tests.test_card",
+        "peekOfCode": "def test_fill_times_persistent_card(default_card_data):\n    card_data = CardModel(**default_card_data, persist=True)\n    assert card_data.ttl is None\n    assert card_data.end_at is None\ndef test_fill_times_invalid_end_at_in_past(default_card_data):\n    end_at = datetime.now(tz=timezone.utc) - timedelta(hours=1)\n    with pytest.raises(ValueError, match=\"end_at must be in the future when ttl is not provided\"):\n        CardModel(**default_card_data, end_at=end_at)\ndef test_fill_times_invalid_end_at_format(default_card_data):\n    with pytest.raises(ValueError, match=\"Invalid datetime format for end_at\"):",
+        "detail": "tests.test_card",
+        "documentation": {}
+    },
+    {
+        "label": "test_fill_times_invalid_end_at_in_past",
+        "kind": 2,
+        "importPath": "tests.test_card",
+        "description": "tests.test_card",
+        "peekOfCode": "def test_fill_times_invalid_end_at_in_past(default_card_data):\n    end_at = datetime.now(tz=timezone.utc) - timedelta(hours=1)\n    with pytest.raises(ValueError, match=\"end_at must be in the future when ttl is not provided\"):\n        CardModel(**default_card_data, end_at=end_at)\ndef test_fill_times_invalid_end_at_format(default_card_data):\n    with pytest.raises(ValueError, match=\"Invalid datetime format for end_at\"):\n        CardModel(**default_card_data, end_at=\"invalid_format\")",
+        "detail": "tests.test_card",
+        "documentation": {}
+    },
+    {
+        "label": "test_fill_times_invalid_end_at_format",
+        "kind": 2,
+        "importPath": "tests.test_card",
+        "description": "tests.test_card",
+        "peekOfCode": "def test_fill_times_invalid_end_at_format(default_card_data):\n    with pytest.raises(ValueError, match=\"Invalid datetime format for end_at\"):\n        CardModel(**default_card_data, end_at=\"invalid_format\")",
+        "detail": "tests.test_card",
         "documentation": {}
     },
     {
