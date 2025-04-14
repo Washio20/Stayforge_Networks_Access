@@ -17,7 +17,9 @@ def mock_redis():
 @pytest.fixture
 def card(mock_redis):
     # Create and configure a Card instance with mocked redis backend
-    card_instance = Card()
+    card_instance = Card.__new__(Card)  # Create instance without calling __init__
+    card_instance.environment = 'STANDARD'
+    card_instance.db = 0
     card_instance.redis = mock_redis
     return card_instance
 

@@ -34,8 +34,9 @@ def card(mock_redis):
     :param mock_redis: A mocked Redis instance used to emulate Redis backend operations.
     :return: A `Card` instance configured with a mocked Redis backend.
     """
-    card_instance = Card()
-
+    card_instance = Card.__new__(Card)  # Create instance without calling __init__
+    card_instance.environment = 'STANDARD'
+    card_instance.db = 0
     card_instance.redis = mock_redis
     return card_instance
 

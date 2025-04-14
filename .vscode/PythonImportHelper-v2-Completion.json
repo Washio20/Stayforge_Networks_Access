@@ -676,7 +676,7 @@
         "kind": 2,
         "importPath": "tests.test_add_card",
         "description": "tests.test_add_card",
-        "peekOfCode": "def mock_redis():\n    # Setup fake redis instance for testing without a real Redis server\n    return FakeStrictRedis()\n@pytest.fixture\ndef card(mock_redis):\n    # Create and configure a Card instance with mocked redis backend\n    card_instance = Card()\n    card_instance.redis = mock_redis\n    return card_instance\n# Case: card number too short (invalid case)",
+        "peekOfCode": "def mock_redis():\n    # Setup fake redis instance for testing without a real Redis server\n    return FakeStrictRedis()\n@pytest.fixture\ndef card(mock_redis):\n    # Create and configure a Card instance with mocked redis backend\n    card_instance = Card.__new__(Card)  # Create instance without calling __init__\n    card_instance.environment = 'STANDARD'\n    card_instance.db = 0\n    card_instance.redis = mock_redis",
         "detail": "tests.test_add_card",
         "documentation": {}
     },
@@ -685,7 +685,7 @@
         "kind": 2,
         "importPath": "tests.test_add_card",
         "description": "tests.test_add_card",
-        "peekOfCode": "def card(mock_redis):\n    # Create and configure a Card instance with mocked redis backend\n    card_instance = Card()\n    card_instance.redis = mock_redis\n    return card_instance\n# Case: card number too short (invalid case)\ndef test_card_number_too_short(card):\n    with pytest.raises(ValidationError):\n        card_data = CardAdd(\n            number=\"1234\",  # Less than 8 characters, should be invalid",
+        "peekOfCode": "def card(mock_redis):\n    # Create and configure a Card instance with mocked redis backend\n    card_instance = Card.__new__(Card)  # Create instance without calling __init__\n    card_instance.environment = 'STANDARD'\n    card_instance.db = 0\n    card_instance.redis = mock_redis\n    return card_instance\n# Case: card number too short (invalid case)\ndef test_card_number_too_short(card):\n    with pytest.raises(ValidationError):",
         "detail": "tests.test_add_card",
         "documentation": {}
     },
@@ -739,7 +739,7 @@
         "kind": 2,
         "importPath": "tests.test_add_card_time_units",
         "description": "tests.test_add_card_time_units",
-        "peekOfCode": "def card(mock_redis):\n    \"\"\"\n    This pytest fixture provides a pre-configured instance of the `Card` class for testing purposes.\n    It sets up the `Card` instance with a mocked Redis backend to facilitate isolated and controlled\n    testing of the functionality associated with Redis interactions in the `Card` class.\n    :param mock_redis: A mocked Redis instance used to emulate Redis backend operations.\n    :return: A `Card` instance configured with a mocked Redis backend.\n    \"\"\"\n    card_instance = Card()\n    card_instance.redis = mock_redis",
+        "peekOfCode": "def card(mock_redis):\n    \"\"\"\n    This pytest fixture provides a pre-configured instance of the `Card` class for testing purposes.\n    It sets up the `Card` instance with a mocked Redis backend to facilitate isolated and controlled\n    testing of the functionality associated with Redis interactions in the `Card` class.\n    :param mock_redis: A mocked Redis instance used to emulate Redis backend operations.\n    :return: A `Card` instance configured with a mocked Redis backend.\n    \"\"\"\n    card_instance = Card.__new__(Card)  # Create instance without calling __init__\n    card_instance.environment = 'STANDARD'",
         "detail": "tests.test_add_card_time_units",
         "documentation": {}
     },
@@ -946,7 +946,7 @@
         "kind": 2,
         "importPath": "tests.test_card_validity_period",
         "description": "tests.test_card_validity_period",
-        "peekOfCode": "def mock_redis():\n    # Setup fake redis instance for testing without a real Redis server\n    return FakeStrictRedis()\n@pytest.fixture\ndef card(mock_redis):\n    # Create and configure a Card instance with mocked redis backend\n    card_instance = Card()\n    card_instance.redis = mock_redis\n    return card_instance\nmock_card = f\"{''.join(random.choices('0123456789ABCDEF', k=8))}\"",
+        "peekOfCode": "def mock_redis():\n    # Setup fake redis instance for testing without a real Redis server\n    return FakeStrictRedis()\n@pytest.fixture\ndef card(mock_redis):\n    # Create and configure a Card instance with mocked redis backend\n    card_instance = Card.__new__(Card)  # Create instance without calling __init__\n    card_instance.environment = 'STANDARD'\n    card_instance.db = 0\n    card_instance.redis = mock_redis",
         "detail": "tests.test_card_validity_period",
         "documentation": {}
     },
@@ -955,7 +955,7 @@
         "kind": 2,
         "importPath": "tests.test_card_validity_period",
         "description": "tests.test_card_validity_period",
-        "peekOfCode": "def card(mock_redis):\n    # Create and configure a Card instance with mocked redis backend\n    card_instance = Card()\n    card_instance.redis = mock_redis\n    return card_instance\nmock_card = f\"{''.join(random.choices('0123456789ABCDEF', k=8))}\"\nprint(f\"Mock card number: {mock_card}\")\nstart_delay = 10\nttl = 20\n# Case: card number too short (invalid case)",
+        "peekOfCode": "def card(mock_redis):\n    # Create and configure a Card instance with mocked redis backend\n    card_instance = Card.__new__(Card)  # Create instance without calling __init__\n    card_instance.environment = 'STANDARD'\n    card_instance.db = 0\n    card_instance.redis = mock_redis\n    return card_instance\nmock_card = f\"{''.join(random.choices('0123456789ABCDEF', k=8))}\"\nprint(f\"Mock card number: {mock_card}\")\nstart_delay = 10",
         "detail": "tests.test_card_validity_period",
         "documentation": {}
     },
