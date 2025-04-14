@@ -18,7 +18,7 @@ router = APIRouter(
 def verify_card(device_sn: str, card_number: str, environment: str = "STANDARD",
                 client_id: Optional[str] = None) -> CardModel:
     card_obj = Card(environment=environment.upper())
-    card_number = card_number.upper()
+    card_number = card_number.upper() if card_number else None
 
     card = card_obj.get_a_card(card_number)
 
