@@ -35,12 +35,75 @@
         "documentation": {}
     },
     {
-        "label": "requests",
-        "kind": 6,
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
         "isExtraImport": true,
-        "importPath": "requests",
-        "description": "requests",
-        "detail": "requests",
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Header",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Header",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Request",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Request",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
         "documentation": {}
     },
     {
@@ -68,132 +131,11 @@
         "documentation": {}
     },
     {
-        "label": "Request",
-        "importPath": "fastapi",
-        "description": "fastapi",
+        "label": "ValidationError",
+        "importPath": "pydantic",
+        "description": "pydantic",
         "isExtraImport": true,
-        "detail": "fastapi",
-        "documentation": {}
-    },
-    {
-        "label": "HTTPException",
-        "importPath": "fastapi",
-        "description": "fastapi",
-        "isExtraImport": true,
-        "detail": "fastapi",
-        "documentation": {}
-    },
-    {
-        "label": "Header",
-        "importPath": "fastapi",
-        "description": "fastapi",
-        "isExtraImport": true,
-        "detail": "fastapi",
-        "documentation": {}
-    },
-    {
-        "label": "Depends",
-        "importPath": "fastapi",
-        "description": "fastapi",
-        "isExtraImport": true,
-        "detail": "fastapi",
-        "documentation": {}
-    },
-    {
-        "label": "jwt",
-        "importPath": "jose",
-        "description": "jose",
-        "isExtraImport": true,
-        "detail": "jose",
-        "documentation": {}
-    },
-    {
-        "label": "AUTH0_DOMAIN",
-        "importPath": "env",
-        "description": "env",
-        "isExtraImport": true,
-        "detail": "env",
-        "documentation": {}
-    },
-    {
-        "label": "AUTH0_ALGORITHMS",
-        "importPath": "env",
-        "description": "env",
-        "isExtraImport": true,
-        "detail": "env",
-        "documentation": {}
-    },
-    {
-        "label": "AUTH0_API_IDENTIFIER",
-        "importPath": "env",
-        "description": "env",
-        "isExtraImport": true,
-        "detail": "env",
-        "documentation": {}
-    },
-    {
-        "label": "FOUNDRY_AUTH0_CLIENT_ID",
-        "importPath": "env",
-        "description": "env",
-        "isExtraImport": true,
-        "detail": "env",
-        "documentation": {}
-    },
-    {
-        "label": "AUTH0_API_IDENTIFIER",
-        "importPath": "env",
-        "description": "env",
-        "isExtraImport": true,
-        "detail": "env",
-        "documentation": {}
-    },
-    {
-        "label": "AUTH0_DOMAIN",
-        "importPath": "env",
-        "description": "env",
-        "isExtraImport": true,
-        "detail": "env",
-        "documentation": {}
-    },
-    {
-        "label": "FOUNDRY_AUTH0_CLIENT_SECRET",
-        "importPath": "env",
-        "description": "env",
-        "isExtraImport": true,
-        "detail": "env",
-        "documentation": {}
-    },
-    {
-        "label": "pytest",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "pytest",
-        "description": "pytest",
-        "detail": "pytest",
-        "documentation": {}
-    },
-    {
-        "label": "FakeStrictRedis",
-        "importPath": "fakeredis",
-        "description": "fakeredis",
-        "isExtraImport": true,
-        "detail": "fakeredis",
-        "documentation": {}
-    },
-    {
-        "label": "FakeStrictRedis",
-        "importPath": "fakeredis",
-        "description": "fakeredis",
-        "isExtraImport": true,
-        "detail": "fakeredis",
-        "documentation": {}
-    },
-    {
-        "label": "FakeStrictRedis",
-        "importPath": "fakeredis",
-        "description": "fakeredis",
-        "isExtraImport": true,
-        "detail": "fakeredis",
+        "detail": "pydantic",
         "documentation": {}
     },
     {
@@ -237,38 +179,6 @@
         "documentation": {}
     },
     {
-        "label": "ValidationError",
-        "importPath": "pydantic",
-        "description": "pydantic",
-        "isExtraImport": true,
-        "detail": "pydantic",
-        "documentation": {}
-    },
-    {
-        "label": "Card",
-        "importPath": "card",
-        "description": "card",
-        "isExtraImport": true,
-        "detail": "card",
-        "documentation": {}
-    },
-    {
-        "label": "CardAdd",
-        "importPath": "card",
-        "description": "card",
-        "isExtraImport": true,
-        "detail": "card",
-        "documentation": {}
-    },
-    {
-        "label": "Card",
-        "importPath": "card",
-        "description": "card",
-        "isExtraImport": true,
-        "detail": "card",
-        "documentation": {}
-    },
-    {
         "label": "CardAdd",
         "importPath": "card",
         "description": "card",
@@ -293,7 +203,7 @@
         "documentation": {}
     },
     {
-        "label": "CardAdd",
+        "label": "CardQuery",
         "importPath": "card",
         "description": "card",
         "isExtraImport": true,
@@ -333,11 +243,83 @@
         "documentation": {}
     },
     {
+        "label": "Card",
+        "importPath": "card",
+        "description": "card",
+        "isExtraImport": true,
+        "detail": "card",
+        "documentation": {}
+    },
+    {
+        "label": "Card",
+        "importPath": "card",
+        "description": "card",
+        "isExtraImport": true,
+        "detail": "card",
+        "documentation": {}
+    },
+    {
         "label": "CardAdd",
         "importPath": "card",
         "description": "card",
         "isExtraImport": true,
         "detail": "card",
+        "documentation": {}
+    },
+    {
+        "label": "Card",
+        "importPath": "card",
+        "description": "card",
+        "isExtraImport": true,
+        "detail": "card",
+        "documentation": {}
+    },
+    {
+        "label": "CardAdd",
+        "importPath": "card",
+        "description": "card",
+        "isExtraImport": true,
+        "detail": "card",
+        "documentation": {}
+    },
+    {
+        "label": "CardModel",
+        "importPath": "card",
+        "description": "card",
+        "isExtraImport": true,
+        "detail": "card",
+        "documentation": {}
+    },
+    {
+        "label": "Card",
+        "importPath": "card",
+        "description": "card",
+        "isExtraImport": true,
+        "detail": "card",
+        "documentation": {}
+    },
+    {
+        "label": "CardAdd",
+        "importPath": "card",
+        "description": "card",
+        "isExtraImport": true,
+        "detail": "card",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
         "documentation": {}
     },
     {
@@ -357,11 +339,174 @@
         "documentation": {}
     },
     {
-        "label": "Optional",
-        "importPath": "typing",
-        "description": "typing",
+        "label": "PlainTextResponse",
+        "importPath": "starlette.responses",
+        "description": "starlette.responses",
         "isExtraImport": true,
-        "detail": "typing",
+        "detail": "starlette.responses",
+        "documentation": {}
+    },
+    {
+        "label": "JSONResponse",
+        "importPath": "starlette.responses",
+        "description": "starlette.responses",
+        "isExtraImport": true,
+        "detail": "starlette.responses",
+        "documentation": {}
+    },
+    {
+        "label": "PlainTextResponse",
+        "importPath": "starlette.responses",
+        "description": "starlette.responses",
+        "isExtraImport": true,
+        "detail": "starlette.responses",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "importPath": "uvicorn.config",
+        "description": "uvicorn.config",
+        "isExtraImport": true,
+        "detail": "uvicorn.config",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "importPath": "uvicorn.config",
+        "description": "uvicorn.config",
+        "isExtraImport": true,
+        "detail": "uvicorn.config",
+        "documentation": {}
+    },
+    {
+        "label": "uuid",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "uuid",
+        "description": "uuid",
+        "detail": "uuid",
+        "documentation": {}
+    },
+    {
+        "label": "urlencode",
+        "importPath": "urllib.parse",
+        "description": "urllib.parse",
+        "isExtraImport": true,
+        "detail": "urllib.parse",
+        "documentation": {}
+    },
+    {
+        "label": "requests",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "requests",
+        "description": "requests",
+        "detail": "requests",
+        "documentation": {}
+    },
+    {
+        "label": "RedirectResponse",
+        "importPath": "fastapi.responses",
+        "description": "fastapi.responses",
+        "isExtraImport": true,
+        "detail": "fastapi.responses",
+        "documentation": {}
+    },
+    {
+        "label": "FOUNDRY_AUTH0_CLIENT_ID",
+        "importPath": "env",
+        "description": "env",
+        "isExtraImport": true,
+        "detail": "env",
+        "documentation": {}
+    },
+    {
+        "label": "AUTH0_API_IDENTIFIER",
+        "importPath": "env",
+        "description": "env",
+        "isExtraImport": true,
+        "detail": "env",
+        "documentation": {}
+    },
+    {
+        "label": "AUTH0_DOMAIN",
+        "importPath": "env",
+        "description": "env",
+        "isExtraImport": true,
+        "detail": "env",
+        "documentation": {}
+    },
+    {
+        "label": "FOUNDRY_AUTH0_CLIENT_SECRET",
+        "importPath": "env",
+        "description": "env",
+        "isExtraImport": true,
+        "detail": "env",
+        "documentation": {}
+    },
+    {
+        "label": "AUTH0_DOMAIN",
+        "importPath": "env",
+        "description": "env",
+        "isExtraImport": true,
+        "detail": "env",
+        "documentation": {}
+    },
+    {
+        "label": "AUTH0_ALGORITHMS",
+        "importPath": "env",
+        "description": "env",
+        "isExtraImport": true,
+        "detail": "env",
+        "documentation": {}
+    },
+    {
+        "label": "AUTH0_API_IDENTIFIER",
+        "importPath": "env",
+        "description": "env",
+        "isExtraImport": true,
+        "detail": "env",
+        "documentation": {}
+    },
+    {
+        "label": "jwt",
+        "importPath": "jose",
+        "description": "jose",
+        "isExtraImport": true,
+        "detail": "jose",
+        "documentation": {}
+    },
+    {
+        "label": "pytest",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pytest",
+        "description": "pytest",
+        "detail": "pytest",
+        "documentation": {}
+    },
+    {
+        "label": "FakeStrictRedis",
+        "importPath": "fakeredis",
+        "description": "fakeredis",
+        "isExtraImport": true,
+        "detail": "fakeredis",
+        "documentation": {}
+    },
+    {
+        "label": "FakeStrictRedis",
+        "importPath": "fakeredis",
+        "description": "fakeredis",
+        "isExtraImport": true,
+        "detail": "fakeredis",
+        "documentation": {}
+    },
+    {
+        "label": "FakeStrictRedis",
+        "importPath": "fakeredis",
+        "description": "fakeredis",
+        "isExtraImport": true,
+        "detail": "fakeredis",
         "documentation": {}
     },
     {
@@ -488,15 +633,6 @@
         "documentation": {}
     },
     {
-        "label": "uuid",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "uuid",
-        "description": "uuid",
-        "detail": "uuid",
-        "documentation": {}
-    },
-    {
         "label": "redis",
         "kind": 6,
         "isExtraImport": true,
@@ -522,46 +658,6 @@
         "documentation": {}
     },
     {
-        "label": "urlencode",
-        "importPath": "urllib.parse",
-        "description": "urllib.parse",
-        "isExtraImport": true,
-        "detail": "urllib.parse",
-        "documentation": {}
-    },
-    {
-        "label": "PlainTextResponse",
-        "importPath": "fastapi.responses",
-        "description": "fastapi.responses",
-        "isExtraImport": true,
-        "detail": "fastapi.responses",
-        "documentation": {}
-    },
-    {
-        "label": "RedirectResponse",
-        "importPath": "fastapi.responses",
-        "description": "fastapi.responses",
-        "isExtraImport": true,
-        "detail": "fastapi.responses",
-        "documentation": {}
-    },
-    {
-        "label": "JSONResponse",
-        "importPath": "starlette.responses",
-        "description": "starlette.responses",
-        "isExtraImport": true,
-        "detail": "starlette.responses",
-        "documentation": {}
-    },
-    {
-        "label": "logger",
-        "importPath": "uvicorn.config",
-        "description": "uvicorn.config",
-        "isExtraImport": true,
-        "detail": "uvicorn.config",
-        "documentation": {}
-    },
-    {
         "label": "load_master_doc",
         "importPath": "documents",
         "description": "documents",
@@ -570,11 +666,11 @@
         "documentation": {}
     },
     {
-        "label": "require_permission",
-        "importPath": "src.auth.auth",
-        "description": "src.auth.auth",
+        "label": "router",
+        "importPath": "router",
+        "description": "router",
         "isExtraImport": true,
-        "detail": "src.auth.auth",
+        "detail": "router",
         "documentation": {}
     },
     {
@@ -656,6 +752,42 @@
         "description": ".venv.bin.activate_this",
         "peekOfCode": "sys.prefix = base",
         "detail": ".venv.bin.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "router.card",
+        "description": "router.card",
+        "peekOfCode": "router = APIRouter(\n    prefix=\"/card\",\n    tags=[\"Card\"],\n)\n@router.post(\"\")\nasync def get_a_card_information(card_info: CardQuery):\n    card_number = card_info.get(\"card_number\")\n    try:\n        return Card().get_a_card(card_number)\n    except ValueError as e:",
+        "detail": "router.card",
+        "documentation": {}
+    },
+    {
+        "label": "verify_card",
+        "kind": 2,
+        "importPath": "router.identify",
+        "description": "router.identify",
+        "peekOfCode": "def verify_card(device_sn: str, card_number: str, environment: str = \"STANDARD\",\n                client_id: Optional[str] = None) -> CardModel:\n    card_obj = Card(environment=environment.upper())\n    card_number = card_number.upper()\n    card = card_obj.get_a_card(card_number)\n    if not card_obj.is_card_active(card):\n        raise HTTPException(status_code=400, detail={\n            \"message\": \"Card is not active yet (before start time).\"\n        })\n    if client_id is not None and card.owner_client_id != client_id:",
+        "detail": "router.identify",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "router.identify",
+        "description": "router.identify",
+        "peekOfCode": "router = APIRouter(\n    prefix=\"/identify\",\n    tags=[\"Identify\"],\n)\ndef verify_card(device_sn: str, card_number: str, environment: str = \"STANDARD\",\n                client_id: Optional[str] = None) -> CardModel:\n    card_obj = Card(environment=environment.upper())\n    card_number = card_number.upper()\n    card = card_obj.get_a_card(card_number)\n    if not card_obj.is_card_active(card):",
+        "detail": "router.identify",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "router.system",
+        "description": "router.system",
+        "peekOfCode": "router = APIRouter(\n    tags=[\"System\"]\n)\n@router.get(\"/\", include_in_schema=False)\nasync def healthcheck():\n    try:\n        Card()\n    except Exception as e:\n        tracer_code = str(uuid.uuid4()).replace(\"-\", \"\")\n        logger.error(f\"ERROR TRACER CODE '{tracer_code}': {e}\", exc_info=True)",
+        "detail": "router.system",
         "documentation": {}
     },
     {
@@ -1199,20 +1331,11 @@
         "documentation": {}
     },
     {
-        "label": "verify_card",
-        "kind": 2,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "def verify_card(device_sn: str, card_number: str, environment: str = \"STANDARD\",\n                client_id: Optional[str] = None) -> CardModel:\n    card_obj = Card(environment=environment.upper())\n    card_number = card_number.upper()\n    card = card_obj.get_a_card(card_number)\n    if not card_obj.is_card_active(card):\n        raise HTTPException(status_code=400, detail={\n            \"message\": \"Card is not active yet (before start time).\"\n        })\n    if client_id is not None and card.owner_client_id != client_id:",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
         "label": "app",
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app = FastAPI(\n    title=\"Stayforge Networks Access API\",\n    redoc_url=\"/docs\",\n    docs_url=\"/docs/swagger\",\n    version=\"1.0.0\",\n    description=load_master_doc(),\n)\n@app.get(\"/login\", tags=['auth'])\nasync def login(request: Request, org: Optional[str] = None):\n    base_url = str(request.base_url)",
+        "peekOfCode": "app = FastAPI(\n    title=\"Stayforge Networks Access API\",\n    redoc_url=\"/docs\",\n    docs_url=\"/docs/swagger\",\n    version=\"1.1.0\",\n    description=load_master_doc(),\n)\napp.include_router(router)",
         "detail": "main",
         "documentation": {}
     }
