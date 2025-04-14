@@ -1,4 +1,6 @@
-# test_card_add.py
+"""
+Test the legality of the input value
+"""
 import pytest
 from fakeredis import FakeStrictRedis
 from pydantic import ValidationError

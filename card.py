@@ -206,13 +206,17 @@ class Card:
 
         return self.get_a_card(card.number)
 
-    def get_a_card(self, card_number) -> CardModel:
+    def get_a_card(self, card_number, allow_before_start: bool = False) -> CardModel:
         """
         Retrieves and constructs a card object using the card number by fetching details
         from a Redis datastore. This function retrieves the data corresponding to the
         given card number and parses it to construct a CardModel instance containing
         the card details.
 
+        For cards that do not reach start_at, they will not be returned.
+        Unless you set param allow_before_start=True.
+
+        :param allow_before_start:
         :param card_number: The card number used to fetch the card details
                            from the Redis datastore
         :type card_number: str
@@ -223,7 +227,7 @@ class Card:
         card_number = card_number.upper()
 
         if r.exists(card_number):
-            return CardModel(
+            card = CardModel(
                 number=card_number,
                 name=json.loads(r.get(card_number))['name'],
                 devices=json.loads(r.get(card_number))['devices'],
@@ -232,6 +236,12 @@ class Card:
             )
         else:
             raise ValueError(f"Card with number {card_number} not found.")
+
+        # check start_time
+        if not allow_before_start and not self.is_card_active(card):
+            raise ValueError(f"Card with number {card_number} is not active.")
+
+        return card
 
     def delete_a_card(self, card_number):
         r = self.redis

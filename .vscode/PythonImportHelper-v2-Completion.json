@@ -189,6 +189,14 @@
         "documentation": {}
     },
     {
+        "label": "FakeStrictRedis",
+        "importPath": "fakeredis",
+        "description": "fakeredis",
+        "isExtraImport": true,
+        "detail": "fakeredis",
+        "documentation": {}
+    },
+    {
         "label": "ValidationError",
         "importPath": "pydantic",
         "description": "pydantic",
@@ -242,6 +250,22 @@
         "description": "pydantic",
         "isExtraImport": true,
         "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "Card",
+        "importPath": "card",
+        "description": "card",
+        "isExtraImport": true,
+        "detail": "card",
+        "documentation": {}
+    },
+    {
+        "label": "CardAdd",
+        "importPath": "card",
+        "description": "card",
+        "isExtraImport": true,
+        "detail": "card",
         "documentation": {}
     },
     {
@@ -386,6 +410,48 @@
         "description": "datetime",
         "isExtraImport": true,
         "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timezone",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "random",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "random",
+        "description": "random",
+        "detail": "random",
+        "documentation": {}
+    },
+    {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
         "documentation": {}
     },
     {
@@ -881,6 +947,60 @@
         "description": "tests.test_add_card_time_units",
         "peekOfCode": "ttl_tolerance = 10\ndef output_comparison_data(\n        result,\n        expect_start_at: Optional[datetime] = None,\n        expect_end_at: Optional[datetime] = None,\n        expect_ttl: Optional[int] = None,\n):\n    \"\"\"\n    Compares and outputs differences between the provided result data and the expected\n    values for a specified start time, end time, and time-to-live (TTL). This function",
         "detail": "tests.test_add_card_time_units",
+        "documentation": {}
+    },
+    {
+        "label": "mock_redis",
+        "kind": 2,
+        "importPath": "tests.test_card_validity_period",
+        "description": "tests.test_card_validity_period",
+        "peekOfCode": "def mock_redis():\n    # Setup fake redis instance for testing without a real Redis server\n    return FakeStrictRedis()\n@pytest.fixture\ndef card(mock_redis):\n    # Create and configure a Card instance with mocked redis backend\n    card_instance = Card()\n    card_instance.redis = mock_redis\n    return card_instance\nmock_card = f\"{''.join(random.choices('0123456789ABCDEF', k=8))}\"",
+        "detail": "tests.test_card_validity_period",
+        "documentation": {}
+    },
+    {
+        "label": "card",
+        "kind": 2,
+        "importPath": "tests.test_card_validity_period",
+        "description": "tests.test_card_validity_period",
+        "peekOfCode": "def card(mock_redis):\n    # Create and configure a Card instance with mocked redis backend\n    card_instance = Card()\n    card_instance.redis = mock_redis\n    return card_instance\nmock_card = f\"{''.join(random.choices('0123456789ABCDEF', k=8))}\"\nprint(f\"Mock card number: {mock_card}\")\nstart_delay = 10\nttl = 20\n# Case: card number too short (invalid case)",
+        "detail": "tests.test_card_validity_period",
+        "documentation": {}
+    },
+    {
+        "label": "test_card_number_valid_boundaries",
+        "kind": 2,
+        "importPath": "tests.test_card_validity_period",
+        "description": "tests.test_card_validity_period",
+        "peekOfCode": "def test_card_number_valid_boundaries(card):\n    result = card.add_card(CardAdd(\n        number=mock_card,\n        devices=[\"device1\"],\n        start_at=datetime.now(timezone.utc) + timedelta(seconds=start_delay),\n        ttl=ttl\n    ))\n    print(\"Result: \", result)\n    # The first query exists\n    try:",
+        "detail": "tests.test_card_validity_period",
+        "documentation": {}
+    },
+    {
+        "label": "mock_card",
+        "kind": 5,
+        "importPath": "tests.test_card_validity_period",
+        "description": "tests.test_card_validity_period",
+        "peekOfCode": "mock_card = f\"{''.join(random.choices('0123456789ABCDEF', k=8))}\"\nprint(f\"Mock card number: {mock_card}\")\nstart_delay = 10\nttl = 20\n# Case: card number too short (invalid case)\ndef test_card_number_valid_boundaries(card):\n    result = card.add_card(CardAdd(\n        number=mock_card,\n        devices=[\"device1\"],\n        start_at=datetime.now(timezone.utc) + timedelta(seconds=start_delay),",
+        "detail": "tests.test_card_validity_period",
+        "documentation": {}
+    },
+    {
+        "label": "start_delay",
+        "kind": 5,
+        "importPath": "tests.test_card_validity_period",
+        "description": "tests.test_card_validity_period",
+        "peekOfCode": "start_delay = 10\nttl = 20\n# Case: card number too short (invalid case)\ndef test_card_number_valid_boundaries(card):\n    result = card.add_card(CardAdd(\n        number=mock_card,\n        devices=[\"device1\"],\n        start_at=datetime.now(timezone.utc) + timedelta(seconds=start_delay),\n        ttl=ttl\n    ))",
+        "detail": "tests.test_card_validity_period",
+        "documentation": {}
+    },
+    {
+        "label": "ttl",
+        "kind": 5,
+        "importPath": "tests.test_card_validity_period",
+        "description": "tests.test_card_validity_period",
+        "peekOfCode": "ttl = 20\n# Case: card number too short (invalid case)\ndef test_card_number_valid_boundaries(card):\n    result = card.add_card(CardAdd(\n        number=mock_card,\n        devices=[\"device1\"],\n        start_at=datetime.now(timezone.utc) + timedelta(seconds=start_delay),\n        ttl=ttl\n    ))\n    print(\"Result: \", result)",
+        "detail": "tests.test_card_validity_period",
         "documentation": {}
     },
     {
