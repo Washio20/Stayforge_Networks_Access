@@ -7,7 +7,6 @@ from typing import Optional
 
 import pytest
 from fakeredis import FakeStrictRedis
-from pydantic import ValidationError
 
 from card import Card, CardAdd
 

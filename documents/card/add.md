@@ -29,5 +29,3 @@ control.
 This is used to identify who posted the card.
 
 Does not affect the verification process of unlocking. But it is useful when querying the registered card number.
-
-()[]
