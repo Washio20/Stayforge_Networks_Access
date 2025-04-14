@@ -31,7 +31,7 @@ Content-Type: text/plain
 POST {{ endpoint }}/identify/vguang-m350/etoehotel-101
 Content-Type: text/plain
 
-test-----101-18-00-05
+36380F351437B3
 
 
 ### Identify: successfully used JSON
@@ -41,7 +41,7 @@ X-Environment: {{ environment }}
 X-Device-SN: test_card_reader
 
 {
-  "card_number": "TEST1234567890kkk"
+  "number": "TEST1234567890kkk"
 }
 
 ### Identify: failure used JSON

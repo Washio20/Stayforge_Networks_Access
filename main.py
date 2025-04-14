@@ -222,13 +222,13 @@ def verify_card(device_sn: str, card_number: str, environment: str = "STANDARD",
     description="Identify a device by its serial number and card number. The serial number is provided in the URL."
 )
 async def identify_json(
-        json_data: CardQuery,
+        card: CardQuery,
         device_sn: Optional[str] = None,
         x_device_sn: Optional[str] = Header(None, alias="X-Device-SN"),
         x_environment: str = Header("standard", alias="X-Environment")
 ):
     device_sn = device_sn or x_device_sn
-    card_number = json_data.get("card_number").upper()
+    card_number = card.number.upper()
 
     try:
         card = verify_card(
