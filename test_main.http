@@ -6,6 +6,7 @@ Content-Type: application/json
 POST {{ endpoint }}/card/add
 Content-Type: application/json
 X-Environment: {{ environment }}
+#Authorization: Bearer {{ token }}
 
 {
   "number": "test00000101180610",
@@ -13,8 +14,8 @@ X-Environment: {{ environment }}
   "devices": [
     "etoehotel-101"
   ],
-  "start_at": "2025-04-13T18:07:00+09:00",
-  "ttl": 60,
+  "start_at": "2025-04-14T12:35:00+09:00",
+  "ttl": 360,
   "persist": false,
   "owner_client_id": "anonymous"
 }

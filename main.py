@@ -131,7 +131,7 @@ async def get_a_card_information(card_info: CardQuery):
 
 @app.post(
     "/card/add", response_model=CardModel, tags=["card"], description="Add a new card to the system.",
-    dependencies=[Depends(require_permission("read:access"))]
+    # dependencies=[Depends(require_permission("read:access"))]
 )
 async def create_a_card(
         card: CardAdd,
