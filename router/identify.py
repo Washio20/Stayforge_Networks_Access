@@ -92,7 +92,7 @@ async def vguang_identify(device_name: str, request: Request):
 
     try:
         verify_card(device_sn=device_name, card_number=card_number)
-        return PlainTextResponse("symbol=0000")
+        return PlainTextResponse("code=0000")
 
     except ValueError as e:
         logger.info(f"{e}")
