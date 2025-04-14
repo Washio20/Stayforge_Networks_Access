@@ -867,7 +867,7 @@
         "kind": 2,
         "importPath": "router.identify",
         "description": "router.identify",
-        "peekOfCode": "def verify_card(device_sn: str, card_number: str, environment: str = \"STANDARD\",\n                client_id: Optional[str] = None) -> CardModel:\n    card_obj = Card(environment=environment.upper())\n    card_number = card_number.upper()\n    card = card_obj.get_a_card(card_number)\n    if not card_obj.is_card_active(card):\n        raise HTTPException(status_code=400, detail={\n            \"message\": \"Card is not active yet (before start time).\"\n        })\n    if client_id is not None and card.owner_client_id != client_id:",
+        "peekOfCode": "def verify_card(device_sn: str, card_number: str, environment: str = \"STANDARD\",\n                client_id: Optional[str] = None) -> CardModel:\n    card_obj = Card(environment=environment.upper())\n    card_number = card_number.upper() if card_number else None\n    card = card_obj.get_a_card(card_number)\n    if not card_obj.is_card_active(card):\n        raise HTTPException(status_code=400, detail={\n            \"message\": \"Card is not active yet (before start time).\"\n        })\n    if client_id is not None and card.owner_client_id != client_id:",
         "detail": "router.identify",
         "documentation": {}
     },
@@ -876,7 +876,7 @@
         "kind": 5,
         "importPath": "router.identify",
         "description": "router.identify",
-        "peekOfCode": "router = APIRouter(\n    prefix=\"/identify\",\n    tags=[\"Identify\"],\n)\ndef verify_card(device_sn: str, card_number: str, environment: str = \"STANDARD\",\n                client_id: Optional[str] = None) -> CardModel:\n    card_obj = Card(environment=environment.upper())\n    card_number = card_number.upper()\n    card = card_obj.get_a_card(card_number)\n    if not card_obj.is_card_active(card):",
+        "peekOfCode": "router = APIRouter(\n    prefix=\"/identify\",\n    tags=[\"Identify\"],\n)\ndef verify_card(device_sn: str, card_number: str, environment: str = \"STANDARD\",\n                client_id: Optional[str] = None) -> CardModel:\n    card_obj = Card(environment=environment.upper())\n    card_number = card_number.upper() if card_number else None\n    card = card_obj.get_a_card(card_number)\n    if not card_obj.is_card_active(card):",
         "detail": "router.identify",
         "documentation": {}
     },

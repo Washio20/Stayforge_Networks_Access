@@ -18,7 +18,7 @@ router = APIRouter(
 def verify_card(device_sn: str, card_number: str, environment: str = "STANDARD",
                 client_id: Optional[str] = None) -> CardModel:
     card_obj = Card(environment=environment.upper())
-    card_number = card_number.upper()
+    card_number = card_number.upper() if card_number else None
 
     card = card_obj.get_a_card(card_number)
 
@@ -92,7 +92,7 @@ async def vguang_identify(device_name: str, request: Request):
 
     try:
         verify_card(device_sn=device_name, card_number=card_number)
-        return PlainTextResponse("symbol=0000")
+        return PlainTextResponse("code=0000")
 
     except ValueError as e:
         logger.info(f"{e}")
