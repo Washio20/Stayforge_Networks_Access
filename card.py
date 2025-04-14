@@ -11,10 +11,12 @@ import redis
 from fastapi.logger import logger
 from pydantic import BaseModel, constr, model_validator, Field
 
+from src import symbol
+
 
 class CardModel(BaseModel):
     number: constr(pattern="^[a-zA-Z0-9]{8,128}$") = Field(
-        ..., description="Card unique identification code"
+        ..., description="Card unique identification symbol"
     )
     name: Optional[constr(pattern="^[a-zA-Z0-9_-]{8,128}$")] = Field(
         None, description="Display name"
@@ -104,10 +106,24 @@ class CardModel(BaseModel):
 
 class CardAdd(CardModel):
     number: Optional[constr(min_length=8, max_length=128)]
+    symbol_type: Optional[str] = Field(
+        None,
+        description=f"Barcode/QRCode type. "
+                    f"After setting, the image base64 (default PNG) will be returned to the `symbol_image_base64` field. "
+                    f"\rSupported types: `{'`, `'.join(symbol.SUPPORT_SYMBOLS)}` or `null` to disable.",
+        examples=symbol.SUPPORT_SYMBOLS
+    )
 
 
 class CardQuery(BaseModel):
     number: str = Field(..., description="Card number to be queried")
+
+
+class CardResponse(CardModel):
+    symbol_image_base64: str = Field(
+        ...,
+        description="Card Barcode/QRCode image data in base64 format. Default PNG format."
+    )
 
 
 class CardIdentifyResponse(CardModel):
