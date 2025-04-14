@@ -11,5 +11,4 @@ COPY ./ /app/
 RUN pip install --no-cache-dir -r requirements.txt && \
     pip install --no-cache-dir uvicorn
 
-CMD ["sh", "-c", "python3 -m uvicorn main:app --host 0.0.0.0 --port ${PORT}"]
-
+CMD ["sh", "-c", "python3 -m uvicorn main:app --host 0.0.0.0 --port ${PORT:-80}"]
