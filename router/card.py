@@ -36,7 +36,7 @@ async def create_a_card(
         card: CardAdd,
         x_environment: str = Header("standard", alias="X-Environment")
 ):
-    card.number = card.number.upper()
+    card.number = card.number.upper() if card.number else None
     card_obj = Card(environment=x_environment.upper())
 
     try:
@@ -65,7 +65,7 @@ async def create_many_cards(
 
     for card in cards:
         try:
-            card.number = card.number.upper()
+            card.number = card.number.upper() if card.number else None
             result = card_obj.add_card(card)
             results.append({"number": card.number, "status": "success", "result": result})
         except (ValidationError, ValueError) as e:

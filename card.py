@@ -186,7 +186,7 @@ class Card:
         :return: The card object as created and stored in the system.
         :rtype: CardModel
         """
-        card.number = card.number.upper()
+        card.number = card.number.upper() if card.number else None
 
         # Check whether the time unit has been transmitted
         if card.ttl in [None, 0, -1] \

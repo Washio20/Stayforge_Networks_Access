@@ -57,7 +57,7 @@ async def identify_json(
         x_environment: str = Header("standard", alias="X-Environment")
 ):
     device_sn = device_sn or x_device_sn
-    card_number = card.number.upper()
+    card_number = card.number.upper() if card.number else None
 
     try:
         card = verify_card(
@@ -97,3 +97,4 @@ async def vguang_identify(device_name: str, request: Request):
     except ValueError as e:
         logger.info(f"{e}")
         raise HTTPException(status_code=404, detail={"message": str(e)})
+
