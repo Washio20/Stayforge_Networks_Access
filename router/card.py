@@ -4,7 +4,8 @@ Card's Routers
 from fastapi import APIRouter, Header, HTTPException
 from pydantic import ValidationError
 
-from card import CardAdd, CardModel, Card, CardQuery
+from card import CardAdd, CardModel, Card, CardQuery, CardResponse
+from src.symbol import Symbol
 
 router = APIRouter(
     prefix="/card",
@@ -12,8 +13,11 @@ router = APIRouter(
 )
 
 
-@router.post("")
-async def get_a_card_information(card_info: CardQuery):
+@router.post("/")
+async def get_a_card_information(
+        card_info: CardQuery,
+        x_environment: str = Header("standard", alias="X-Environment")
+):
     card_number = card_info.get("card_number")
     try:
         return Card().get_a_card(card_number)
@@ -25,7 +29,7 @@ async def get_a_card_information(card_info: CardQuery):
 
 
 @router.post(
-    "/add", response_model=CardModel, description="Add a new card to the system.",
+    "/add", response_model=CardResponse, description="Add a new card to the system.",
     # dependencies=[Depends(require_permission("read:access"))]
 )
 async def create_a_card(
@@ -36,7 +40,14 @@ async def create_a_card(
     card_obj = Card(environment=x_environment.upper())
 
     try:
-        return card_obj.add_card(card)
+        result = card_obj.add_card(card)
+        return CardResponse(
+            **result.model_dump(),
+            symbol_image_base64=Symbol(
+                data=result.number,
+                symbol_type=card.symbol_type
+            ).render_to_base64() if card.symbol_type else None
+        )
     except ValueError as e:
         raise HTTPException(
             status_code=400,
@@ -46,7 +57,7 @@ async def create_a_card(
 
 @router.post("/add_many")
 async def create_many_cards(
-        cards: list[CardModel],
+        cards: list[CardAdd],
         x_environment: str = Header("standard", alias="X-Environment")
 ):
     results = []
@@ -66,7 +77,8 @@ async def create_many_cards(
 @router.get(
     "/owner/{owner_client_id}",
     response_model=list[CardModel],
-    description="Get all cards owned by a specific owner (mark by `owner_client_id`). The owner ID is provided in the URL."
+    description="Get all cards owned by a specific owner (mark by `owner_client_id`). The owner ID is provided in the URL.",
+    # x_environment=Header("standard", alias="X-Environment")
 )
 async def get_cards_by_owner(owner_client_id: str):
     try:

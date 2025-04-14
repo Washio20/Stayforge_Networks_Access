@@ -211,6 +211,14 @@
         "documentation": {}
     },
     {
+        "label": "CardResponse",
+        "importPath": "card",
+        "description": "card",
+        "isExtraImport": true,
+        "detail": "card",
+        "documentation": {}
+    },
+    {
         "label": "Card",
         "importPath": "card",
         "description": "card",
@@ -304,6 +312,14 @@
         "description": "card",
         "isExtraImport": true,
         "detail": "card",
+        "documentation": {}
+    },
+    {
+        "label": "Symbol",
+        "importPath": "src.symbol",
+        "description": "src.symbol",
+        "isExtraImport": true,
+        "detail": "src.symbol",
         "documentation": {}
     },
     {
@@ -469,11 +485,94 @@
         "documentation": {}
     },
     {
+        "label": "symbol",
+        "importPath": "src",
+        "description": "src",
+        "isExtraImport": true,
+        "detail": "src",
+        "documentation": {}
+    },
+    {
+        "label": "symbol",
+        "importPath": "src",
+        "description": "src",
+        "isExtraImport": true,
+        "detail": "src",
+        "documentation": {}
+    },
+    {
         "label": "jwt",
         "importPath": "jose",
         "description": "jose",
         "isExtraImport": true,
         "detail": "jose",
+        "documentation": {}
+    },
+    {
+        "label": "barcode",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "barcode",
+        "description": "barcode",
+        "detail": "barcode",
+        "documentation": {}
+    },
+    {
+        "label": "ImageWriter",
+        "importPath": "barcode.writer",
+        "description": "barcode.writer",
+        "isExtraImport": true,
+        "detail": "barcode.writer",
+        "documentation": {}
+    },
+    {
+        "label": "BytesIO",
+        "importPath": "io",
+        "description": "io",
+        "isExtraImport": true,
+        "detail": "io",
+        "documentation": {}
+    },
+    {
+        "label": "BytesIO",
+        "importPath": "io",
+        "description": "io",
+        "isExtraImport": true,
+        "detail": "io",
+        "documentation": {}
+    },
+    {
+        "label": "BytesIO",
+        "importPath": "io",
+        "description": "io",
+        "isExtraImport": true,
+        "detail": "io",
+        "documentation": {}
+    },
+    {
+        "label": "pdf417gen",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pdf417gen",
+        "description": "pdf417gen",
+        "detail": "pdf417gen",
+        "documentation": {}
+    },
+    {
+        "label": "Image",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "qrcode",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "qrcode",
+        "description": "qrcode",
+        "detail": "qrcode",
         "documentation": {}
     },
     {
@@ -759,7 +858,7 @@
         "kind": 5,
         "importPath": "router.card",
         "description": "router.card",
-        "peekOfCode": "router = APIRouter(\n    prefix=\"/card\",\n    tags=[\"Card\"],\n)\n@router.post(\"\")\nasync def get_a_card_information(card_info: CardQuery):\n    card_number = card_info.get(\"card_number\")\n    try:\n        return Card().get_a_card(card_number)\n    except ValueError as e:",
+        "peekOfCode": "router = APIRouter(\n    prefix=\"/card\",\n    tags=[\"Card\"],\n)\n@router.post(\"/\")\nasync def get_a_card_information(\n        card_info: CardQuery,\n        x_environment: str = Header(\"standard\", alias=\"X-Environment\")\n):\n    card_number = card_info.get(\"card_number\")",
         "detail": "router.card",
         "documentation": {}
     },
@@ -833,6 +932,33 @@
         "description": "src.auth.auth",
         "peekOfCode": "jwks = requests.get(jwks_url).json()\ndef get_token_auth_header(request: Request):\n    auth = request.headers.get(\"Authorization\", None)\n    if not auth:\n        raise HTTPException(status_code=401, detail=\"Authorization header is expected.\")\n    parts = auth.split()\n    if parts[0].lower() != \"bearer\":\n        raise HTTPException(status_code=401, detail=\"Authorization header must start with Bearer.\")\n    elif len(parts) == 1:\n        raise HTTPException(status_code=401, detail=\"Token not found.\")",
         "detail": "src.auth.auth",
+        "documentation": {}
+    },
+    {
+        "label": "CommonBarcodeGenerator",
+        "kind": 6,
+        "importPath": "src.symbol.barcode",
+        "description": "src.symbol.barcode",
+        "peekOfCode": "class CommonBarcodeGenerator:\n    def __init__(self, barcode_type: str, data: str, writer_options: dict = None):\n        self.barcode_type = barcode_type\n        self.data = data\n        self.writer_options = writer_options if writer_options is not None else {}\n    def generate(self) -> BytesIO:\n        BarcodeClass = barcode.get_barcode_class(self.barcode_type)\n        barcode_instance = BarcodeClass(self.data, writer=ImageWriter())\n        buffer = BytesIO()\n        barcode_instance.write(buffer, options=self.writer_options)",
+        "detail": "src.symbol.barcode",
+        "documentation": {}
+    },
+    {
+        "label": "PDF417Generator",
+        "kind": 6,
+        "importPath": "src.symbol.pdf417",
+        "description": "src.symbol.pdf417",
+        "peekOfCode": "class PDF417Generator:\n    def __init__(self, data, columns=6, security_level=5, scale=3, ratio=3, padding=5, image_format=\"PNG\"):\n        self.data = data\n        self.columns = columns\n        self.security_level = security_level\n        self.scale = scale\n        self.ratio = ratio\n        self.padding = padding\n        self.image_format = image_format\n    def generate(self) -> BytesIO:",
+        "detail": "src.symbol.pdf417",
+        "documentation": {}
+    },
+    {
+        "label": "QRCodeGenerator",
+        "kind": 6,
+        "importPath": "src.symbol.std_qrcode",
+        "description": "src.symbol.std_qrcode",
+        "peekOfCode": "class QRCodeGenerator:\n    def __init__(self, data, version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=4,\n                 image_format=\"PNG\", fill_color=\"black\", back_color=\"white\"):\n        self.data = data\n        self.version = version\n        self.error_correction = error_correction\n        self.box_size = box_size\n        self.border = border\n        self.image_format = image_format\n        self.fill_color = fill_color",
+        "detail": "src.symbol.std_qrcode",
         "documentation": {}
     },
     {
@@ -1227,7 +1353,7 @@
         "kind": 6,
         "importPath": "card",
         "description": "card",
-        "peekOfCode": "class CardModel(BaseModel):\n    number: constr(pattern=\"^[a-zA-Z0-9]{8,128}$\") = Field(\n        ..., description=\"Card unique identification code\"\n    )\n    name: Optional[constr(pattern=\"^[a-zA-Z0-9_-]{8,128}$\")] = Field(\n        None, description=\"Display name\"\n    )\n    devices: List[str] = Field(\n        ..., description=\"Bind the device list\"\n    )",
+        "peekOfCode": "class CardModel(BaseModel):\n    number: constr(pattern=\"^[a-zA-Z0-9]{8,128}$\") = Field(\n        ..., description=\"Card unique identification symbol\"\n    )\n    name: Optional[constr(pattern=\"^[a-zA-Z0-9_-]{8,128}$\")] = Field(\n        None, description=\"Display name\"\n    )\n    devices: List[str] = Field(\n        ..., description=\"Bind the device list\"\n    )",
         "detail": "card",
         "documentation": {}
     },
@@ -1236,7 +1362,7 @@
         "kind": 6,
         "importPath": "card",
         "description": "card",
-        "peekOfCode": "class CardAdd(CardModel):\n    number: Optional[constr(min_length=8, max_length=128)]\nclass CardQuery(BaseModel):\n    number: str = Field(..., description=\"Card number to be queried\")\nclass CardIdentifyResponse(CardModel):\n    message: str = Field(..., description=\"Response message\")\nclass Card:\n    def __init__(self, environment='STANDARD'):\n        def _connect_to_redis(host=os.getenv('REDIS_HOST'), port=os.getenv(\"REDIS_PORT\", 6379), db=0):\n            try:",
+        "peekOfCode": "class CardAdd(CardModel):\n    number: Optional[constr(min_length=8, max_length=128)]\n    symbol_type: Optional[str] = Field(\n        None,\n        description=f\"Barcode/QRCode type. \"\n                    f\"After setting, the image base64 (default PNG) will be returned to the `symbol_image_base64` field. \"\n                    f\"\\rSupported types: `{'`, `'.join(symbol.SUPPORT_SYMBOLS)}` or `null` to disable.\",\n        examples=symbol.SUPPORT_SYMBOLS\n    )\nclass CardQuery(BaseModel):",
         "detail": "card",
         "documentation": {}
     },
@@ -1245,7 +1371,16 @@
         "kind": 6,
         "importPath": "card",
         "description": "card",
-        "peekOfCode": "class CardQuery(BaseModel):\n    number: str = Field(..., description=\"Card number to be queried\")\nclass CardIdentifyResponse(CardModel):\n    message: str = Field(..., description=\"Response message\")\nclass Card:\n    def __init__(self, environment='STANDARD'):\n        def _connect_to_redis(host=os.getenv('REDIS_HOST'), port=os.getenv(\"REDIS_PORT\", 6379), db=0):\n            try:\n                connection = redis.StrictRedis(host=host, port=port, db=db)\n                connection.ping()  # Test the connection",
+        "peekOfCode": "class CardQuery(BaseModel):\n    number: str = Field(..., description=\"Card number to be queried\")\nclass CardResponse(CardModel):\n    symbol_image_base64: str = Field(\n        ...,\n        description=\"Card Barcode/QRCode image data in base64 format. Default PNG format.\"\n    )\nclass CardIdentifyResponse(CardModel):\n    message: str = Field(..., description=\"Response message\")\nclass Card:",
+        "detail": "card",
+        "documentation": {}
+    },
+    {
+        "label": "CardResponse",
+        "kind": 6,
+        "importPath": "card",
+        "description": "card",
+        "peekOfCode": "class CardResponse(CardModel):\n    symbol_image_base64: str = Field(\n        ...,\n        description=\"Card Barcode/QRCode image data in base64 format. Default PNG format.\"\n    )\nclass CardIdentifyResponse(CardModel):\n    message: str = Field(..., description=\"Response message\")\nclass Card:\n    def __init__(self, environment='STANDARD'):\n        def _connect_to_redis(host=os.getenv('REDIS_HOST'), port=os.getenv(\"REDIS_PORT\", 6379), db=0):",
         "detail": "card",
         "documentation": {}
     },

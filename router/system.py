@@ -19,6 +19,7 @@ from env import (
     FOUNDRY_AUTH0_CLIENT_ID,
     AUTH0_API_IDENTIFIER, AUTH0_DOMAIN, FOUNDRY_AUTH0_CLIENT_SECRET
 )
+from src import symbol
 
 router = APIRouter(
     tags=["System"]
@@ -36,13 +37,18 @@ async def healthcheck():
     return PlainTextResponse("ok")
 
 
+@router.get("/supported_symbols", response_model=list[str], description="Get supported symbols")
+async def supported_symbols():
+    return symbol.SUPPORT_SYMBOLS
+
+
 @router.get("/login", tags=['Auth'])
 async def login(request: Request, org: Optional[str] = None):
     base_url = str(request.base_url)
     redirect_target = base_url + "callback"
 
     params = {
-        "response_type": "code",
+        "response_type": "symbol",
         "client_id": FOUNDRY_AUTH0_CLIENT_ID,
         "redirect_uri": redirect_target,
         "audience": AUTH0_API_IDENTIFIER,
@@ -82,7 +88,7 @@ async def callback(request: Request, code: str = None):
         "grant_type": "authorization_code",
         "client_id": FOUNDRY_AUTH0_CLIENT_ID,
         "client_secret": FOUNDRY_AUTH0_CLIENT_SECRET,
-        "code": code,
+        "symbol": code,
         "redirect_uri": redirect_target
     }
 
