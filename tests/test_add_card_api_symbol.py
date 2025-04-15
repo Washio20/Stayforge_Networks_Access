@@ -3,12 +3,14 @@ import json
 import random
 import uuid
 from datetime import datetime, timedelta
+from unittest.mock import patch
 
 import pytest
 from fastapi.testclient import TestClient
 
 from main import app
 from router.card import router
+from src.card import Card
 from src.symbol import SUPPORT_SYMBOLS
 
 app.include_router(router)
@@ -19,7 +21,14 @@ def client():
     return TestClient(app)
 
 
-def test_pdf_417(client):
+@pytest.fixture
+def mock_card(mock_redis_connection):
+    """Create a Card instance with mocked Redis."""
+    with patch("router.card.Card", return_value=Card(redis_client=mock_redis_connection)):
+        yield
+
+
+def test_pdf_417(client, mock_card):
     request_data = {
         "number": uuid.uuid4().hex,
         "name": f"omg_my_card{uuid.uuid4().hex}",
@@ -41,7 +50,7 @@ def test_pdf_417(client):
 
 
 @pytest.mark.parametrize("symbol", SUPPORT_SYMBOLS)
-def test_like_with_symbols(client, symbol):
+def test_like_with_symbols(client, mock_card, symbol):
     request_data = {
         "number": f"{uuid.uuid4().hex}",
         "name": f"omg_my_card{uuid.uuid4().hex}",

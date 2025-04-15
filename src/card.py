@@ -111,7 +111,7 @@ class CardIdentifyResponse(CardModel):
 
 
 class Card:
-    def __init__(self, environment='STANDARD'):
+    def __init__(self, environment='STANDARD', redis_client=None):
         def _connect_to_redis(host=os.getenv('REDIS_HOST'), port=os.getenv("REDIS_PORT", 6379), db=0):
             try:
                 connection = redis.StrictRedis(host=host, port=port, db=db)
@@ -135,9 +135,13 @@ class Card:
         else:
             raise EnvironmentError(f"Invalid environment: {self.environment}")
 
-        self.redis = _connect_to_redis(
-            db=self.db
-        )
+        # Use provided redis client if available (for testing)
+        if redis_client is not None:
+            self.redis = redis_client
+        else:
+            self.redis = _connect_to_redis(
+                db=self.db
+            )
 
     def add_card(
             self,

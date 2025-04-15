@@ -3,12 +3,14 @@ import json
 import random
 import uuid
 from datetime import datetime, timedelta, timezone
+from unittest.mock import patch
 
 import pytest
 from fastapi.testclient import TestClient
 
 from main import app
 from router.card import router
+from src.card import Card
 
 app.include_router(router)
 
@@ -18,7 +20,14 @@ def client():
     return TestClient(app)
 
 
-def test_like_normal(client):
+@pytest.fixture
+def mock_card(mock_redis_connection):
+    """Create a Card instance with mocked Redis."""
+    with patch("router.card.Card", return_value=Card(redis_client=mock_redis_connection)):
+        yield 
+
+
+def test_like_normal(client, mock_card):
     request_data = {
         "number": uuid.uuid4().hex,
         "name": f"omg_my_card{uuid.uuid4().hex}",
@@ -41,7 +50,7 @@ def test_like_normal(client):
     assert response.json()["owner_client_id"] == request_data["owner_client_id"]
 
 
-def test_only_number_devices(client):
+def test_only_number_devices(client, mock_card):
     request_data = {
         "number": uuid.uuid4().hex,
         "devices": [
@@ -60,7 +69,7 @@ def test_only_number_devices(client):
     assert response.json()["owner_client_id"] is None
 
 
-def test_only_number_devices_start_at(client):
+def test_only_number_devices_start_at(client, mock_card):
     request_data = {
         "number": uuid.uuid4().hex,
         "devices": [
@@ -79,7 +88,7 @@ def test_only_number_devices_start_at(client):
     assert response.json()["owner_client_id"] is None
 
 
-def test_only_number_devices_start_at_end_at(client):
+def test_only_number_devices_start_at_end_at(client, mock_card):
     request_data = {
         "number": uuid.uuid4().hex,
         "devices": [
@@ -101,7 +110,7 @@ def test_only_number_devices_start_at_end_at(client):
 
 ### About Number
 
-def test_number_none(client):
+def test_number_none(client, mock_card):
     request_data = {
         "number": None,
         "name": f"omg_my_card{uuid.uuid4().hex}",
@@ -120,7 +129,7 @@ def test_number_none(client):
     assert response.json()["number"] is not None
 
 
-def test_number_too_short(client):
+def test_number_too_short(client, mock_card):
     request_data = {
         "number": ''.join(random.choices('ABCDE12345', k=7)),
         "name": f"omg_my_card{uuid.uuid4().hex}",
@@ -139,7 +148,7 @@ def test_number_too_short(client):
     assert response.json()["detail"][0]["type"] == "string_too_short"
 
 
-def test_number_too_long(client):
+def test_number_too_long(client, mock_card):
     request_data = {
         "number": ''.join(random.choices('ABCDE12345', k=129)),
         "name": f"omg_my_card{uuid.uuid4().hex}",
@@ -158,7 +167,7 @@ def test_number_too_long(client):
     assert response.json()["detail"][0]["type"] == "string_too_long"
 
 
-def test_number_invalid_character(client):
+def test_number_invalid_character(client, mock_card):
     request_data = {
         "number": "ABCD_12345",
         "name": f"omg_my_card{uuid.uuid4().hex}",
@@ -178,7 +187,7 @@ def test_number_invalid_character(client):
 
 ### About Name
 
-def test_name_none(client):
+def test_name_none(client, mock_card):
     request_data = {
         "number": uuid.uuid4().hex,
         "name": None,
@@ -201,7 +210,7 @@ def test_name_none(client):
 
 ### About Devices
 
-def test_with_out_devices(client):
+def test_with_out_devices(client, mock_card):
     request_data = {
         "number": uuid.uuid4().hex,
         # "devices": [
@@ -214,7 +223,7 @@ def test_with_out_devices(client):
     assert response.status_code == 422
 
 
-def test_invalid_contact_devices_string(client):
+def test_invalid_contact_devices_string(client, mock_card):
     request_data = {
         "number": uuid.uuid4().hex,
         "devices": f"omg-my-room-{random.randint(101, 909)}"
@@ -226,7 +235,7 @@ def test_invalid_contact_devices_string(client):
     assert response.json()["detail"][0]["type"] == "list_type"
 
 
-def test_invalid_contact_devices_empty_list(client):
+def test_invalid_contact_devices_empty_list(client, mock_card):
     request_data = {
         "number": uuid.uuid4().hex,
         "devices": []
@@ -239,7 +248,7 @@ def test_invalid_contact_devices_empty_list(client):
 
 ### About Start At & End_At
 
-def test_only_end_at(client):
+def test_only_end_at(client, mock_card):
     request_data = {
         "number": uuid.uuid4().hex,
         "devices": [
@@ -260,7 +269,7 @@ def test_only_end_at(client):
 
 
 ### About Owner Client ID
-def test_owner_client_none(client):
+def test_owner_client_none(client, mock_card):
     request_data = {
         "number": uuid.uuid4().hex,
         "devices": [
