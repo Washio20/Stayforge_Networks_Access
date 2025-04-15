@@ -10,6 +10,7 @@ import barcode
 from src.symbol.pdf417 import PDF417Generator
 
 SUPPORT_SYMBOLS = ['pdf417', 'qrcode'] + barcode.PROVIDED_BARCODES
+# SUPPORT_SYMBOLS = ['pdf417']
 
 
 class Symbol:

@@ -1,10 +1,10 @@
 """
-Redis Connector
+Card_models
 """
 import json
 import os
 import uuid
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timezone
 from typing import *
 
 import redis
@@ -24,21 +24,17 @@ class CardModel(BaseModel):
     devices: List[str] = Field(
         ..., description="Bind the device list"
     )
-    ttl: Optional[int] = Field(
-        None, description="TTL (seconds) in Redis. If there is a setting, it is the priority basis."
+    created_at: Optional[datetime] = Field(
+        None,
+        description="Created time. The system will automatically set to the current time."
     )
-    start_at: Optional[datetime] = Field(
-        None, description="The time when the card starts to take effect (judged by the application now >= start_at)"
+    start_at: datetime = Field(
+        ...,
+        description="Start time. The time when the card starts to take effect (judged by the application now >= start_at)"
     )
     end_at: Optional[datetime] = Field(
         None,
-        description="End time (if there is no TTL, it is used to calculate TTL). If TTL is set, then the value of TTL will be preferred."
-    )
-    persist: bool = Field(
-        False, description="Whether to persist the card (if True, TTL is not set)"
-    )
-    created_at: Optional[datetime] = Field(
-        None, description="Create time"
+        description="End time."
     )
     owner_client_id: Optional[str] = Field(
         None,
@@ -48,48 +44,17 @@ class CardModel(BaseModel):
     @model_validator(mode="before")
     def fill_times(cls, values: dict) -> dict:
         now = datetime.now(tz=timezone.utc)
-
-        # If created_at is None, set it to now
+        # If 'created_at' is None, set it to the current time in UTC
         if values.get("created_at") is None:
             values["created_at"] = now
-
-        # If start_at is None, set it to now
+        # If 'start_at' is None, set it to the current time in UTC
         if values.get("start_at") is None:
             values["start_at"] = now
-
-        start_at = values["start_at"]
-        end_at = values.get("end_at")
-        ttl = values.get("ttl")
-        persist = values.get("persist", False)
-
-        # Convert end_at from string to datetime if necessary
-        if isinstance(end_at, str):
-            try:
-                end_at = datetime.fromisoformat(end_at)
-                values["end_at"] = end_at
-            except ValueError:
-                raise ValueError("Invalid datetime format for end_at")
-
-        if persist:
-            values["ttl"] = None
-            return values
-
-        if ttl is not None:
-            values["end_at"] = start_at + timedelta(seconds=ttl)
-            return values
-
-        if end_at is not None:
-            if end_at <= now:
-                raise ValueError("end_at must be in the future when ttl is not provided")
-            delta = (end_at - now).total_seconds()
-            values["ttl"] = int(delta)
-            return values
-
-        values["ttl"] = None
         return values
 
     @model_validator(mode="before")
     def uppercase_card_number(cls, values: dict) -> dict:
+        # If 'number' exists and is not None, convert it to uppercase
         if "number" in values and values["number"]:
             values["number"] = values["number"].upper()
         return values
@@ -98,7 +63,7 @@ class CardModel(BaseModel):
     def validate_start_and_end(cls, values: dict) -> dict:
         start_at = values.get("start_at")
         end_at = values.get("end_at")
-
+        # Validate that start_at is not later than end_at
         if start_at and end_at and start_at > end_at:
             raise ValueError("start_at cannot be later than end_at")
         return values
@@ -106,13 +71,28 @@ class CardModel(BaseModel):
 
 class CardAdd(CardModel):
     number: Optional[constr(min_length=8, max_length=128)]
+    start_at: datetime | None = Field(
+        None,
+        description="Start time. The time when the card starts to take effect (judged by the application now >= start_at)"
+    )
+    end_at: datetime | None = Field(
+        None,
+        description="End time."
+    )
     symbol_type: Optional[str] = Field(
         None,
-        description=f"Barcode/QRCode type. "
-                    f"After setting, the image base64 (default PNG) will be returned to the `symbol_image_base64` field. "
-                    f"\rSupported types: `{'`, `'.join(symbol.SUPPORT_SYMBOLS)}` or `null` to disable.",
+        description=(
+                "Barcode/QRCode type. After setting, the image base64 (default PNG) will be returned to the "
+                "`symbol_image_base64` field. Supported types: " + ", ".join(
+            symbol.SUPPORT_SYMBOLS) + " or null to disable."
+        ),
         examples=symbol.SUPPORT_SYMBOLS
     )
+
+    @model_validator(mode="before")
+    def remove_created_at(cls, values: dict) -> dict:
+        values.pop("created_at", None)
+        return values
 
 
 class CardQuery(BaseModel):
@@ -120,8 +100,8 @@ class CardQuery(BaseModel):
 
 
 class CardResponse(CardModel):
-    symbol_image_base64: str = Field(
-        ...,
+    symbol_image_base64: Optional[None] = Field(
+        None,
         description="Card Barcode/QRCode image data in base64 format. Default PNG format."
     )
 
@@ -161,78 +141,38 @@ class Card:
 
     def add_card(
             self,
-            card: CardAdd = CardAdd(
-                number=None,
-                name=None,
-                devices=[],
-                ttl=60 * 60 * 24,
-                persist=False,
-                created_at=datetime.now(tz=timezone.utc),
-                owner_client_id=None
-            ),
-    ) -> CardModel:
-        """
-        Adds a new card to the storage system, updating or validating its details as necessary.
-
-        The function ensures the card has a unique number, validates required fields, and stores
-        the card data into the Redis database. Additionally, it associates the card with an owner
-        if provided, manages the card's expiration or persistence based on the configuration, and
-        guarantees adherence to the constraints defined.
-
-        :param card: The card object containing the properties such as number, name, associated devices,
-            time-to-live duration, persistence flag, creation time, and owner client ID.
-        :type card: CardAdd
-
-        :return: The card object as created and stored in the system.
-        :rtype: CardModel
-        """
-        card.number = card.number.upper() if card.number else None
-
-        # Check whether the time unit has been transmitted
-        if card.ttl in [None, 0, -1] \
-                and card.persist == False \
-                and card.end_at is None:
-            raise ValueError(
-                "TTL, Persist and End_at cannot all be None. "
-                "You must provide a time unit for the card to expire. Or set persist = true."
-            )
-
-        # If ttl does not exist and persist is not true, ensure end_at is provided
-        if card.ttl is None and not card.persist and card.end_at is None:
-            raise ValueError("When ttl is not set and persist is False, end_at must be provided.")
-
+            card: CardAdd,
+    ) -> CardResponse:
         # Generate a card when there is no card number
         if not card.number:
-            for i in range(10):
+            while True:
                 card.number = f"{int(datetime.now().timestamp())}{uuid.uuid4().int % 10000:04}"
                 if not self.redis.exists(card.number):
                     break
                 else:
                     continue
-            else:
-                raise ValueError("Failed to generate a unique card number.")
 
         # If card exists
         if self.redis.exists(card.number):
             raise ValueError(f"Card with number {card.number} already exists.")
 
-        card.name = card.name if card.name else card.number.upper()
+        # If `devices` field is empty list
+        if len(card.devices) <= 0:
+            raise ValueError("Devices cannot be empty.")
+
+        card.name = card.name if card.name else card.number
 
         r = self.redis
         r.set(
-            card.number.upper(), card.model_dump_json()
+            card.number, card.model_dump_json()
         )
         if card.owner_client_id:
-            r.sadd(f"card_owner_cards:{card.owner_client_id.lower()}", card.number.upper())
-        if card.ttl:
-            r.pexpire(card.number, card.ttl * 1000)
+            r.sadd(f"card_owner_cards:{card.owner_client_id.lower()}", card.number)
 
-        if card.persist:
-            r.persist(card.number)
+        return self.get_a_card(card.number, ignore_start_time=True)
 
-        return self.get_a_card(card.number)
-
-    def get_a_card(self, card_number, allow_before_start: bool = False) -> CardModel:
+    def get_a_card(self, card_number, allow_before_start: bool = False,
+                   ignore_start_time: bool = False) -> CardResponse:
         """
         Retrieves and constructs a card object using the card number by fetching details
         from a Redis datastore. This function retrieves the data corresponding to the
@@ -242,6 +182,7 @@ class Card:
         For cards that do not reach start_at, they will not be returned.
         Unless you set param allow_before_start=True.
 
+        :param ignore_start_time:
         :param allow_before_start:
         :param card_number: The card number used to fetch the card details
                            from the Redis datastore
@@ -253,19 +194,15 @@ class Card:
         card_number = card_number.upper()
 
         if r.exists(card_number):
-            card = CardModel(
-                number=card_number,
-                name=json.loads(r.get(card_number))['name'],
-                devices=json.loads(r.get(card_number))['devices'],
-                ttl=r.ttl(card_number),
-                persist=json.loads(r.get(card_number))['persist']
-            )
+            card_data = json.loads(r.get(card_number))
+            card = CardResponse(**card_data)
         else:
             raise ValueError(f"Card with number {card_number} not found.")
 
         # check start_time
-        if not allow_before_start and not self.is_card_active(card):
-            raise ValueError(f"Card with number {card_number} is not active.")
+        if not ignore_start_time:
+            if not allow_before_start and not self.is_card_active(card):
+                raise ValueError(f"Card with number {card_number} is not active.")
 
         return card
 
@@ -280,7 +217,14 @@ class Card:
         The cards used by the application layer enable judgment logic.
         Determines whether now has reached start_at.
         """
-        return datetime.now(tz=timezone.utc) >= card.start_at
+        # If card.start_at is naive (no tzinfo), assume its UTC
+        if card.start_at.tzinfo is None:
+            card_start_at = card.start_at.replace(tzinfo=timezone.utc)
+        else:
+            card_start_at = card.start_at
+
+        # Compare current time in UTC with card_start_at
+        return datetime.now(tz=timezone.utc) >= card_start_at
 
     def identify_by_sn_card(
             self,
@@ -310,7 +254,7 @@ class Card:
         data = json.loads(r.get(card_number))
         return device_sn in data['devices']
 
-    def get_cards_by_owner(self, owner_client_id: str) -> List[CardModel]:
+    def get_cards_by_owner(self, owner_client_id: str) -> List[CardResponse]:
         key = f"card_owner_cards:{owner_client_id.lower()}"
         if not self.redis.exists(key):
             return []

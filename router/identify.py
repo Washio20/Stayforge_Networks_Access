@@ -7,7 +7,7 @@ from fastapi import APIRouter, HTTPException, Header, Request
 from starlette.responses import PlainTextResponse
 from uvicorn.config import logger
 
-from card import Card, CardIdentifyResponse, CardModel, CardQuery
+from src.card import Card, CardIdentifyResponse, CardModel, CardQuery
 
 router = APIRouter(
     prefix="/identify",
@@ -57,7 +57,6 @@ async def identify_json(
         x_environment: str = Header("standard", alias="X-Environment")
 ):
     device_sn = device_sn or x_device_sn
-    card_number = card.number.upper() if card.number else None
 
     try:
         card = verify_card(
