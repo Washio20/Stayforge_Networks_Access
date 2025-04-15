@@ -14,7 +14,7 @@ from starlette.responses import JSONResponse
 from starlette.responses import PlainTextResponse
 from uvicorn.config import logger
 
-from card import Card
+from src.card import Card
 from env import (
     FOUNDRY_AUTH0_CLIENT_ID,
     AUTH0_API_IDENTIFIER, AUTH0_DOMAIN, FOUNDRY_AUTH0_CLIENT_SECRET

@@ -4,8 +4,7 @@ Card's Routers
 from fastapi import APIRouter, Header, HTTPException
 from pydantic import ValidationError
 
-from card import CardAdd, CardModel, Card, CardQuery, CardResponse
-from src.symbol import Symbol
+from src.card import CardAdd, CardModel, Card, CardQuery, CardResponse
 
 router = APIRouter(
     prefix="/card",
@@ -33,20 +32,14 @@ async def get_a_card_information(
     # dependencies=[Depends(require_permission("read:access"))]
 )
 async def create_a_card(
-        card: CardAdd,
-        x_environment: str = Header("standard", alias="X-Environment")
+        card: CardAdd
 ):
-    card.number = card.number.upper()
-    card_obj = Card(environment=x_environment.upper())
+    card_obj = Card()
 
     try:
         result = card_obj.add_card(card)
         return CardResponse(
-            **result.model_dump(),
-            symbol_image_base64=Symbol(
-                data=result.number,
-                symbol_type=card.symbol_type
-            ).render_to_base64() if card.symbol_type else None
+            **result.model_dump()
         )
     except ValueError as e:
         raise HTTPException(
@@ -65,7 +58,6 @@ async def create_many_cards(
 
     for card in cards:
         try:
-            card.number = card.number.upper()
             result = card_obj.add_card(card)
             results.append({"number": card.number, "status": "success", "result": result})
         except (ValidationError, ValueError) as e:

@@ -110,10 +110,8 @@ curl -X POST https://identify.access.networks.stayforge.io/card/add \
       "hotel-door-101",
       "hotel-door-102"
     ],
-    "ttl": 604800,
     "start_at": "2025-04-13T00:00:00Z",
     "end_at": "2025-04-20T00:00:00Z",
-    "persist": false,
     "created_at": "2025-04-13T04:50:00Z",
     "owner_client_id": "client_etoehotel"
   }'
