@@ -4,7 +4,7 @@ Card_models
 import json
 import os
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from typing import *
 
 import redis
@@ -170,6 +170,11 @@ class Card:
         r.set(
             card.number, card.model_dump_json()
         )
+
+        if card.end_at:
+            ttl = ((card.end_at + timedelta(hours=24)) - datetime.now(tz=timezone.utc)).total_seconds()
+            r.expire(card.number, int(ttl))
+
         if card.owner_client_id:
             r.sadd(f"card_owner_cards:{card.owner_client_id.lower()}", card.number)
 
@@ -216,19 +221,26 @@ class Card:
         return r.delete(card_number)
 
     @staticmethod
-    def is_card_active(card: CardModel) -> bool:
-        """
-        The cards used by the application layer enable judgment logic.
-        Determines whether now has reached start_at.
-        """
-        # If card.start_at is naive (no tzinfo), assume its UTC
-        if card.start_at.tzinfo is None:
-            card_start_at = card.start_at.replace(tzinfo=timezone.utc)
-        else:
-            card_start_at = card.start_at
+    def is_card_active(card) -> bool:
+        # determine start and end datetimes (use max as 'no end')
+        start = card.start_at
+        end = card.end_at or datetime.max.replace(tzinfo=timezone.utc)
 
-        # Compare current time in UTC with card_start_at
-        return datetime.now(tz=timezone.utc) >= card_start_at
+        # normalize to UTC:
+        # if naive, assume UTC; if aware, convert to UTC
+        if start.tzinfo is None:
+            start_utc = start.replace(tzinfo=timezone.utc)
+        else:
+            start_utc = start.astimezone(timezone.utc)
+
+        if end.tzinfo is None:
+            end_utc = end.replace(tzinfo=timezone.utc)
+        else:
+            end_utc = end.astimezone(timezone.utc)
+
+        # compare with current UTC time
+        now_utc = datetime.now(timezone.utc)
+        return start_utc <= now_utc <= end_utc
 
     def identify_by_sn_card(
             self,

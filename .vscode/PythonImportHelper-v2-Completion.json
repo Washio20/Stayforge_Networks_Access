@@ -537,6 +537,14 @@
         "documentation": {}
     },
     {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
         "label": "datetime",
         "importPath": "datetime",
         "description": "datetime",
@@ -1125,7 +1133,7 @@
         "kind": 2,
         "importPath": "tests.test_add_card_api_symbol",
         "description": "tests.test_add_card_api_symbol",
-        "peekOfCode": "def client():\n    return TestClient(app)\n@pytest.fixture\ndef mock_card(mock_redis_connection):\n    \"\"\"Create a Card instance with mocked Redis.\"\"\"\n    with patch(\"router.card.Card\", return_value=Card(redis_client=mock_redis_connection)):\n        yield\ndef test_pdf_417(client, mock_card):\n    request_data = {\n        \"number\": uuid.uuid4().hex,",
+        "peekOfCode": "def client():\n    return TestClient(app)\n@pytest.fixture\ndef mock_card(mock_redis_connection):\n    \"\"\"Create a Card instance with mocked Redis.\"\"\"\n    with patch(\"router.card.Card\", return_value=Card(redis_client=mock_redis_connection)):\n        yield\ndef test_pd429f_417(client, mock_card):\n    request_data = {\n        \"number\": uuid.uuid4().hex,",
         "detail": "tests.test_add_card_api_symbol",
         "documentation": {}
     },
@@ -1134,16 +1142,16 @@
         "kind": 2,
         "importPath": "tests.test_add_card_api_symbol",
         "description": "tests.test_add_card_api_symbol",
-        "peekOfCode": "def mock_card(mock_redis_connection):\n    \"\"\"Create a Card instance with mocked Redis.\"\"\"\n    with patch(\"router.card.Card\", return_value=Card(redis_client=mock_redis_connection)):\n        yield\ndef test_pdf_417(client, mock_card):\n    request_data = {\n        \"number\": uuid.uuid4().hex,\n        \"name\": f\"omg_my_card{uuid.uuid4().hex}\",\n        \"devices\": [\n            f\"omg-my-room-{random.randint(101, 909)}\"",
+        "peekOfCode": "def mock_card(mock_redis_connection):\n    \"\"\"Create a Card instance with mocked Redis.\"\"\"\n    with patch(\"router.card.Card\", return_value=Card(redis_client=mock_redis_connection)):\n        yield\ndef test_pd429f_417(client, mock_card):\n    request_data = {\n        \"number\": uuid.uuid4().hex,\n        \"name\": f\"omg_my_card{uuid.uuid4().hex}\",\n        \"devices\": [\n            f\"omg-my-room-{random.randint(101, 909)}\"",
         "detail": "tests.test_add_card_api_symbol",
         "documentation": {}
     },
     {
-        "label": "test_pdf_417",
+        "label": "test_pd429f_417",
         "kind": 2,
         "importPath": "tests.test_add_card_api_symbol",
         "description": "tests.test_add_card_api_symbol",
-        "peekOfCode": "def test_pdf_417(client, mock_card):\n    request_data = {\n        \"number\": uuid.uuid4().hex,\n        \"name\": f\"omg_my_card{uuid.uuid4().hex}\",\n        \"devices\": [\n            f\"omg-my-room-{random.randint(101, 909)}\"\n        ],\n        \"start_at\": datetime.now().isoformat(),\n        \"end_at\": (datetime.now() + timedelta(days=1)).isoformat(),\n        \"owner_client_id\": \"test_client\",",
+        "peekOfCode": "def test_pd429f_417(client, mock_card):\n    request_data = {\n        \"number\": uuid.uuid4().hex,\n        \"name\": f\"omg_my_card{uuid.uuid4().hex}\",\n        \"devices\": [\n            f\"omg-my-room-{random.randint(101, 909)}\"\n        ],\n        \"start_at\": datetime.now().isoformat(),\n        \"end_at\": (datetime.now() + timedelta(days=1)).isoformat(),\n        \"owner_client_id\": \"test_client\",",
         "detail": "tests.test_add_card_api_symbol",
         "documentation": {}
     },

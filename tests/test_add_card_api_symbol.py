@@ -28,7 +28,7 @@ def mock_card(mock_redis_connection):
         yield
 
 
-def test_pdf_417(client, mock_card):
+def test_pd429f_417(client, mock_card):
     request_data = {
         "number": uuid.uuid4().hex,
         "name": f"omg_my_card{uuid.uuid4().hex}",
