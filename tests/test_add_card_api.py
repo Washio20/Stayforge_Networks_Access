@@ -283,3 +283,5 @@ def test_owner_client_none(client, mock_card):
     assert response.status_code == 200
     assert response.json()["number"] == request_data["number"].upper()
     assert response.json()["owner_client_id"] == None
+
+

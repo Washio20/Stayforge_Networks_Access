@@ -172,8 +172,19 @@ class Card:
         )
 
         if card.end_at:
-            ttl = ((card.end_at + timedelta(hours=24)) - datetime.now(tz=timezone.utc)).total_seconds()
-            r.expire(card.number, int(ttl))
+            end_at = card.end_at
+            # normalize to UTC-aware
+            if end_at.tzinfo is None:
+                end_at_utc = end_at.replace(tzinfo=timezone.utc)
+            else:
+                end_at_utc = end_at.astimezone(timezone.utc)
+
+            expire_dt = end_at_utc + timedelta(hours=24)
+            now_utc = datetime.now(timezone.utc)
+            ttl = (expire_dt - now_utc).total_seconds()
+
+            ttl = int(ttl) if ttl > 0 else 0
+            r.expire(card.number, ttl)
 
         if card.owner_client_id:
             r.sadd(f"card_owner_cards:{card.owner_client_id.lower()}", card.number)

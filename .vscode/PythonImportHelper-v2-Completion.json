@@ -267,6 +267,14 @@
         "documentation": {}
     },
     {
+        "label": "Card",
+        "importPath": "src.card",
+        "description": "src.card",
+        "isExtraImport": true,
+        "detail": "src.card",
+        "documentation": {}
+    },
+    {
         "label": "Optional",
         "importPath": "typing",
         "description": "typing",
@@ -585,6 +593,30 @@
         "documentation": {}
     },
     {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timezone",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
         "label": "redis",
         "kind": 6,
         "isExtraImport": true,
@@ -644,6 +676,14 @@
         "documentation": {}
     },
     {
+        "label": "patch",
+        "importPath": "unittest.mock",
+        "description": "unittest.mock",
+        "isExtraImport": true,
+        "detail": "unittest.mock",
+        "documentation": {}
+    },
+    {
         "label": "random",
         "kind": 6,
         "isExtraImport": true,
@@ -669,6 +709,14 @@
         "documentation": {}
     },
     {
+        "label": "TestClient",
+        "importPath": "fastapi.testclient",
+        "description": "fastapi.testclient",
+        "isExtraImport": true,
+        "detail": "fastapi.testclient",
+        "documentation": {}
+    },
+    {
         "label": "app",
         "importPath": "main",
         "description": "main",
@@ -682,6 +730,22 @@
         "description": "main",
         "isExtraImport": true,
         "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "importPath": "main",
+        "description": "main",
+        "isExtraImport": true,
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "importPath": "router.card",
+        "description": "router.card",
+        "isExtraImport": true,
+        "detail": "router.card",
         "documentation": {}
     },
     {
@@ -706,6 +770,15 @@
         "description": "src.symbol",
         "isExtraImport": true,
         "detail": "src.symbol",
+        "documentation": {}
+    },
+    {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
         "documentation": {}
     },
     {
@@ -1162,6 +1235,42 @@
         "description": "tests.test_add_card_api_symbol",
         "peekOfCode": "def test_like_with_symbols(client, mock_card, symbol):\n    request_data = {\n        \"number\": f\"{uuid.uuid4().hex}\",\n        \"name\": f\"omg_my_card{uuid.uuid4().hex}\",\n        \"devices\": [\n            f\"omg-my-room-{random.randint(101, 909)}\"\n        ],\n        \"start_at\": datetime.now().isoformat(),\n        \"end_at\": (datetime.now() + timedelta(days=1)).isoformat(),\n        \"owner_client_id\": \"test_client\",",
         "detail": "tests.test_add_card_api_symbol",
+        "documentation": {}
+    },
+    {
+        "label": "client",
+        "kind": 2,
+        "importPath": "tests.test_add_card_start_end_time",
+        "description": "tests.test_add_card_start_end_time",
+        "peekOfCode": "def client():\n    return TestClient(app)\n@pytest.fixture\ndef mock_card(mock_redis_connection):\n    \"\"\"Create a Card instance with mocked Redis.\"\"\"\n    with patch(\"router.card.Card\", return_value=Card(redis_client=mock_redis_connection)):\n        yield\ntolerance = 1\ndef test_start_time_end_time(client, mock_card):\n    delay_start = 5  # seconds",
+        "detail": "tests.test_add_card_start_end_time",
+        "documentation": {}
+    },
+    {
+        "label": "mock_card",
+        "kind": 2,
+        "importPath": "tests.test_add_card_start_end_time",
+        "description": "tests.test_add_card_start_end_time",
+        "peekOfCode": "def mock_card(mock_redis_connection):\n    \"\"\"Create a Card instance with mocked Redis.\"\"\"\n    with patch(\"router.card.Card\", return_value=Card(redis_client=mock_redis_connection)):\n        yield\ntolerance = 1\ndef test_start_time_end_time(client, mock_card):\n    delay_start = 5  # seconds\n    alive = 5\n    card_number = \"312BB66A69E6457CAC6EE51719ECAAF2\"\n    device_id = f\"omg-my-room-{random.randint(101, 909)}\"",
+        "detail": "tests.test_add_card_start_end_time",
+        "documentation": {}
+    },
+    {
+        "label": "test_start_time_end_time",
+        "kind": 2,
+        "importPath": "tests.test_add_card_start_end_time",
+        "description": "tests.test_add_card_start_end_time",
+        "peekOfCode": "def test_start_time_end_time(client, mock_card):\n    delay_start = 5  # seconds\n    alive = 5\n    card_number = \"312BB66A69E6457CAC6EE51719ECAAF2\"\n    device_id = f\"omg-my-room-{random.randint(101, 909)}\"\n    ### First, Create a card\n    request_data = {\n        \"number\": card_number,\n        \"name\": f\"omg_my_card_{card_number}\",\n        \"devices\": [",
+        "detail": "tests.test_add_card_start_end_time",
+        "documentation": {}
+    },
+    {
+        "label": "tolerance",
+        "kind": 5,
+        "importPath": "tests.test_add_card_start_end_time",
+        "description": "tests.test_add_card_start_end_time",
+        "peekOfCode": "tolerance = 1\ndef test_start_time_end_time(client, mock_card):\n    delay_start = 5  # seconds\n    alive = 5\n    card_number = \"312BB66A69E6457CAC6EE51719ECAAF2\"\n    device_id = f\"omg-my-room-{random.randint(101, 909)}\"\n    ### First, Create a card\n    request_data = {\n        \"number\": card_number,\n        \"name\": f\"omg_my_card_{card_number}\",",
+        "detail": "tests.test_add_card_start_end_time",
         "documentation": {}
     },
     {
