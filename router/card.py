@@ -17,7 +17,7 @@ async def get_a_card_information(
         card_info: CardQuery,
         x_environment: str = Header("standard", alias="X-Environment")
 ):
-    card_number = card_info.get("card_number")
+    card_number = card_info.number
     try:
         return Card().get_a_card(card_number)
     except ValueError as e:
