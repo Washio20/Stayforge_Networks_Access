@@ -1,3 +1,5 @@
+# こちらは全部古い内容なので、参考しないほうがいい
+
 Document:
 https://identify.access.networks.stayforge.io/docs/
 
