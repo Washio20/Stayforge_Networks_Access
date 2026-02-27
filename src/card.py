@@ -96,7 +96,12 @@ class CardAdd(CardModel):
 
 
 class CardQuery(BaseModel):
-    number: str = Field(..., description="Card number to be queried")
+    number: str = Field(
+        ...,
+        min_length=1,
+        max_length=128,
+        description="Card number to be queried",
+    )
 
 
 class CardResponse(CardModel):
