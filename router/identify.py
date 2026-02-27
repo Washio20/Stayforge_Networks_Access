@@ -61,7 +61,7 @@ async def identify_json(
     try:
         card = verify_card(
             device_sn=device_sn,
-            card_number=card_number,
+            card_number=card.number,
             environment=x_environment,
             client_id=None
         )
