@@ -96,7 +96,9 @@ class CardAdd(CardModel):
 
 
 class CardQuery(BaseModel):
-    number: str = Field(..., description="Card number to be queried")
+    number: constr(min_length=1, max_length=128, pattern="^[a-zA-Z0-9]+$") = Field(
+        ..., description="Card number to be queried"
+    )
 
 
 class CardResponse(CardModel):
